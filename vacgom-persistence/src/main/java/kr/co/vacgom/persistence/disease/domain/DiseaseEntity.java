@@ -1,6 +1,7 @@
 package kr.co.vacgom.persistence.disease.domain;
 
 import jakarta.persistence.*;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor
 @Builder(access = PRIVATE)
 @AllArgsConstructor(access = PRIVATE)
-public class DiseaseEntity {
+public class DiseaseEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

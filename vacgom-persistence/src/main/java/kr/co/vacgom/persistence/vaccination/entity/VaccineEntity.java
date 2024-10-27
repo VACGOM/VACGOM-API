@@ -1,8 +1,8 @@
-package kr.co.vacgom.persistence.inoculation.domain;
+package kr.co.vacgom.persistence.vaccination.entity;
 
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
-import kr.co.vacgom.persistence.inoculation.domain.constants.VaccineType;
+import kr.co.vacgom.persistence.vaccination.entity.constants.VaccineType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +18,7 @@ import static jakarta.persistence.EnumType.STRING;
 public class VaccineEntity extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "VACCINE_ID", nullable = false, updatable = false)
     @Comment("[Not Null] 백신 엔티티 Id")
     private Long id;

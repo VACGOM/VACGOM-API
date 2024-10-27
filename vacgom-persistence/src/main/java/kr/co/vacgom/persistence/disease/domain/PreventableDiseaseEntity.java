@@ -1,7 +1,8 @@
 package kr.co.vacgom.persistence.disease.domain;
 
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.inoculation.domain.VaccineEntity;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
+import kr.co.vacgom.persistence.vaccination.entity.VaccineEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,12 +13,12 @@ import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PRIVATE;
 
 @Entity
-@Table(name = "TB_PREVENTABLE_DISEASE")
+@Table(name = "TB_PREVENTABLE_DISEASE_MAPPING")
 @Getter
 @NoArgsConstructor
 @Builder(access = PRIVATE)
 @AllArgsConstructor(access = PRIVATE)
-public class PreventableDiseaseEntity {
+public class PreventableDiseaseEntity extends BaseEntity {
 
     @Id
     @Column(name = "MAPPING_ID", nullable = false, updatable = false)

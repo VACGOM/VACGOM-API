@@ -1,8 +1,7 @@
-package kr.co.vacgom.persistence.inoculation.domain;
+package kr.co.vacgom.persistence.vaccination.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.disease.domain.DiseaseEntity;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.global.util.UuidBinaryConverter;
 import kr.co.vacgom.persistence.global.util.UuidUtility;
@@ -44,9 +43,8 @@ public class VaccinationEntity extends BaseEntity {
     @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     @Comment("[Not Null] 백신 접종 일자")
-    private LocalDate vaccinationDate;
+    private LocalDate vaccinatedDate;
 
-    @Column(nullable = false)
     @Comment("[Nullable] 백신 접종 기관")
     private String vaccinationFacility;
 
@@ -60,11 +58,6 @@ public class VaccinationEntity extends BaseEntity {
     private String vaccineLotNumber;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "DISEASE_ID")
-    @Comment("[NotNull] 질병(Disease) Id")
-    private DiseaseEntity disease;
-
-    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "VACCINE_ID")
     @Comment("[NotNull] 백신(Vaccine) Id")
     private VaccineEntity vaccine;
@@ -72,24 +65,22 @@ public class VaccinationEntity extends BaseEntity {
     public static VaccinationEntity create(
             Long doseRound,
             String doseDescription,
-            LocalDate vaccinationDate,
+            LocalDate vaccinatedDate,
             String vaccinationFacility,
             String vaccinationManufacturer,
             String vaccineProductName,
             String vaccineLotNumber,
-            DiseaseEntity disease,
             VaccineEntity vaccine
     ) {
         return VaccinationEntity.builder()
                 .id(UuidUtility.generateRandomUUID())
                 .doseRound(doseRound)
                 .doseDescription(doseDescription)
-                .vaccinationDate(vaccinationDate)
+                .vaccinatedDate(vaccinatedDate)
                 .vaccinationFacility(vaccinationFacility)
                 .vaccinationManufacturer(vaccinationManufacturer)
                 .vaccineProductName(vaccineProductName)
                 .vaccineLotNumber(vaccineLotNumber)
-                .disease(disease)
                 .vaccine(vaccine)
                 .build();
     }

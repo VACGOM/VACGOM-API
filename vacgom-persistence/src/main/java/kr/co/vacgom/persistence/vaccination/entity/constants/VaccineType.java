@@ -1,4 +1,4 @@
-package kr.co.vacgom.persistence.inoculation.domain.constants;
+package kr.co.vacgom.persistence.vaccination.entity.constants;
 
 public enum VaccineType {
     NATION,
