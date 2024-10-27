@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "TB_VACCINATION_HOSPITAL")
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class VaccinationHospital {
+public class VaccinationHospitalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class VaccinationHospital {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOSPITAL_ID")
-    private Hospital hospital;
+    private HospitalEntity hospital;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VACCINATION_ID")

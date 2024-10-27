@@ -3,9 +3,8 @@ package kr.co.vacgom.persistence.vaccination.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
-import kr.co.vacgom.persistence.member.entity.Baby;
+import kr.co.vacgom.persistence.member.entity.BabyEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,7 +43,7 @@ public class Inoculation extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "baby_id")
-    private Baby baby;
+    private BabyEntity baby;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vaccination_id")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.member.constants.Sex;
-import kr.co.vacgom.persistence.todo.entity.Todo;
+import kr.co.vacgom.persistence.todo.entity.TodoEntity;
 import kr.co.vacgom.persistence.vaccination.domain.Inoculation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @Table(name = "TB_BABY")
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Baby extends BaseEntity {
+public class BabyEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +49,6 @@ public class Baby extends BaseEntity {
             cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY
     )
-    private List<Todo> todos = new ArrayList<>();
+    private List<TodoEntity> todos = new ArrayList<>();
 }
 

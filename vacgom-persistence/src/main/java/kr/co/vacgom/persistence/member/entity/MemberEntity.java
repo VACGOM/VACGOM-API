@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "TB_MEMBER")
 @NoArgsConstructor
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class Member extends BaseEntity {
+public class MemberEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,18 +22,12 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    private MemberIdentification memberIdentification;
-
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.REMOVE, CascadeType.PERSIST}
     )
     @JoinColumn(name = "BABY_ID")
-    private Baby baby;
+    private BabyEntity baby;
 
     private Boolean masterStatus;
 

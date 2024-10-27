@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Hospital extends BaseEntity {
+public class HospitalEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +37,5 @@ public class Hospital extends BaseEntity {
             mappedBy = "hospital",
             cascade = CascadeType.REMOVE
     )
-    private List<VaccinationHospital> supportVaccinations = new ArrayList<>();
+    private List<VaccinationHospitalEntity> supportVaccinations = new ArrayList<>();
 }
