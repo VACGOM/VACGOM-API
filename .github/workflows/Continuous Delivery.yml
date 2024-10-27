@@ -27,48 +27,48 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::125183404358:role/VacgomGithubActionAssumeRole
-          aws-region: ap-northeast-2
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Invoke Gradle
-        uses: gradle/gradle-build-action@v2
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          PROFILE: prod
-          IMAGE_REPO_URL: ${{ steps.login-ecr.outputs.registry }}/vacgom-ecr-new
-          IMAGE_TAG: ${{ github.sha }}
-        run: ./gradlew jib --parallel
-
-      - name: Download Task Definition
-        run: |
-          aws ecs describe-task-definition \
-          --task-definition vacgom-taskdef-new \
-          --query taskDefinition \
-          > task-definition.json
-
-      - name: Update Task Definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: vacgom-backend
-          image: ${{ steps.login-ecr.outputs.registry }}/vacgom-ecr-new:${{ github.sha }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: new-vacgom-wow
-          cluster: vacgom-cluster-2
-          wait-for-service-stability: true
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v4
+#        with:
+#          role-to-assume: arn:aws:iam::125183404358:role/VacgomGithubActionAssumeRole
+#          aws-region: ap-northeast-2
+#
+#      - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v1
+#
+#      - name: Invoke Gradle
+#        uses: gradle/gradle-build-action@v2
+#
+#      - name: Grant execute permission for gradlew
+#        run: chmod +x gradlew
+#
+#      - name: Build, tag, and push image to Amazon ECR
+#        env:
+#          PROFILE: prod
+#          IMAGE_REPO_URL: ${{ steps.login-ecr.outputs.registry }}/vacgom-ecr-new
+#          IMAGE_TAG: ${{ github.sha }}
+#        run: ./gradlew jib --parallel
+#
+#      - name: Download Task Definition
+#        run: |
+#          aws ecs describe-task-definition \
+#          --task-definition vacgom-taskdef-new \
+#          --query taskDefinition \
+#          > task-definition.json
+#
+#      - name: Update Task Definition
+#        id: task-def
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1
+#        with:
+#          task-definition: task-definition.json
+#          container-name: vacgom-backend
+#          image: ${{ steps.login-ecr.outputs.registry }}/vacgom-ecr-new:${{ github.sha }}
+#
+#      - name: Deploy Amazon ECS task definition
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.task-def.outputs.task-definition }}
+#          service: new-vacgom-wow
+#          cluster: vacgom-cluster-2
+#          wait-for-service-stability: true

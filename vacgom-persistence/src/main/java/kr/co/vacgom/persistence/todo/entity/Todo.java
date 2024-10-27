@@ -1,9 +1,9 @@
-package kr.co.vacgom.persistence.todo.domain;
+package kr.co.vacgom.persistence.todo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.member.Baby;
-import kr.co.vacgom.persistence.member.Member;
+import kr.co.vacgom.persistence.member.entity.Baby;
+import kr.co.vacgom.persistence.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

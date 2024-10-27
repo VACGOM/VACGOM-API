@@ -1,4 +1,4 @@
-package kr.co.vacgom.persistence.global;
+package kr.co.vacgom.persistence.global.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;

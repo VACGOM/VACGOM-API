@@ -2,8 +2,8 @@ package kr.co.vacgom.persistence.vaccination.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.global.BaseEntity;
-import kr.co.vacgom.persistence.member.Baby;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
+import kr.co.vacgom.persistence.member.entity.Baby;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

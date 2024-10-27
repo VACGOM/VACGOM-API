@@ -1,7 +1,7 @@
 package kr.co.vacgom.persistence.vaccination.domain;
 
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.global.BaseEntity;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

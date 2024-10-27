@@ -1,6 +1,7 @@
 ### CUSTOM ###
 .vscode
 .DS_Store
+**/resources
 
 ### DEFAULT ###
 HELP.md

@@ -1,4 +1,4 @@
-package kr.co.vacgom.persistence.hospital.constants
+package kr.co.vacgom.persistence.hospital.entity.constants
 
 enum class HospitalType {
     PERDIATRICS, // 소아과

@@ -1,8 +1,8 @@
-package kr.co.vacgom.persistence.hospital;
+package kr.co.vacgom.persistence.hospital.entity;
 
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.global.BaseEntity;
-import kr.co.vacgom.persistence.hospital.constants.HospitalType;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
+import kr.co.vacgom.persistence.hospital.entity.constants.HospitalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

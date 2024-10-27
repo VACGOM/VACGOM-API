@@ -1,10 +1,11 @@
-package kr.co.vacgom.persistence.member;
+package kr.co.vacgom.persistence.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.global.BaseEntity;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.member.constants.Sex;
-import kr.co.vacgom.persistence.todo.domain.Todo;
+import kr.co.vacgom.persistence.todo.entity.Todo;
+import kr.co.vacgom.persistence.vaccination.domain.Inoculation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class Baby extends BaseEntity {
             cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY
     )
-    private List<kr.co.vacgom.persistence.vaccination.domain.Inoculation> inoculations = new ArrayList<>();
+    private List<Inoculation> inoculations = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "baby",

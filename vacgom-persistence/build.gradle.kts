@@ -1,13 +1,13 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("java")
+    java
+    id("io.freefair.lombok") version "8.10"
 }
 
-repositories { mavenCentral() }
-
 dependencies {
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.3.5")
+    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks.withType<BootJar> {

@@ -1,28 +1,30 @@
-package kr.co.vacgom.persistence.hospital;
+package kr.co.vacgom.persistence.vaccination.domain;
 
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.vaccination.domain.Vaccination;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "tb_vaccination_mapping")
 @Getter
 @NoArgsConstructor
-@Table(name = "tb_vaccination_hospital")
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class VaccinationHospital {
+@Builder
+public class VaccinationMapping extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "vaccination_mapping_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hospital_id")
-    private Hospital hospital;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vaccination_id")
     private Vaccination vaccination;
+
+    @Column(nullable = false)
+    private String value;
 }
+

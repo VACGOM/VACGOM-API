@@ -1,4 +1,4 @@
-package kr.co.vacgom.persistence.member;
+package kr.co.vacgom.persistence.member.entity;
 
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.member.constants.ProviderType;
