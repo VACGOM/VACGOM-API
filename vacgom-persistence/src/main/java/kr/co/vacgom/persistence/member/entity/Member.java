@@ -16,7 +16,7 @@ public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "MEMBER_ID")
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -32,7 +32,7 @@ public class Member extends BaseEntity {
             fetch = FetchType.LAZY,
             cascade = {CascadeType.REMOVE, CascadeType.PERSIST}
     )
-    @JoinColumn(name = "baby_id")
+    @JoinColumn(name = "BABY_ID")
     private Baby baby;
 
     private Boolean masterStatus;

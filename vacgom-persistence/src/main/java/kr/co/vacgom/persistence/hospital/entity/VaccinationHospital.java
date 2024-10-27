@@ -9,20 +9,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "tb_vaccination_hospital")
+@Table(name = "TB_VACCINATION_HOSPITAL")
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class VaccinationHospital {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "VACCINATION_HOSPITAL_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hospital_id")
+    @JoinColumn(name = "HOSPITAL_ID")
     private Hospital hospital;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vaccination_id")
+    @JoinColumn(name = "VACCINATION_ID")
     private Vaccination vaccination;
 }

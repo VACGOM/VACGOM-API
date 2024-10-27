@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import kr.co.vacgom.persistence.member.entity.Baby;
 import kr.co.vacgom.persistence.member.entity.Member;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-@Builder
 public class Todo {
 
     @Id
@@ -24,7 +22,7 @@ public class Todo {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "baby_id")
+    @JoinColumn(name = "BABY_ID")
     private Baby baby;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -35,25 +33,8 @@ public class Todo {
     private String memo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     private boolean status;
-
-    public void updateMemberAndStatus(Member member, boolean status) {
-        if (status) {
-            this.member = member;
-        } else {
-            this.member = null;
-        }
-        this.status = status;
-    }
-
-    public void updateTitle(String title) {
-        this.title = title;
-    }
-
-    public void updateMemo(String memo) {
-        this.memo = memo;
-    }
 }

@@ -24,7 +24,7 @@ public class Baby extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "baby_id")
+    @Column(name = "BABY_ID")
     private Long id;
 
     private String name;

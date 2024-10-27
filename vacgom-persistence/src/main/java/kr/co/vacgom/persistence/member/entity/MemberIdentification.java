@@ -3,7 +3,6 @@ package kr.co.vacgom.persistence.member.entity;
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.member.constants.ProviderType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-@Builder
 public class MemberIdentification {
 
     @Id

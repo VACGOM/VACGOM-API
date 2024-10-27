@@ -3,8 +3,8 @@ package kr.co.vacgom.persistence.hospital.entity;
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.hospital.entity.constants.HospitalType;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,13 +15,12 @@ import java.util.List;
 @Table(name = "TB_HOSPITAL")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Hospital extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hospital_id")
+    @Column(name = "HOSPITAL_ID")
     private Long id;
 
     private String name;

@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-@Builder
 public class Inoculation extends BaseEntity {
 
     @Id
