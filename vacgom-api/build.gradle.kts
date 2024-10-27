@@ -4,6 +4,7 @@ dependencies {
     implementation(project(":vacgom-persistence"))
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springframework:spring-tx:6.1.14")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -17,9 +18,6 @@ dependencies {
 
     val javaJwtVersion = "4.4.0"
     implementation("com.auth0:java-jwt:$javaJwtVersion")
-
-    val uuidCreatorVersion = "6.0.0"
-    implementation("com.github.f4b6a3:uuid-creator:6.0.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

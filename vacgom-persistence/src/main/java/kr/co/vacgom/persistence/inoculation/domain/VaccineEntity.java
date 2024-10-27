@@ -1,0 +1,44 @@
+package kr.co.vacgom.persistence.inoculation.domain;
+
+import jakarta.persistence.*;
+import kr.co.vacgom.persistence.global.entity.BaseEntity;
+import kr.co.vacgom.persistence.inoculation.domain.constants.VaccineType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Comment;
+
+import static jakarta.persistence.EnumType.STRING;
+
+@Entity
+@Table(name = "TB_VACCINE")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+public class VaccineEntity extends BaseEntity {
+
+    @Id
+    @Column(name = "VACCINE_ID", nullable = false, updatable = false)
+    @Comment("[Not Null] 백신 엔티티 Id")
+    private Long id;
+
+    @Column(nullable = false)
+    @Comment("[Not Null] 백신으로 예방할 수 있는 질병 이름")
+    private String diseaseName;
+
+    @Column(nullable = false)
+    @Comment("[Not Null] 백곰에서 분류한 백신 고유 이름")
+    private String vaccineName;
+
+    @Column(nullable = false)
+    @Comment("[Not Null] 최소 접종 차수 (min = 1)")
+    private Long minimumDoseRound;
+
+    @Comment("[Not Null] 최대 접종 차수")
+    private Long maximumDoseRound;
+
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    @Comment("[Not Null] 백신 타입 (국가예방접종, 일반예방접종, 기타 이벤트)")
+    private VaccineType vaccineType;
+}
