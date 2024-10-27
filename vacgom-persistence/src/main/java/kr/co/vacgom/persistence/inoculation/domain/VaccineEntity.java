@@ -23,10 +23,6 @@ public class VaccineEntity extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    @Comment("[Not Null] 백신으로 예방할 수 있는 질병 이름")
-    private String diseaseName;
-
-    @Column(nullable = false)
     @Comment("[Not Null] 백곰에서 분류한 백신 고유 이름")
     private String vaccineName;
 

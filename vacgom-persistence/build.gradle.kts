@@ -12,3 +12,13 @@ dependencies {
     val uuidCreatorVersion = "6.0.0"
     implementation("com.github.f4b6a3:uuid-creator:6.0.0")
 }
+
+tasks.processResources {
+    dependsOn("initConfiguration")
+}
+
+tasks.register<Copy>("initConfiguration") {
+    from("./PERSISTENCE-CONFIG")
+    include("*.yml")
+    into("./src/main/resources")
+}
