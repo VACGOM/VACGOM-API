@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.vaccination.domain.constants.VaccinationType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
-@Table(name = "tb_vaccination")
+@Table(name = "TB_VACCINATION")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class Vaccination extends BaseEntity {
+public class VaccinationEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vaccination_id")
-    private Long id;
+    @Column(name = "VACCINATION_ID", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(nullable = false)
     private String diseaseName;
@@ -32,16 +32,16 @@ public class Vaccination extends BaseEntity {
     @Column(nullable = false)
     private Long maxOrder;
 
-    @Column(columnDefinition = "VARCHAR(1000)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
     private String icon;
 
-    @Column(columnDefinition = "VARCHAR(1000)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
     private String certificationIcon;
 
-    @Column(columnDefinition = "VARCHAR(1000)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
     private String certificationBackgroundImage;
 
-    @Column(columnDefinition = "VARCHAR(1000)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
     private String certificationMaskImage;
 
     @Enumerated(EnumType.STRING)

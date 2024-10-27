@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,9 +24,8 @@ import java.util.List;
 public class BabyEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BABY_ID")
-    private Long id;
+    @Column(name = "BABY_ID", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     private String name;
 

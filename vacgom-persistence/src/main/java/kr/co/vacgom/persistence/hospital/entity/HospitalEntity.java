@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TB_HOSPITAL")
@@ -19,9 +20,8 @@ import java.util.List;
 public class HospitalEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HOSPITAL_ID")
-    private Long id;
+    @Column(name = "HOSPITAL_ID", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     private String name;
     private String telNo;
@@ -35,7 +35,8 @@ public class HospitalEntity extends BaseEntity {
 
     @OneToMany(
             mappedBy = "hospital",
-            cascade = CascadeType.REMOVE
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
     )
     private List<VaccinationHospitalEntity> supportVaccinations = new ArrayList<>();
 }

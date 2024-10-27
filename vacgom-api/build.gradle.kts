@@ -18,6 +18,9 @@ dependencies {
     val javaJwtVersion = "4.4.0"
     implementation("com.auth0:java-jwt:$javaJwtVersion")
 
+    val uuidCreatorVersion = "6.0.0"
+    implementation("com.github.f4b6a3:uuid-creator:6.0.0")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 }

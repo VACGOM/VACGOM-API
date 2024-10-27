@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_inoculation")
@@ -18,9 +19,8 @@ import java.time.LocalDate;
 public class Inoculation extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inoculation_id")
-    private Long id;
+    @Column(name = "inoculation_id", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(nullable = false)
     private Long inoculationOrder;
@@ -47,5 +47,5 @@ public class Inoculation extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vaccination_id")
-    private Vaccination vaccination;
+    private VaccinationEntity vaccination;
 }

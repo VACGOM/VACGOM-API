@@ -1,10 +1,12 @@
 package kr.co.vacgom.persistence.hospital.entity;
 
 import jakarta.persistence.*;
-import kr.co.vacgom.persistence.vaccination.domain.Vaccination;
+import kr.co.vacgom.persistence.vaccination.domain.VaccinationEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -14,9 +16,8 @@ import lombok.NoArgsConstructor;
 public class VaccinationHospitalEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "VACCINATION_HOSPITAL_ID")
-    private Long id;
+    @Column(name = "VACCINATION_HOSPITAL_ID", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOSPITAL_ID")
@@ -24,5 +25,5 @@ public class VaccinationHospitalEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VACCINATION_ID")
-    private Vaccination vaccination;
+    private VaccinationEntity vaccination;
 }

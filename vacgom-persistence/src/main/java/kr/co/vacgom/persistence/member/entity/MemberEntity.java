@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Table(name = "TB_MEMBER")
@@ -15,9 +17,8 @@ import lombok.NoArgsConstructor;
 public class MemberEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
-    private Long id;
+    @Column(name = "MEMBER_ID", columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -28,10 +29,6 @@ public class MemberEntity extends BaseEntity {
     )
     @JoinColumn(name = "BABY_ID")
     private BabyEntity baby;
-
-    private Boolean masterStatus;
-
-    private String invitationCode;
 
     private String name;
 }
