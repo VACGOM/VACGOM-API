@@ -38,6 +38,17 @@ dependencyManagement {
     }
 }
 
+tasks.processResources {
+    dependsOn("initConfiguration")
+}
+
+tasks.register<Copy>("initConfiguration") {
+    from("./API-CONFIG")
+    include("*.yml", "*.txt")
+    into("./src/main/resources")
+}
+
+
 tasks.withType<BootJar> {
     enabled = true
 }
