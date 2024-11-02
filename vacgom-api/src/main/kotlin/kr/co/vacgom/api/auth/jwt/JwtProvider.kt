@@ -4,8 +4,10 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTDecodeException
 import com.auth0.jwt.exceptions.TokenExpiredException
+import io.jsonwebtoken.UnsupportedJwtException
+import io.jsonwebtoken.security.SignatureException
+import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.global.exception.error.GlobalError
 import org.springframework.stereotype.Component
 
 @Component
@@ -42,8 +44,10 @@ class JwtProvider {
     }
 
     private val exceptionHandlerList = listOf<Pair<Class<out Throwable>, (Throwable) -> Nothing>>(
-        JWTDecodeException::class.java to { throw BusinessException(GlobalError.INVALID_REQUEST_PARAM) },
-        TokenExpiredException::class.java to { throw BusinessException(GlobalError.INVALID_REQUEST_PARAM) },
-        Throwable::class.java to { throw BusinessException(GlobalError.INVALID_REQUEST_PARAM) },
+        JWTDecodeException::class.java to { throw BusinessException(JwtError.MALFORMED_JWT) },
+        TokenExpiredException::class.java to { throw BusinessException(JwtError.EXPIRED_JWT) },
+        SignatureException::class.java to {throw BusinessException(JwtError.SIGNATURE)},
+        UnsupportedJwtException::class.java to { throw BusinessException(JwtError.UNSUPPORTED_JWT) },
+        Throwable::class.java to { throw BusinessException(JwtError.JWT_EXCEPTION) },
     )
 }
