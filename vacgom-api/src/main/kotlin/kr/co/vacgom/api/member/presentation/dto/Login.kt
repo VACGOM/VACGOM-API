@@ -12,9 +12,15 @@ class Login {
         )
     }
 
-    data class Response(
-        val accessToken: String,
-        val refreshToken: String,
-    )
+    sealed class Response {
+        data class Success(
+            val accessToken: String,
+            val refreshToken: String,
+        ): Response()
+
+        data class Register(
+            val registerToken: String,
+        ): Response()
+    }
 }
 

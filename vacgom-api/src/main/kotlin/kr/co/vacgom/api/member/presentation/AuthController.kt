@@ -1,8 +1,8 @@
 package kr.co.vacgom.api.member.presentation
 
 import jakarta.servlet.http.HttpServletRequest
+import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.member.presentation.AuthPath.AUTH
 import kr.co.vacgom.api.member.presentation.dto.Login
@@ -25,7 +25,7 @@ class AuthController(
     }
 
     @PostMapping("/login")
-    fun localLogin(@RequestBody request: Login.Request.Local): Login.Response {
+    fun localLogin(@RequestBody request: Login.Request.Local): Login.Response.Success {
         return authService.localLogin(request)
     }
 
@@ -37,7 +37,7 @@ class AuthController(
     @PostMapping("/reissue")
     fun reIssueAccessToken(request: HttpServletRequest): Token.Response.Access {
         val refreshToken = memberTokenService.extractToken(request)
-            ?: throw BusinessException(GlobalError.INVALID_REQUEST_PARAM)
+            ?: throw BusinessException(JwtError.MALFORMED_JWT)
 
         return Token.Response.Access(
             memberTokenService.reIssueAccessToken(refreshToken),
