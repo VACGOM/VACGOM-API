@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.service
+package kr.co.vacgom.api.member.application
 
 import com.auth0.jwt.interfaces.Claim
 import jakarta.servlet.http.HttpServletRequest

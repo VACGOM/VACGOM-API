@@ -7,8 +7,8 @@ import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.member.presentation.AuthPath.AUTH
 import kr.co.vacgom.api.member.presentation.dto.Login
 import kr.co.vacgom.api.member.presentation.dto.Token
-import kr.co.vacgom.api.member.service.AuthService
-import kr.co.vacgom.api.member.service.MemberTokenService
+import kr.co.vacgom.api.member.application.AuthService
+import kr.co.vacgom.api.member.application.MemberTokenService
 import org.springframework.web.bind.annotation.*
 
 @RestController

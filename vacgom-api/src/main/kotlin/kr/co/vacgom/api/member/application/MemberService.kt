@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.service
+package kr.co.vacgom.api.member.application
 
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.member.exception.MemberError

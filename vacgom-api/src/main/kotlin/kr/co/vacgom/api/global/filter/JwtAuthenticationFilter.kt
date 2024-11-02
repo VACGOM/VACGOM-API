@@ -9,9 +9,9 @@ import kr.co.vacgom.api.global.presentation.GlobalPath
 import kr.co.vacgom.api.global.security.SecurityContext
 import kr.co.vacgom.api.global.security.SecurityContextHolder
 import kr.co.vacgom.api.global.security.UserAuthentication
+import kr.co.vacgom.api.member.application.MemberTokenService
 import kr.co.vacgom.api.member.presentation.AuthPath
 import kr.co.vacgom.api.member.presentation.MemberPath
-import kr.co.vacgom.api.member.service.MemberTokenService
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.util.AntPathMatcher
