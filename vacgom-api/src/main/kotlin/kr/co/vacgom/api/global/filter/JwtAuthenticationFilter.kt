@@ -3,6 +3,8 @@ package kr.co.vacgom.api.global.filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import kr.co.vacgom.api.auth.jwt.exception.JwtError
+import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.security.SecurityContext
 import kr.co.vacgom.api.global.security.SecurityContextHolder
 import kr.co.vacgom.api.global.security.UserAuthentication
@@ -24,9 +26,7 @@ class JwtAuthenticationFilter(
             val accessUserId = memberTokenService.resolveToken(this)
             val userAuthentication = UserAuthentication(accessUserId)
             SecurityContextHolder.setContext(SecurityContext(userAuthentication))
-        }
-
-        // TODO("extractToken 값 null일 때 처리 핊요")
+        } ?: throw BusinessException(JwtError.MALFORMED_JWT)
 
         filterChain.doFilter(request, response)
         SecurityContextHolder.clearContext()
