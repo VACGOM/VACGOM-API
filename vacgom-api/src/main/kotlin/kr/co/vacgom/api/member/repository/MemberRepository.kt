@@ -7,4 +7,5 @@ interface MemberRepository {
     fun findBySocialId(socialId: String): Member?
     fun findByIdAndPassword(id: String, password: String): Member?
     fun findByUserId(userId: Long): Member?
+    fun deleteByUserId(userId: Long)
 }

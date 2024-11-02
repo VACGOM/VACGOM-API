@@ -4,6 +4,7 @@ import kr.co.vacgom.api.auth.client.OAuthHandler
 import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.security.SecurityContextHolder
+import kr.co.vacgom.api.member.domain.Member
 import kr.co.vacgom.api.member.exception.MemberError
 import kr.co.vacgom.api.member.presentation.dto.Login
 import kr.co.vacgom.api.member.repository.MemberRepository
@@ -41,11 +42,7 @@ class AuthService(
         memberTokenService.deleteRefreshToken(authentication.userId)
     }
 
-    fun revoke() {
-        val authentication = SecurityContextHolder.getAuthentication()
-        val findMember = memberRepository.findByUserId(authentication.userId)
-            ?: throw BusinessException(MemberError.MEMBER_NOT_FOUND)
-
-        oauthHandler.handleRevokeUser(findMember.provider, findMember.socialId)
+    fun unlinkUser(member: Member) {
+        oauthHandler.handleUnlinkUser(member.provider, member.socialId)
     }
 }

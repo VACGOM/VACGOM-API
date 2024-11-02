@@ -28,4 +28,8 @@ class MemberTestRepository(
     override fun findByUserId(userId: Long): Member? {
         return db[userId]
     }
+
+    override fun deleteByUserId(userId: Long) {
+        db.remove(userId)
+    }
 }

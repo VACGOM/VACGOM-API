@@ -15,7 +15,7 @@ class OAuthHandler(
         return handlers[provider]?.getUserInfo(request) ?: throw BusinessException(GlobalError.INVALID_REQUEST_PARAM)
     }
 
-    fun handleRevokeUser(provider: SocialLoginProvider, socialId: String) {
+    fun handleUnlinkUser(provider: SocialLoginProvider, socialId: String) {
         handlers[provider]?.revokeUser(socialId) ?: throw BusinessException(GlobalError.INVALID_REQUEST_PARAM)
     }
 }

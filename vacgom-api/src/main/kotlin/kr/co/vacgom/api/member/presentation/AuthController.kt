@@ -34,11 +34,6 @@ class AuthController(
         authService.logout()
     }
 
-    @PostMapping("/revoke")
-    fun revokeUser() {
-        authService.revoke()
-    }
-
     @PostMapping("/reissue")
     fun reIssueAccessToken(request: HttpServletRequest): Token.Response.Access {
         val refreshToken = memberTokenService.extractToken(request)
