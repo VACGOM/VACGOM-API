@@ -17,21 +17,24 @@ class AuthService(
     private val memberRepository: MemberRepository,
 ) {
     fun socialLogin(provider: String, request: Login.Request.Social): Login.Response {
-        val authInfo = oauthHandler.handleUserInfo(SocialLoginProvider.parse(provider), request)
-        val findMember = memberRepository.findBySocialId(authInfo.socialId)
-            ?: throw BusinessException(MemberError.MEMBER_NOT_FOUND)
+        val socialAuthInfo = oauthHandler.handleUserInfo(SocialLoginProvider.parse(provider), request)
+        val findMember = memberRepository.findBySocialId(socialAuthInfo.socialId)
+            ?: return Login.Response.Register(
+                //Todo(socialId 대신 email 등 덜 민감한 정보로 registerToken 발급 필요)
+                    memberTokenService.createRegisterToken(socialAuthInfo.socialId)
+                )
 
-        return Login.Response(
+        return Login.Response.Success(
             memberTokenService.createAccessToken(findMember.userId),
             memberTokenService.createRefreshToken(findMember.userId),
         )
     }
 
-    fun localLogin(request: Login.Request.Local): Login.Response {
+    fun localLogin(request: Login.Request.Local): Login.Response.Success {
         val findMember = memberRepository.findByIdAndPassword(request.id, request.password)
             ?: throw BusinessException(MemberError.MEMBER_NOT_FOUND)
 
-        return Login.Response(
+        return Login.Response.Success(
             memberTokenService.createAccessToken(findMember.userId),
             memberTokenService.createRefreshToken(findMember.userId),
         )

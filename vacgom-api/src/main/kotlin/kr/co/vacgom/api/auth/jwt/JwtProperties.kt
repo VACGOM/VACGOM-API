@@ -8,4 +8,5 @@ class JwtProperties(
     val secret: String,
     val accessTokenExpirationSec: Long,
     val refreshTokenExpirationSec: Long,
+    val registerTokenExpirationSec: Long,
 )

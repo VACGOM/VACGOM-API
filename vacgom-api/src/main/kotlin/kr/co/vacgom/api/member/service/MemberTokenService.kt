@@ -20,7 +20,7 @@ class MemberTokenService(
     fun createAccessToken(userId: Long): String {
         val jwtPayLoad = JwtPayload(
                 iss = jwtProperties.issuer,
-                sub = TokenType.ACCESS_TOKEN.type,
+                sub = TokenType.ACCESS_TOKEN.name,
                 exp = Date.from(Instant.now().plusSeconds(jwtProperties.accessTokenExpirationSec)),
                 privateClaims = mutableMapOf("userId" to userId)
             )
@@ -31,7 +31,7 @@ class MemberTokenService(
     fun createRefreshToken(userId: Long): String {
         val jwtPayLoad = JwtPayload(
             iss = jwtProperties.issuer,
-            sub = TokenType.REFRESH_TOKEN.type,
+            sub = TokenType.REFRESH_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.refreshTokenExpirationSec)),
             privateClaims = mutableMapOf("userId" to userId)
         )
@@ -40,6 +40,17 @@ class MemberTokenService(
         memberTokenRepository.save(refreshToken, userId)
 
         return refreshToken
+    }
+
+    fun createRegisterToken(socialId: String): String {
+        val jwtPayLoad = JwtPayload(
+            iss = jwtProperties.issuer,
+            sub = TokenType.REGISTER_TOKEN.name,
+            exp = Date.from(Instant.now().plusSeconds(jwtProperties.registerTokenExpirationSec)),
+            privateClaims = mutableMapOf("socialId" to socialId)
+        )
+
+        return jwtTokenProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
     fun resolveToken(token: String): Long {
