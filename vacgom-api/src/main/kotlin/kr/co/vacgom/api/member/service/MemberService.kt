@@ -11,13 +11,14 @@ class MemberService(
     private val authService: AuthService,
 ) {
     fun signup() {
-        // TODO(멤버 저장 & 토큰 리턴 구현 필요)
+        // Todo(멤버 저장 & 토큰 리턴 구현 필요)
     }
 
     fun revoke(userId: Long) {
         val findMember = memberRepository.findByUserId(userId)
             ?: throw BusinessException(MemberError.MEMBER_NOT_FOUND)
 
+        // Todo(자체 로그인, 소셜 로그인 구분에 따라 회원 탈퇴 로직 분기 필요)
         authService.unlinkUser(findMember)
         memberRepository.deleteByUserId(userId)
     }

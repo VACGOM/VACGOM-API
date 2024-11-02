@@ -1,5 +1,5 @@
 package kr.co.vacgom.api.auth.client.dto
 
-data class AuthInfo(
+data class SocialAuthInfo(
     val socialId: String,
 )
