@@ -10,26 +10,4 @@ data class Vaccination(
     val vaccinationManufacturer: String?,
     val vaccineProductName: String?,
     val vaccineLotNumber: String?
-) {
-    companion object {
-        fun create(
-            doseRound: Long,
-            doseDescription: String,
-            vaccinatedDate: LocalDate,
-            vaccinationFacility: String? = null,
-            vaccinationManufacturer: String? = null,
-            vaccineProductName: String? = null,
-            vaccineLotNumber: String? = null
-        ): Vaccination {
-            return Vaccination(
-                doseRound,
-                doseDescription,
-                vaccinatedDate,
-                vaccinationFacility,
-                vaccinationManufacturer,
-                vaccineProductName,
-                vaccineLotNumber
-            )
-        }
-    }
-}
+)
