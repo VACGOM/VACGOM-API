@@ -9,5 +9,6 @@ enum class MemberError(
     override val status: HttpStatus,
     override val code: String,
 ) : ErrorCode {
-    MEMBER_NOT_FOUND("회원이 존재하지 않습니다.", NOT_FOUND, "M_001")
+    MEMBER_NOT_FOUND("회원이 존재하지 않습니다.", NOT_FOUND, "M_001"),
+    SOCIAL_ID_NOT_FOUND("소셜 ID가 존재하지 않습니다.", NOT_FOUND, "M_002")
 }
