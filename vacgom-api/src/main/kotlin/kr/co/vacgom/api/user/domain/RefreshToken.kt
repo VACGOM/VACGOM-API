@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.domain
+package kr.co.vacgom.api.user.domain
 
 data class RefreshToken(
     val refreshToken: String,

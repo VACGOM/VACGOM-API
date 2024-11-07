@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.auth.client
 
 import kr.co.vacgom.api.auth.client.dto.SocialAuthInfo
-import kr.co.vacgom.api.member.presentation.dto.Login
+import kr.co.vacgom.api.user.presentation.dto.Login
 
 interface OAuthStrategy {
     fun getUserInfo(request: Login.Request.Social): SocialAuthInfo

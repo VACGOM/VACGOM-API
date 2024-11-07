@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.presentation.dto
+package kr.co.vacgom.api.user.presentation.dto
 
 class RegisterMember {
     data class Request(

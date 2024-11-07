@@ -1,21 +1,21 @@
-package kr.co.vacgom.api.member.presentation
+package kr.co.vacgom.api.user.presentation
 
 import jakarta.servlet.http.HttpServletRequest
 import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
-import kr.co.vacgom.api.member.presentation.AuthPath.AUTH
-import kr.co.vacgom.api.member.presentation.dto.Login
-import kr.co.vacgom.api.member.presentation.dto.Token
-import kr.co.vacgom.api.member.application.AuthService
-import kr.co.vacgom.api.member.application.MemberTokenService
+import kr.co.vacgom.api.user.application.AuthService
+import kr.co.vacgom.api.user.application.UserTokenService
+import kr.co.vacgom.api.user.presentation.AuthPath.AUTH
+import kr.co.vacgom.api.user.presentation.dto.Login
+import kr.co.vacgom.api.user.presentation.dto.Token
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(BASE_V3 + AUTH)
 class AuthController(
     private val authService: AuthService,
-    private val memberTokenService: MemberTokenService,
+    private val userTokenService: UserTokenService,
 ) {
     @PostMapping("/login/{provider}")
     fun socialLogin(@PathVariable provider: String,
@@ -24,23 +24,18 @@ class AuthController(
         return authService.socialLogin(provider, request)
     }
 
-    @PostMapping("/login")
-    fun localLogin(@RequestBody request: Login.Request.Local): Login.Response.Success {
-        return authService.localLogin(request)
-    }
-
     @PostMapping("/logout")
     fun logout() {
         authService.logout()
     }
 
-    @PostMapping("/reissue")
+    @PatchMapping("/reissue")
     fun reIssueAccessToken(request: HttpServletRequest): Token.Response.Access {
-        val refreshToken = memberTokenService.extractToken(request)
+        val refreshToken = userTokenService.extractToken(request)
             ?: throw BusinessException(JwtError.MALFORMED_JWT)
 
         return Token.Response.Access(
-            memberTokenService.reIssueAccessToken(refreshToken),
+            userTokenService.reIssueAccessToken(refreshToken),
         )
     }
 }

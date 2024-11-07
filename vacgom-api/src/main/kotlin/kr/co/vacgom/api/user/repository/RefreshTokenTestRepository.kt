@@ -1,12 +1,12 @@
-package kr.co.vacgom.api.member.repository
+package kr.co.vacgom.api.user.repository
 
-import kr.co.vacgom.api.member.domain.RefreshToken
+import kr.co.vacgom.api.user.domain.RefreshToken
 import org.springframework.stereotype.Repository
 
 @Repository
-class MemberTokenTestRepository(
+class RefreshTokenTestRepository(
     private val db: MutableMap<Long, RefreshToken> = mutableMapOf(),
-): MemberTokenRepository {
+): RefreshTokenRepository {
     override fun update(newToken: String, userId: Long) {
         db[userId] = RefreshToken(newToken, userId)
     }
@@ -15,7 +15,7 @@ class MemberTokenTestRepository(
         db[userId] = RefreshToken(token, userId)
     }
 
-    override fun deleteTokenByUserId(userId: Long) {
+    override fun deleteByUserId(userId: Long) {
         db.remove(userId)
     }
 

@@ -1,31 +1,31 @@
-package kr.co.vacgom.api.member.repository
+package kr.co.vacgom.api.user.repository
 
 import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
-import kr.co.vacgom.api.member.domain.Member
+import kr.co.vacgom.api.user.domain.User
 import org.springframework.stereotype.Repository
 
 @Repository
-class MemberTestRepository(
-    private val db: MutableMap<Long, Member> = mutableMapOf(1L to Member(1L,
-        socialId = "",
+class UserTestRepository(
+    private val db: MutableMap<Long, User> = mutableMapOf(1L to User(1L,
+        socialId = "3774375517",
         provider = SocialLoginProvider.KAKAO,
         name = "name",
         id = "id",
         password = "password")),
-): MemberRepository {
-    override fun save(member: Member) {
-        db[member.userId] = member
+): UserRepository {
+    override fun save(user: User) {
+        db[user.userId] = user
     }
 
-    override fun findBySocialId(socialId: String): Member? {
+    override fun findBySocialId(socialId: String): User? {
         return db.filter { it.value.socialId == socialId }.values.firstOrNull()
     }
 
-    override fun findByIdAndPassword(id: String, password: String): Member? {
+    override fun findByIdAndPassword(id: String, password: String): User? {
         return db.filter { it.value.id == id && it.value.password == password }.values.firstOrNull()
     }
 
-    override fun findByUserId(userId: Long): Member? {
+    override fun findByUserId(userId: Long): User? {
         return db[userId]
     }
 

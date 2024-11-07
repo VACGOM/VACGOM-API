@@ -1,8 +1,8 @@
-package kr.co.vacgom.api.member.domain
+package kr.co.vacgom.api.user.domain
 
 import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
 
-class Member(
+class User(
     val userId: Long,
     val socialId: String?,
     val provider: SocialLoginProvider,

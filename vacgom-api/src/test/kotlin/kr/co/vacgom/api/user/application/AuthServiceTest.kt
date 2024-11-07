@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.application
+package kr.co.vacgom.api.user.application
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
@@ -9,21 +9,21 @@ import io.mockk.mockk
 import kr.co.vacgom.api.auth.client.OAuthHandler
 import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.member.domain.Member
-import kr.co.vacgom.api.member.exception.MemberError
-import kr.co.vacgom.api.member.presentation.dto.Login
-import kr.co.vacgom.api.member.repository.MemberRepository
+import kr.co.vacgom.api.user.domain.User
+import kr.co.vacgom.api.user.exception.UserError
+import kr.co.vacgom.api.user.presentation.dto.Login
+import kr.co.vacgom.api.user.repository.UserRepository
 
 class AuthServiceTest : DescribeSpec({
 
     val oauthHandlerMock: OAuthHandler = mockk(relaxed = true)
-    val memberTokenServiceMock: MemberTokenService = mockk(relaxed = true)
-    val memberRepositoryMock: MemberRepository = mockk(relaxed = true)
+    val userTokenServiceMock: UserTokenService = mockk(relaxed = true)
+    val userRepositoryMock: UserRepository = mockk(relaxed = true)
 
     val sut = AuthService(
         oauthHandlerMock,
-        memberTokenServiceMock,
-        memberRepositoryMock
+        userTokenServiceMock,
+        userRepositoryMock
     )
 
     describe("소셜 로그인 테스트") {
@@ -32,7 +32,7 @@ class AuthServiceTest : DescribeSpec({
                 it("엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
                     val request = Login.Request.Social("oauth_access_token")
 
-                    every { memberRepositoryMock.findBySocialId(any()) } returns savedMember
+                    every { userRepositoryMock.findBySocialId(any()) } returns savedUser
 
                     val result = sut.socialLogin(provider.name, request)
 
@@ -48,7 +48,7 @@ class AuthServiceTest : DescribeSpec({
                 it("RegisterToken을 반환한다.") {
                     val request = Login.Request.Social("oauth_access_token")
 
-                    every { memberRepositoryMock.findBySocialId(any()) } returns null
+                    every { userRepositoryMock.findBySocialId(any()) } returns null
 
                     val result = sut.socialLogin(provider.name, request)
 
@@ -64,7 +64,7 @@ class AuthServiceTest : DescribeSpec({
             it("엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
                 val request = Login.Request.Local("id", "password")
 
-                every { memberRepositoryMock.findByIdAndPassword(savedMember.id, savedMember.password) } returns savedMember
+                every { userRepositoryMock.findByIdAndPassword(savedUser.id, savedUser.password) } returns savedUser
 
                 val result = sut.localLogin(request)
 
@@ -78,18 +78,18 @@ class AuthServiceTest : DescribeSpec({
             it("MEMBER_NOT_FOUND 예외를 발생시킨다.") {
                 val request = Login.Request.Local("id", "password")
 
-                every { memberRepositoryMock.findByIdAndPassword(savedMember.id, savedMember.password) } returns null
+                every { userRepositoryMock.findByIdAndPassword(savedUser.id, savedUser.password) } returns null
 
                 val exception = shouldThrow<BusinessException> {
                     sut.localLogin(request)
                 }
 
-                exception.errorCode shouldBe MemberError.MEMBER_NOT_FOUND
+                exception.errorCode shouldBe UserError.MEMBER_NOT_FOUND
             }
         }
     }
 }) {
     companion object {
-        val savedMember = Member(1L, null, SocialLoginProvider.KAKAO, "name", "id", "password")
+        val savedUser = User(1L, null, SocialLoginProvider.KAKAO, "name", "id", "password")
     }
 }

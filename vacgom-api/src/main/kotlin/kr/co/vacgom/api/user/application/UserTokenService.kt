@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.application
+package kr.co.vacgom.api.user.application
 
 import com.auth0.jwt.interfaces.Claim
 import jakarta.servlet.http.HttpServletRequest
@@ -6,16 +6,16 @@ import kr.co.vacgom.api.auth.jwt.JwtPayload
 import kr.co.vacgom.api.auth.jwt.JwtProperties
 import kr.co.vacgom.api.auth.jwt.JwtProvider
 import kr.co.vacgom.api.auth.jwt.TokenType
-import kr.co.vacgom.api.member.repository.MemberTokenRepository
+import kr.co.vacgom.api.user.repository.RefreshTokenRepository
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.util.*
 
 @Service
-class MemberTokenService(
-    private val jwtTokenProvider: JwtProvider,
+class UserTokenService(
+    private val jwtProvider: JwtProvider,
     private val jwtProperties: JwtProperties,
-    private val memberTokenRepository: MemberTokenRepository
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
     fun createAccessToken(userId: Long): String {
         val jwtPayLoad = JwtPayload(
@@ -25,7 +25,7 @@ class MemberTokenService(
                 privateClaims = mutableMapOf("userId" to userId)
             )
 
-        return jwtTokenProvider.createToken(jwtPayLoad, jwtProperties.secret)
+        return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
     fun createRefreshToken(userId: Long): String {
@@ -36,8 +36,8 @@ class MemberTokenService(
             privateClaims = mutableMapOf("userId" to userId)
         )
 
-        val refreshToken = jwtTokenProvider.createToken(jwtPayLoad, jwtProperties.secret)
-        memberTokenRepository.save(refreshToken, userId)
+        val refreshToken = jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
+        refreshTokenRepository.save(refreshToken, userId)
 
         return refreshToken
     }
@@ -50,17 +50,17 @@ class MemberTokenService(
             privateClaims = mutableMapOf("socialId" to socialId)
         )
 
-        return jwtTokenProvider.createToken(jwtPayLoad, jwtProperties.secret)
+        return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
-    fun resolveToken(token: String): Long {
-        val jwtPayload = jwtTokenProvider.verifyToken(token, jwtProperties.secret).getOrThrow()
+    fun getUserIdFromToken(token: String): Long {
+        val jwtPayload = jwtProvider.verifyToken(token, jwtProperties.secret).getOrThrow()
         val userIdClaim = jwtPayload.privateClaims["userId"] as Claim
         return userIdClaim.asLong()
     }
 
     fun reIssueAccessToken(refreshToken: String): String {
-        val userId = resolveToken(refreshToken)
+        val userId = getUserIdFromToken(refreshToken)
         return createAccessToken(userId)
     }
 
@@ -75,7 +75,7 @@ class MemberTokenService(
     }
 
     fun deleteRefreshToken(userId: Long) {
-        memberTokenRepository.deleteTokenByUserId(userId)
+        refreshTokenRepository.deleteByUserId(userId)
     }
 
     companion object {

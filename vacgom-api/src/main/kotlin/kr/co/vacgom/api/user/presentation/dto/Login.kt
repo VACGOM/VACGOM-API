@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.member.presentation.dto
+package kr.co.vacgom.api.user.presentation.dto
 
 class Login {
     sealed class Request {
