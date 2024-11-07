@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.auth.client.kakao
+package kr.co.vacgom.api.auth.oauth.kakao
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

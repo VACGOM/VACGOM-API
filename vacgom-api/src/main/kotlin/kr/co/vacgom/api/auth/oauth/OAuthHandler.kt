@@ -1,7 +1,7 @@
-package kr.co.vacgom.api.auth.client
+package kr.co.vacgom.api.auth.oauth
 
-import kr.co.vacgom.api.auth.client.dto.SocialAuthInfo
-import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
+import kr.co.vacgom.api.auth.oauth.dto.SocialAuthInfo
+import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.user.presentation.dto.Login

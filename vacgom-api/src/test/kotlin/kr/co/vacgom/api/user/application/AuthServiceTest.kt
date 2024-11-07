@@ -4,8 +4,8 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.every
 import io.mockk.mockk
-import kr.co.vacgom.api.auth.client.OAuthHandler
-import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
+import kr.co.vacgom.api.auth.oauth.OAuthHandler
+import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.presentation.dto.Login
 import kr.co.vacgom.api.user.repository.UserRepository

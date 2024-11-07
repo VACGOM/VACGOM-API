@@ -1,7 +1,7 @@
-package kr.co.vacgom.api.auth.client.kakao
+package kr.co.vacgom.api.auth.oauth.kakao
 
-import kr.co.vacgom.api.auth.client.OAuthStrategy
-import kr.co.vacgom.api.auth.client.dto.SocialAuthInfo
+import kr.co.vacgom.api.auth.oauth.OAuthStrategy
+import kr.co.vacgom.api.auth.oauth.dto.SocialAuthInfo
 import kr.co.vacgom.api.user.presentation.dto.Login
 import org.springframework.stereotype.Component
 

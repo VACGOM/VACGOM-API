@@ -1,8 +1,8 @@
-package kr.co.vacgom.api.auth.client.config
+package kr.co.vacgom.api.auth.oauth.config
 
-import kr.co.vacgom.api.auth.client.OAuthStrategy
-import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
-import kr.co.vacgom.api.auth.client.kakao.KakaoOAuthStrategy
+import kr.co.vacgom.api.auth.oauth.OAuthStrategy
+import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
+import kr.co.vacgom.api.auth.oauth.kakao.KakaoOAuthStrategy
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.auth.client.enums
+package kr.co.vacgom.api.auth.oauth.enums
 
 enum class SocialLoginProvider{
     KAKAO,

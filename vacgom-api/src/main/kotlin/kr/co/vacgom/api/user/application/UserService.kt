@@ -18,9 +18,7 @@ class UserService(
         val findMember = userRepository.findByUserId(userId)
             ?: throw BusinessException(UserError.USER_NOT_FOUND)
 
-        // Todo(자체 로그인, 소셜 로그인 구분에 따라 회원 탈퇴 로직 분기 필요)
         authService.unlinkUser(findMember)
-
         userRepository.deleteByUserId(userId)
     }
 }

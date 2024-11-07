@@ -1,6 +1,6 @@
 package kr.co.vacgom.api.user.repository
 
-import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
+import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.user.domain.User
 import org.springframework.stereotype.Repository
 

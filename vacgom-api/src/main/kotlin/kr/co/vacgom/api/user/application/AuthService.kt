@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.user.application
 
-import kr.co.vacgom.api.auth.client.OAuthHandler
-import kr.co.vacgom.api.auth.client.enums.SocialLoginProvider
+import kr.co.vacgom.api.auth.oauth.OAuthHandler
+import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.security.SecurityContextHolder
 import kr.co.vacgom.api.user.domain.User

@@ -1,6 +1,6 @@
-package kr.co.vacgom.api.auth.client
+package kr.co.vacgom.api.auth.oauth
 
-import kr.co.vacgom.api.auth.client.dto.SocialAuthInfo
+import kr.co.vacgom.api.auth.oauth.dto.SocialAuthInfo
 import kr.co.vacgom.api.user.presentation.dto.Login
 
 interface OAuthStrategy {
