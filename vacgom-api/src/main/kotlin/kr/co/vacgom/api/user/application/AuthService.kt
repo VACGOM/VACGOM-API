@@ -29,17 +29,6 @@ class AuthService(
         )
     }
 
-    fun localLogin(request: Login.Request.Local): Login.Response.Success {
-        val findMember = userRepository.findByIdAndPassword(request.id, request.password)
-            ?: throw BusinessException(UserError.USER_NOT_FOUND)
-        // Todo("RegisterToken 발급 여부 확정에 따라 로직 변경 필요")
-
-        return Login.Response.Success(
-            userTokenService.createAccessToken(findMember.userId),
-            userTokenService.createRefreshToken(findMember.userId),
-        )
-    }
-
     fun logout() {
         val authentication = SecurityContextHolder.getAuthentication()
         userTokenService.deleteRefreshToken(authentication.userId)

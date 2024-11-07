@@ -5,11 +5,6 @@ class Login {
         data class Social(
             val accessToken: String,
         )
-
-        data class Local(
-            val id: String,
-            val password: String,
-        )
     }
 
     sealed class Response {
