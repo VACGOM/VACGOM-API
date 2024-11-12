@@ -18,14 +18,14 @@ class AuthService(
 ) {
     fun socialLogin(provider: String, request: Login.Request.Social): Login.Response {
         val socialAuthInfo = oauthHandler.handleUserInfo(SocialLoginProvider.parse(provider), request)
-        val findMember = userRepository.findBySocialId(socialAuthInfo.socialId)
+        val findUser = userRepository.findBySocialId(socialAuthInfo.socialId)
             ?: return Login.Response.Register(
                     userTokenService.createRegisterToken(socialAuthInfo.socialId)
                 )
 
         return Login.Response.Success(
-            userTokenService.createAccessToken(findMember.userId),
-            userTokenService.createRefreshToken(findMember.userId),
+            userTokenService.createAccessToken(findUser.id),
+            userTokenService.createRefreshToken(findUser.id),
         )
     }
 
