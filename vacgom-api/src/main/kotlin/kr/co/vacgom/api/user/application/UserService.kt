@@ -15,10 +15,10 @@ class UserService(
     }
 
     fun revoke(userId: Long) {
-        val findMember = userRepository.findByUserId(userId)
+        val findUser = userRepository.findByUserId(userId)
             ?: throw BusinessException(UserError.USER_NOT_FOUND)
 
-        authService.unlinkUser(findMember)
+        authService.unlinkUser(findUser)
         userRepository.deleteByUserId(userId)
     }
 }

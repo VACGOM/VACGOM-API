@@ -56,6 +56,6 @@ class AuthServiceTest : DescribeSpec({
     }
 }) {
     companion object {
-        val savedUser = User(1L, null, SocialLoginProvider.KAKAO, "name", "id", "password")
+        val savedUser = User(1L, null, SocialLoginProvider.KAKAO, "name")
     }
 }
