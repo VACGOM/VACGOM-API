@@ -26,6 +26,7 @@ class ApiExceptionHandlingFilter(
     ) = try {
         chain.doFilter(request, response)
     } catch (exception: BusinessException) {
+        log.warn(exception.message)
         setErrorResponse(response, exception)
     } catch (exception: Exception) {
         log.warn(exception.message)

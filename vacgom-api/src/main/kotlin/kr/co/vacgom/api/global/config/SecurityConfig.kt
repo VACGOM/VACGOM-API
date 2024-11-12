@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.global.config
 
+import kr.co.vacgom.api.global.exception.ApiExceptionHandlingFilter
 import kr.co.vacgom.api.global.filter.JwtAuthenticationFilter
-import kr.co.vacgom.api.global.filter.JwtEntryPoint
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -18,7 +18,7 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity,
                             jwtAuthenticationFilter: JwtAuthenticationFilter,
-                            jwtEntryPoint: JwtEntryPoint
+                            apiExceptionHandlingFilter: ApiExceptionHandlingFilter,
     ): SecurityFilterChain {
         httpSecurity {
             authorizeRequests { authorize(anyRequest, permitAll) }
@@ -28,7 +28,7 @@ class SecurityConfig {
             sessionManagement { sessionCreationPolicy = SessionCreationPolicy.STATELESS }
             csrf { disable() }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(jwtAuthenticationFilter)
-            addFilterBefore<JwtAuthenticationFilter>(jwtEntryPoint)
+            addFilterBefore<JwtAuthenticationFilter>(apiExceptionHandlingFilter)
         }
         return httpSecurity.build()
     }
