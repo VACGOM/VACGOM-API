@@ -10,7 +10,6 @@ import kr.co.vacgom.api.user.repository.RefreshTokenRepository
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
-import org.springframework.util.StringUtils
 import java.time.Instant
 import java.util.*
 
@@ -20,23 +19,29 @@ class UserTokenService(
     private val jwtProperties: JwtProperties,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
-    fun createAccessToken(userId: Long): String {
+    fun createAccessToken(userId: Long, authorities: List<GrantedAuthority>): String {
         val jwtPayLoad = JwtPayload(
                 iss = jwtProperties.issuer,
                 sub = TokenType.ACCESS_TOKEN.name,
                 exp = Date.from(Instant.now().plusSeconds(jwtProperties.accessTokenExpirationSec)),
-                privateClaims = mutableMapOf("userId" to userId)
+                privateClaims = mutableMapOf(
+                    "userId" to userId,
+                    "scope" to authorities.map { it.authority }.toList(),
+                )
             )
 
         return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
-    fun createRefreshToken(userId: Long): String {
+    fun createRefreshToken(userId: Long, authorities: List<GrantedAuthority>): String {
         val jwtPayLoad = JwtPayload(
             iss = jwtProperties.issuer,
             sub = TokenType.REFRESH_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.refreshTokenExpirationSec)),
-            privateClaims = mutableMapOf("userId" to userId)
+            privateClaims = mutableMapOf(
+                "userId" to userId,
+                "scope" to authorities.map { it.authority }.toList(),
+            )
         )
 
         val refreshToken = jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
@@ -62,26 +67,18 @@ class UserTokenService(
         return userIdClaim.asLong()
     }
 
-    fun getAuthoritiesFromToken(token: String): Collection<GrantedAuthority> {
+    fun getAuthoritiesFromToken(token: String): List<GrantedAuthority> {
         val jwtPayload = jwtProvider.verifyToken(token, jwtProperties.secret).getOrThrow()
-        val authorities = jwtPayload.privateClaims["scope"] as String
+        val scope = jwtPayload.privateClaims["scope"] as Claim
 
-        val grantedAuthorities = ArrayList<GrantedAuthority>()
-
-        if (StringUtils.hasText(authorities)) {
-            for (authority in authorities.split(" ")) {
-                grantedAuthorities.add(SimpleGrantedAuthority(authority))
-            }
-
-            return grantedAuthorities
-        }
-
-        return emptyList()
+        return scope.asList(SimpleGrantedAuthority::class.java)
     }
 
     fun reIssueAccessToken(refreshToken: String): String {
         val userId = getUserIdFromToken(refreshToken)
-        return createAccessToken(userId)
+        val authorities = getAuthoritiesFromToken(refreshToken)
+
+        return createAccessToken(userId, authorities)
     }
 
     fun extractToken(request: HttpServletRequest): String? {

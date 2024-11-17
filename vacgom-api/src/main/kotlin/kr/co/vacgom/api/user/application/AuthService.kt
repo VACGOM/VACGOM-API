@@ -3,7 +3,7 @@ package kr.co.vacgom.api.user.application
 import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.global.security.SecurityContextHolder
+import kr.co.vacgom.api.global.security.util.SecurityContextUtil
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
@@ -24,14 +24,14 @@ class AuthService(
                 )
 
         return Login.Response.Success(
-            userTokenService.createAccessToken(findUser.id),
-            userTokenService.createRefreshToken(findUser.id),
+            userTokenService.createAccessToken(findUser.id, findUser.roles),
+            userTokenService.createRefreshToken(findUser.id, findUser.roles),
         )
     }
 
     fun logout() {
-        val authentication = SecurityContextHolder.getAuthentication()
-        userTokenService.deleteRefreshToken(authentication.userId)
+        val userId = SecurityContextUtil.getPrincipal()
+        userTokenService.deleteRefreshToken(userId)
     }
 
     fun unlinkUser(user: User) {
