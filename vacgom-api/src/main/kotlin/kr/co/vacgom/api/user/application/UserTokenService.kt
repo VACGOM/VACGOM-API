@@ -7,7 +7,10 @@ import kr.co.vacgom.api.auth.jwt.JwtProperties
 import kr.co.vacgom.api.auth.jwt.JwtProvider
 import kr.co.vacgom.api.auth.jwt.TokenType
 import kr.co.vacgom.api.user.repository.RefreshTokenRepository
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
+import org.springframework.util.StringUtils
 import java.time.Instant
 import java.util.*
 
@@ -57,6 +60,23 @@ class UserTokenService(
         val jwtPayload = jwtProvider.verifyToken(token, jwtProperties.secret).getOrThrow()
         val userIdClaim = jwtPayload.privateClaims["userId"] as Claim
         return userIdClaim.asLong()
+    }
+
+    fun getAuthoritiesFromToken(token: String): Collection<GrantedAuthority> {
+        val jwtPayload = jwtProvider.verifyToken(token, jwtProperties.secret).getOrThrow()
+        val authorities = jwtPayload.privateClaims["scope"] as String
+
+        val grantedAuthorities = ArrayList<GrantedAuthority>()
+
+        if (StringUtils.hasText(authorities)) {
+            for (authority in authorities.split(" ")) {
+                grantedAuthorities.add(SimpleGrantedAuthority(authority))
+            }
+
+            return grantedAuthorities
+        }
+
+        return emptyList()
     }
 
     fun reIssueAccessToken(refreshToken: String): String {
