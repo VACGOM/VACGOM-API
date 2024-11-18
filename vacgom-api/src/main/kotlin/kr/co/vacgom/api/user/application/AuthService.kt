@@ -20,7 +20,7 @@ class AuthService(
         val socialAuthInfo = oauthHandler.handleUserInfo(SocialLoginProvider.parse(provider), request)
         val findUser = userRepository.findBySocialId(socialAuthInfo.socialId)
             ?: return Login.Response.Register(
-                    userTokenService.createRegisterToken(socialAuthInfo.socialId)
+                    userTokenService.createRegisterToken(socialAuthInfo.socialId, provider)
                 )
 
         return Login.Response.Success(

@@ -50,12 +50,15 @@ class UserTokenService(
         return refreshToken
     }
 
-    fun createRegisterToken(socialId: String): String {
+    fun createRegisterToken(socialId: String, provider: String): String {
         val jwtPayLoad = JwtPayload(
             iss = jwtProperties.issuer,
             sub = TokenType.REGISTER_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.registerTokenExpirationSec)),
-            privateClaims = mutableMapOf("socialId" to socialId)
+            privateClaims = mutableMapOf(
+                "socialId" to socialId,
+                "provider" to provider,
+            )
         )
 
         return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
