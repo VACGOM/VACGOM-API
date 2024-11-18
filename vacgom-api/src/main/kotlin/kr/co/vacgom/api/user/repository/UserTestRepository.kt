@@ -9,7 +9,9 @@ class UserTestRepository(
     private val db: MutableMap<Long, User> = mutableMapOf(1L to User(1L,
         socialId = "",
         provider = SocialLoginProvider.KAKAO,
-        name = "name",)
+        nickname = "nickname",
+        roles = emptyList(),
+        )
     ),
 ): UserRepository {
     override fun save(user: User) {

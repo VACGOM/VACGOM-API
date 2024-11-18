@@ -7,7 +7,7 @@ class User(
     val id: Long,
     val socialId: String?,
     val provider: SocialLoginProvider,
-    val name: String,
+    val nickname: String,
     val roles: List<GrantedAuthority>,
 ) {
 }
