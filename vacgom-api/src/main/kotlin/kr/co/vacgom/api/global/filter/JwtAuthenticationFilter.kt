@@ -6,13 +6,12 @@ import jakarta.servlet.http.HttpServletResponse
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath
-import kr.co.vacgom.api.global.security.SecurityContext
-import kr.co.vacgom.api.global.security.SecurityContextHolder
 import kr.co.vacgom.api.global.security.UserAuthentication
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.presentation.AuthPath
 import kr.co.vacgom.api.user.presentation.UserPath
 import org.springframework.http.HttpMethod
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.util.AntPathMatcher
 import org.springframework.web.filter.OncePerRequestFilter
@@ -29,8 +28,10 @@ class JwtAuthenticationFilter(
     ) {
         userTokenService.extractToken(request)?.run {
             val accessUserId = userTokenService.getUserIdFromToken(this)
-            val userAuthentication = UserAuthentication(accessUserId)
-            SecurityContextHolder.setContext(SecurityContext(userAuthentication))
+            val authorities = userTokenService.getAuthoritiesFromToken(this)
+            val userAuthentication = UserAuthentication(accessUserId, authorities)
+
+            SecurityContextHolder.getContext().authentication = userAuthentication
         } ?: throw BusinessException(GlobalError.UNAUTHORIZED)
 
         filterChain.doFilter(request, response)
@@ -48,7 +49,7 @@ class JwtAuthenticationFilter(
     companion object {
         private val ignoredPath: Map<String, HttpMethod> = mapOf(
             GlobalPath.BASE_V3 + AuthPath.AUTH.plus("/login/**") to HttpMethod.POST,
-            GlobalPath.BASE_V3 + UserPath.MEMBER to HttpMethod.POST,
+            GlobalPath.BASE_V3 + UserPath.USER to HttpMethod.POST,
         )
     }
 }
