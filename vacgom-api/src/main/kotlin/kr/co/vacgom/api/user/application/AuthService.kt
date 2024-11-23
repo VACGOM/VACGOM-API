@@ -21,11 +21,11 @@ class AuthService(
         val findUser = userRepository.findBySocialId(socialAuthInfo.socialId)
             ?: return Login.Response.Register(
                     userTokenService.createRegisterToken(socialAuthInfo.socialId, provider)
-                )
+            )
 
         return Login.Response.Success(
             userTokenService.createAccessToken(findUser.id, findUser.roles),
-            userTokenService.createRefreshToken(findUser.id, findUser.roles),
+            userTokenService.createRefreshToken(findUser.id),
         )
     }
 
