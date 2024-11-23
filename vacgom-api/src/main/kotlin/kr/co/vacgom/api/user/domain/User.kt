@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.domain
 
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
+import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
 import org.springframework.security.core.GrantedAuthority
 import java.util.*
@@ -12,7 +13,7 @@ class User(
     val socialId: String?,
     val provider: SocialLoginProvider,
     val roles: List<GrantedAuthority>,
-) {
+): BaseTimeEntity() {
     fun addBabies(newBabies: Set<Baby>) {
         babies.addAll(newBabies)
     }
