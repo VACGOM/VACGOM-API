@@ -1,4 +1,6 @@
-package kr.co.vacgom.api.user.domain
+package kr.co.vacgom.api.baby
+
+import kr.co.vacgom.api.user.domain.User
 
 data class ManagerGroup(
     val adminManager: User,

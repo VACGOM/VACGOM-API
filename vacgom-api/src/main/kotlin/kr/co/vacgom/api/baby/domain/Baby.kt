@@ -1,5 +1,6 @@
 package kr.co.vacgom.api.user.domain
 
+import kr.co.vacgom.api.baby.ManagerGroup
 import kr.co.vacgom.api.global.util.UuidCreator
 import kr.co.vacgom.api.user.domain.enums.Gender
 import java.time.LocalDateTime
