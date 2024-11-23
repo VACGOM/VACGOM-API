@@ -3,7 +3,7 @@ package kr.co.vacgom.api.user.domain
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.baby.ManagerGroup
+import kr.co.vacgom.api.baby.domain.ManagerGroup
 
 class ManagerGroupTest : FunSpec({
     test("ManagerGroup 정상 생성 테스트") {

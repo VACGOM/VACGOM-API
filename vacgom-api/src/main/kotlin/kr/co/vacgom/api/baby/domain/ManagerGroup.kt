@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.baby
+package kr.co.vacgom.api.baby.domain
 
 import kr.co.vacgom.api.user.domain.User
 
