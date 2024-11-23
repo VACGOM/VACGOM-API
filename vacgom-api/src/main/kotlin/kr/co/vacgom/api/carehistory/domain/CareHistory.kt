@@ -18,4 +18,34 @@ data class CareHistory (
     val healths: List<Health>,
     val snacks: List<Snack>,
     val recordDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(
+            babyId: UUID,
+            babyFormulas: List<BabyFormula>,
+            breastFeedings: List<BreastFeeding>,
+            breastPumpings: List<BreastPumping>,
+            babyFoods: List<BabyFood>,
+            diapers: List<Diaper>,
+            baths: List<Bath>,
+            sleeps: List<Sleep>,
+            healths: List<Health>,
+            snacks: List<Snack>,
+            recordDate: LocalDateTime,
+        ): CareHistory {
+            return CareHistory(
+                babyId = babyId,
+                babyFormulas = babyFormulas,
+                breastFeedings = breastFeedings,
+                breastPumpings = breastPumpings,
+                babyFoods = babyFoods,
+                diapers = diapers,
+                baths = baths,
+                sleeps = sleeps,
+                healths = healths,
+                snacks = snacks,
+                recordDate = recordDate
+            )
+        }
+    }
+}

@@ -6,4 +6,10 @@ import java.time.LocalDateTime
 data class BabyFood (
     val amount: Long,
     val executionDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(amount: Long, executionDate: LocalDateTime): BabyFood {
+            return BabyFood(amount = amount, executionDate = executionDate)
+        }
+    }
+}

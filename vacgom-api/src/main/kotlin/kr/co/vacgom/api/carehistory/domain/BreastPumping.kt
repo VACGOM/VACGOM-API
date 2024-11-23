@@ -6,4 +6,10 @@ import java.time.LocalDateTime
 data class BreastPumping (
     val amount: Long,
     val executionDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(amount: Long, executionDate: LocalDateTime): BreastPumping {
+            return BreastPumping(amount = amount, executionDate = executionDate)
+        }
+    }
+}

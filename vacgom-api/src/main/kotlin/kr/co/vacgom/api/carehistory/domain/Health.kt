@@ -7,4 +7,10 @@ data class Health (
     val temperature: Double,
     val memo: String,
     val executionDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(temperature: Double, memo: String, executionDate: LocalDateTime): Health {
+            return Health(temperature = temperature, memo = memo, executionDate = executionDate)
+        }
+    }
+}

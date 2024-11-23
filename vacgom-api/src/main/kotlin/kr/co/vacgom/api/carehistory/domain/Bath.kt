@@ -6,4 +6,10 @@ import java.time.LocalDateTime
 data class Bath (
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(startDate: LocalDateTime, endDate: LocalDateTime): Bath {
+            return Bath(startDate = startDate, endDate = endDate)
+        }
+    }
+}

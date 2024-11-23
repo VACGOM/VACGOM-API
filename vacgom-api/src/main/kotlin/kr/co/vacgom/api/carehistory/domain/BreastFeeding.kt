@@ -9,4 +9,20 @@ data class BreastFeeding (
     val endDate: LocalDateTime,
     val duration: Long,
     val breastDirection: BreastDirection
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(
+            startDate: LocalDateTime,
+            endDate: LocalDateTime,
+            duration: Long,
+            breastDirection: BreastDirection
+        ): BreastFeeding {
+            return BreastFeeding(
+                startDate = startDate,
+                endDate = endDate,
+                duration = duration,
+                breastDirection = breastDirection
+            )
+        }
+    }
+}

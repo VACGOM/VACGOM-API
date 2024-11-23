@@ -6,4 +6,10 @@ import java.time.LocalDateTime
 data class Sleep (
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
-): BaseTimeEntity()
+): BaseTimeEntity() {
+    companion object {
+        fun create(startDate: LocalDateTime, endDate: LocalDateTime): Sleep {
+            return Sleep(startDate = startDate, endDate = endDate)
+        }
+    }
+}
