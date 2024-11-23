@@ -1,14 +1,19 @@
 package kr.co.vacgom.api.user.application
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.every
 import io.mockk.mockk
 import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
+import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
+import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
 import kr.co.vacgom.api.user.repository.UserRepository
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 class AuthServiceTest : DescribeSpec({
 
@@ -54,8 +59,30 @@ class AuthServiceTest : DescribeSpec({
             }
         }
     }
+
+    describe("소셜 로그인 연결 해제 예외 테스트") {
+        context("연결 해제 하려는 유저의 socialId가 존재하지 않으면") {
+            it("${UserError.SOCIAL_ID_NOT_FOUND.name} 예외가 발생한다.") {
+                val notSocialIdUser = User.create(
+                    "nickname",
+                    null,
+                    SocialLoginProvider.KAKAO,
+                    emptyList()
+                )
+
+                val result = shouldThrow<BusinessException> { sut.unlinkUser(notSocialIdUser) }
+                result.errorCode shouldBe UserError.SOCIAL_ID_NOT_FOUND
+                result.message shouldBe UserError.SOCIAL_ID_NOT_FOUND.message
+            }
+        }
+    }
 }) {
     companion object {
-        val savedUser = User(1L, null, SocialLoginProvider.KAKAO, "nickname", emptyList())
+        val savedUser = User.create(
+            "nickname",
+            "socialId",
+            SocialLoginProvider.KAKAO,
+            arrayListOf(SimpleGrantedAuthority("ROLE_USER")
+        ))
     }
 }

@@ -27,9 +27,8 @@ class JwtAuthenticationFilter(
         filterChain: FilterChain
     ) {
         userTokenService.extractToken(request)?.run {
-            val accessUserId = userTokenService.getUserIdFromToken(this)
-            val authorities = userTokenService.getAuthoritiesFromToken(this)
-            val userAuthentication = UserAuthentication(accessUserId, authorities)
+            val accessToken = userTokenService.resolveAccessToken(this)
+            val userAuthentication = UserAuthentication(accessToken.userId, accessToken.authorities)
 
             SecurityContextHolder.getContext().authentication = userAuthentication
         } ?: throw BusinessException(GlobalError.UNAUTHORIZED)

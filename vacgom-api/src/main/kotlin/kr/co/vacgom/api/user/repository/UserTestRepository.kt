@@ -3,10 +3,11 @@ package kr.co.vacgom.api.user.repository
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.user.domain.User
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 class UserTestRepository(
-    private val db: MutableMap<Long, User> = mutableMapOf(1L to User(1L,
+    private val db: MutableList<User> = mutableListOf(User(
         socialId = "",
         provider = SocialLoginProvider.KAKAO,
         nickname = "nickname",
@@ -15,18 +16,18 @@ class UserTestRepository(
     ),
 ): UserRepository {
     override fun save(user: User) {
-        db[user.id] = user
+        db.add(user)
     }
 
     override fun findBySocialId(socialId: String): User? {
-        return db.filter { it.value.socialId == socialId }.values.firstOrNull()
+        return db.firstOrNull { it.socialId == socialId }
     }
 
-    override fun findByUserId(userId: Long): User? {
-        return db[userId]
+    override fun findByUserId(userId: UUID): User? {
+        return db.firstOrNull { it.id == userId }
     }
 
-    override fun deleteByUserId(userId: Long) {
-        db.remove(userId)
+    override fun deleteByUserId(userId: UUID) {
+        db.removeIf { it.id == userId }
     }
 }
