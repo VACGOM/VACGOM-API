@@ -14,10 +14,8 @@ dependencies {
     //feign Client
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
-    val jsonwebtokenVersion = "0.12.6"
-    implementation("io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion")
-    implementation("io.jsonwebtoken:jjwt-gson:$jsonwebtokenVersion")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion")
+    //uuid-creator
+    implementation ("com.github.f4b6a3:uuid-creator:6.0.0")
 
     val javaJwtVersion = "4.4.0"
     implementation("com.auth0:java-jwt:$javaJwtVersion")

@@ -2,9 +2,10 @@ package kr.co.vacgom.api.global.security
 
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.GrantedAuthority
+import java.util.*
 
 class UserAuthentication(
-    private val userId: Long,
+    private val userId: UUID,
     authorities: Collection<GrantedAuthority>,
 ) : AbstractAuthenticationToken(authorities) {
 
