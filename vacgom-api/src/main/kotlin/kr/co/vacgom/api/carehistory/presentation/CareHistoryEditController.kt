@@ -15,46 +15,46 @@ class CareHistoryEditController(
 ) {
     @PostMapping("/breast-feeding")
     fun addBreastFeeding(request: BreastFeedingDto.Request) {
-
+        careHistoryEditService.addBreastFeeding(request)
     }
 
     @PostMapping("/baby-formula")
     fun addBabyFormula(request: BabyFormulaDto.Request) {
-
+        careHistoryEditService.addBabyFormula(request)
     }
 
     @PostMapping("/breast-pumping")
-    fun addBreastPumping(request: BreastFeedingDto.Request) {
-
+    fun addBreastPumping(request: BreastPumpingDto.Request) {
+        careHistoryEditService.addBreastPumping(request)
     }
 
     @PostMapping("/baby-food")
     fun addBabyFood(request: BabyFoodDto.Request) {
-
+        careHistoryEditService.addBabyFood(request)
     }
 
     @PostMapping("/diaper")
     fun addDiaper(request: DiaperDto.Request) {
-
+        careHistoryEditService.addDiaper(request)
     }
 
     @PostMapping("/bath")
     fun addBath(request: BathDto.Request) {
-
+        careHistoryEditService.addBath(request)
     }
 
     @PostMapping("/sleep")
     fun addSleep(request: SleepDto.Request) {
-
+        careHistoryEditService.addSleep(request)
     }
 
     @PostMapping("/health")
     fun addHealth(request: HealthDto.Request) {
-
+        careHistoryEditService.addHealth(request)
     }
 
     @PostMapping("/snack")
     fun addSnack(request: SnackDto.Request) {
-
+        careHistoryEditService.addSnack(request)
     }
 }
