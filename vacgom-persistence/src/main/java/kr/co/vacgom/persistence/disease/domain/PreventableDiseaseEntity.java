@@ -13,7 +13,7 @@ import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PRIVATE;
 
 @Entity
-@Table(name = "TB_PREVENTABLE_DISEASE_MAPPING")
+@Table(name = "TB_PREVENTABLE_DISEASE")
 @Getter
 @NoArgsConstructor
 @Builder(access = PRIVATE)
@@ -21,7 +21,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class PreventableDiseaseEntity extends BaseEntity {
 
     @Id
-    @Column(name = "MAPPING_ID", nullable = false, updatable = false)
+    @Column(name = "PREVENTABLE_DISEASE_ID", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("[Not Null] 질병-백신 매핑 엔티티 Id")
     private Long id;

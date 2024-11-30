@@ -28,7 +28,11 @@ public class VaccinationEntity extends BaseEntity {
 
     @Id
     @Convert(converter = UuidBinaryConverter.class)
-    @Column(name = "VACCINATION_ID", columnDefinition = "BINARY(16)", nullable = false, updatable = false)
+    @Column(name = "VACCINATION_ID",
+            columnDefinition = "BINARY(16)",
+            nullable = false,
+            updatable = false
+    )
     @Comment("[Not Null] 백신 접종 내역 엔티티 Id")
     private UUID id = UuidUtility.generateRandomUUID();
 
@@ -38,50 +42,27 @@ public class VaccinationEntity extends BaseEntity {
 
     @Column
     @Comment("[Nullable] 백신 접종 차수 및 접종 정보")
-    private String doseDescription;
+    private String doseRoundDescription;
 
     @JsonFormat(shape = STRING, pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     @Comment("[Not Null] 백신 접종 일자")
-    private LocalDate vaccinatedDate;
+    private LocalDate vaccinatedAt;
 
     @Comment("[Nullable] 백신 접종 기관")
-    private String vaccinationFacility;
+    private String facility;
 
     @Comment("[Nullable] 백신 제조사")
-    private String vaccinationManufacturer;
+    private String manufacturer;
 
     @Comment("[Nullable] 판매 허가된 백신 정규 명칭")
-    private String vaccineProductName;
+    private String productName;
 
     @Comment("[Nullable] 백신 고유 로트번호")
-    private String vaccineLotNumber;
+    private String lotNumber;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "VACCINE_ID")
     @Comment("[NotNull] 백신(Vaccine) Id")
     private VaccineEntity vaccine;
-
-    public static VaccinationEntity create(
-            Long doseRound,
-            String doseDescription,
-            LocalDate vaccinatedDate,
-            String vaccinationFacility,
-            String vaccinationManufacturer,
-            String vaccineProductName,
-            String vaccineLotNumber,
-            VaccineEntity vaccine
-    ) {
-        return VaccinationEntity.builder()
-                .id(UuidUtility.generateRandomUUID())
-                .doseRound(doseRound)
-                .doseDescription(doseDescription)
-                .vaccinatedDate(vaccinatedDate)
-                .vaccinationFacility(vaccinationFacility)
-                .vaccinationManufacturer(vaccinationManufacturer)
-                .vaccineProductName(vaccineProductName)
-                .vaccineLotNumber(vaccineLotNumber)
-                .vaccine(vaccine)
-                .build();
-    }
 }
