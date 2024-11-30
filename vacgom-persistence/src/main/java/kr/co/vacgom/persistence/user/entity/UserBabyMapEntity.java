@@ -2,10 +2,8 @@ package kr.co.vacgom.persistence.user.entity;
 
 import jakarta.persistence.*;
 import kr.co.vacgom.persistence.baby.entity.BabyEntity;
-import kr.co.vacgom.persistence.disease.domain.DiseaseEntity;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.user.entity.constants.UserBabyAccessPermission;
-import kr.co.vacgom.persistence.vaccination.entity.VaccineEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
