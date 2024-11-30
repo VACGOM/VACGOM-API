@@ -20,7 +20,6 @@ public class VaccineEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
-            name = "VACCINE_ID",
             nullable = false,
             updatable = false
     )

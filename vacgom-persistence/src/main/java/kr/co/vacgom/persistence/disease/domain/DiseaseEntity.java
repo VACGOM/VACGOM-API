@@ -20,7 +20,6 @@ public class DiseaseEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DISEASE_ID")
     @Comment("[Not Null] 질병 Id")
     private Long id;
 
