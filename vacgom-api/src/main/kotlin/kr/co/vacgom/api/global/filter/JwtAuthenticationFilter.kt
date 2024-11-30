@@ -49,6 +49,7 @@ class JwtAuthenticationFilter(
         private val ignoredPath: Map<String, HttpMethod> = mapOf(
             GlobalPath.BASE_V3 + AuthPath.AUTH.plus("/login/**") to HttpMethod.POST,
             GlobalPath.BASE_V3 + UserPath.USER to HttpMethod.POST,
+            GlobalPath.BASE_V3.plus("/TEST/**") to HttpMethod.POST
         )
     }
 }

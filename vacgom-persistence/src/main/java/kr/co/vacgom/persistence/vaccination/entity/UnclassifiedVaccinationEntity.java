@@ -36,7 +36,11 @@ public class UnclassifiedVaccinationEntity {
     @Comment("[Not Null] 미분류 백신 접종 내역 엔티티 Id")
     private UUID id = UuidUtility.generateRandomUUID();
 
-    @Column(nullable = true)
+    @Column(nullable = false)
+    @Comment("[Not Null] 미분류 백신 이름")
+    private String name;
+
+    @Column
     @Comment("[Nullable] 백신 접종 차수")
     private Long doseRound;
 

@@ -25,12 +25,12 @@ public class DiseaseEntity extends BaseEntity {
 
     @Column(nullable = false)
     @Comment("[Not Null] 질병 Id")
-    private String diseaseName;
+    private String name;
 
     @Column(
             nullable = false,
             columnDefinition = "varchar(500)"
     )
     @Comment("[Not Null] 질병 설명 정보")
-    private String diseaseInfo;
+    private String description;
 }
