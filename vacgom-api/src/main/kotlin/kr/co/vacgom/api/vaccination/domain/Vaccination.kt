@@ -4,10 +4,10 @@ import java.time.LocalDate
 
 data class Vaccination(
     val doseRound: Long,
-    val doseDescription: String,
-    val vaccinatedDate: LocalDate,
-    val vaccinationFacility: String?,
-    val vaccinationManufacturer: String?,
-    val vaccineProductName: String?,
-    val vaccineLotNumber: String?
+    val doseRoundDescription: String,
+    val vaccinatedAt: LocalDate,
+    val facility: String?,
+    val manufacturer: String?,
+    val productName: String?,
+    val lotNumber: String?
 )
