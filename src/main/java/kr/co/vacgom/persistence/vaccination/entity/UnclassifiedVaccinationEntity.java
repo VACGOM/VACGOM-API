@@ -1,9 +1,7 @@
 package kr.co.vacgom.persistence.vaccination.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import kr.co.vacgom.persistence.baby.entity.BabyEntity;
-import kr.co.vacgom.persistence.global.entity.BaseEntity;
+import kr.co.vacgom.persistence.entity.BabyEntity;
 import kr.co.vacgom.persistence.global.util.UuidBinaryConverter;
 import kr.co.vacgom.persistence.global.util.UuidUtility;
 import lombok.AllArgsConstructor;
@@ -20,12 +18,12 @@ import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PRIVATE;
 
 @Entity
-@Table(name = "TB_VACCINATION")
+@Table(name = "TB_VACCINATION_UNCLASSIFIED")
 @Getter
 @NoArgsConstructor
 @Builder(access = PRIVATE)
 @AllArgsConstructor(access = PRIVATE)
-public class VaccinationEntity extends BaseEntity {
+public class UnclassifiedVaccinationEntity {
 
     @Id
     @Convert(converter = UuidBinaryConverter.class)
@@ -34,10 +32,14 @@ public class VaccinationEntity extends BaseEntity {
             nullable = false,
             updatable = false
     )
-    @Comment("[Not Null] 백신 접종 내역 엔티티 Id")
+    @Comment("[Not Null] 미분류 백신 접종 내역 엔티티 Id")
     private UUID id = UuidUtility.generateRandomUUID();
 
-    @Column(nullable = true)
+    @Column(nullable = false)
+    @Comment("[Not Null] 미분류 백신 이름")
+    private String name;
+
+    @Column
     @Comment("[Nullable] 백신 접종 차수")
     private Long doseRound;
 
@@ -61,11 +63,6 @@ public class VaccinationEntity extends BaseEntity {
 
     @Comment("[Nullable] 백신 고유 로트번호")
     private String lotNumber;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "VACCINE_ID")
-    @Comment("[NotNull] 백신(Vaccine) Id")
-    private VaccineEntity vaccine;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "BABY_ID")

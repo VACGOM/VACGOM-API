@@ -1,6 +1,5 @@
-package kr.co.vacgom.persistence.disease.domain;
+package kr.co.vacgom.persistence.domain;
 
-import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

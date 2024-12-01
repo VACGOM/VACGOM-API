@@ -1,6 +1,0 @@
-[submodule "vacgom-persistence/PERSISTENCE-CONFIG"]
-	path = vacgom-persistence/PERSISTENCE-CONFIG
-	url = git@github.com:VACGOM/VACGOM-API-PERSISTENCE-CONFIG.git
-[submodule "vacgom-api/API-CONFIG"]
-	path = vacgom-api/API-CONFIG
-	url = git@github.com:VACGOM/vacgom-api-v3-api-config.git

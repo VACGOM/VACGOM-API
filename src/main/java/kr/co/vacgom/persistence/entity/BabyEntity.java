@@ -1,11 +1,10 @@
-package kr.co.vacgom.persistence.baby.entity;
+package kr.co.vacgom.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import kr.co.vacgom.persistence.entity.constants.Sex;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.global.util.UuidBinaryConverter;
 import kr.co.vacgom.persistence.global.util.UuidUtility;
-import kr.co.vacgom.persistence.user.entity.constants.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,9 +1,7 @@
-package kr.co.vacgom.persistence.user.entity;
+package kr.co.vacgom.persistence.entity;
 
-import jakarta.persistence.*;
-import kr.co.vacgom.persistence.baby.entity.BabyEntity;
+import kr.co.vacgom.persistence.entity.constants.UserBabyAccessPermission;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
-import kr.co.vacgom.persistence.user.entity.constants.UserBabyAccessPermission;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package kr.co.vacgom.persistence.user.entity.constants;
+package kr.co.vacgom.persistence.entity.constants;
 
 import lombok.Getter;
 

@@ -1,6 +1,5 @@
-package kr.co.vacgom.persistence.user.entity;
+package kr.co.vacgom.persistence.entity;
 
-import jakarta.persistence.*;
 import kr.co.vacgom.persistence.global.entity.BaseEntity;
 import kr.co.vacgom.persistence.global.util.UuidBinaryConverter;
 import kr.co.vacgom.persistence.global.util.UuidUtility;
