@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.user.presentation
 
+import kr.co.vacgom.api.auth.security.util.SecurityContextUtil
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
-import kr.co.vacgom.api.global.security.util.SecurityContextUtil
 import kr.co.vacgom.api.user.application.UserService
 import kr.co.vacgom.api.user.presentation.UserPath.USER
 import kr.co.vacgom.api.user.presentation.dto.Signup

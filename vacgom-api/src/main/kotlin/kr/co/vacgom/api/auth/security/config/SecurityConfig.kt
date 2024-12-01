@@ -1,7 +1,7 @@
-package kr.co.vacgom.api.global.config
+package kr.co.vacgom.api.auth.security.config
 
+import kr.co.vacgom.api.auth.filter.JwtAuthenticationFilter
 import kr.co.vacgom.api.global.exception.ApiExceptionHandlingFilter
-import kr.co.vacgom.api.global.filter.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.global.filter
+package kr.co.vacgom.api.auth.filter
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath
-import kr.co.vacgom.api.global.security.UserAuthentication
+import kr.co.vacgom.api.auth.security.UserAuthentication
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.presentation.AuthPath
 import kr.co.vacgom.api.user.presentation.UserPath

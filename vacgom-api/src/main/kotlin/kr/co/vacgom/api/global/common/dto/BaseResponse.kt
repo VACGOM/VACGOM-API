@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.global.dto
+package kr.co.vacgom.api.global.common.dto
 
 data class BaseResponse<T>(
         val result: Boolean,

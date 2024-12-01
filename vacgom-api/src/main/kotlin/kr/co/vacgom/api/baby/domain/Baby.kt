@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.domain
 
 import kr.co.vacgom.api.baby.domain.ManagerGroup
+import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
 import kr.co.vacgom.api.user.domain.enums.Gender
 import java.time.LocalDateTime
@@ -13,7 +14,7 @@ data class Baby(
     val gender: Gender,
     val birthday: LocalDateTime,
     val managerGroup: ManagerGroup
-) {
+): BaseTimeEntity() {
     companion object {
         fun create(
             name: String,
