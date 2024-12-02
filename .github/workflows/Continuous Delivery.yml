@@ -45,7 +45,7 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         env:
-          PROFILE: prod
+          PROFILE: product
           IMAGE_REPO_URL: ${{ steps.login-ecr.outputs.registry }}/vacgom-ecr-new
           IMAGE_TAG: ${{ github.sha }}
         run: ./gradlew jib --parallel
