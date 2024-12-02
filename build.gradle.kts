@@ -1,7 +1,12 @@
+val activeProfile = System.getenv("PROFILE") ?: "product"
+val imageTag = System.getenv("IMAGE_TAG") ?: "latest"
+val repoURL: String? = System.getenv("IMAGE_REPO_URL")
+
 plugins {
     id("org.springframework.boot") version "3.3.6"
     id("io.spring.dependency-management") version "1.1.6"
     id("io.freefair.lombok") version "8.10.2"
+    id("com.google.cloud.tools.jib") version "3.4.3"
 
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.jpa") version "2.0.21"
@@ -75,5 +80,25 @@ tasks {
 
     processResources {
         dependsOn("initConfiguration")
+    }
+}
+
+jib {
+    from {
+        image = "amazoncorretto:21-alpine-jdk"
+    }
+    to {
+        image = repoURL
+        tags = setOf(imageTag)
+    }
+    container {
+        jvmFlags =
+            listOf(
+                "-Dspring.profiles.active=$activeProfile",
+                "-Dserver.port=8080",
+                "-XX:+UseContainerSupport",
+                "-Duser.timezone=Asia/Seoul"
+            )
+        ports = listOf("8080")
     }
 }
