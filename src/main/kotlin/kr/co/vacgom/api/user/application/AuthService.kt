@@ -23,9 +23,12 @@ class AuthService(
                 userTokenService.createRegisterToken(socialAuthInfo.socialId, provider)
             )
 
+        val refreshToken = userTokenService.createRefreshToken(findUser.id)
+        userTokenService.saveRefreshToken(refreshToken, findUser.id)
+
         return Login.Response.Success(
             userTokenService.createAccessToken(findUser.id, findUser.role),
-            userTokenService.createRefreshToken(findUser.id),
+            refreshToken,
         )
     }
 

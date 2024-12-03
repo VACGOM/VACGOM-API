@@ -14,7 +14,7 @@ data class JwtPayload(
     val nbf: Date = Date.from(Instant.now()),
     val iat: Date = Date.from(Instant.now()),
     val jti: String? = null,
-    val privateClaims: MutableMap<String, Any> = mutableMapOf(),
+    val privateClaims: Map<String, Any> = mapOf(),
 ) {
     companion object {
 

@@ -13,7 +13,6 @@ import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.repository.RefreshTokenRepository
 import kr.co.vacgom.api.user.repository.UserRepository
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
 import java.time.Instant
@@ -32,8 +31,8 @@ class UserTokenService(
                 sub = TokenType.ACCESS_TOKEN.name,
                 exp = Date.from(Instant.now().plusSeconds(jwtProperties.accessTokenExpirationSec)),
                 privateClaims = mutableMapOf(
-                    "userId" to userId.toString(),
-                    "scope" to arrayListOf(SimpleGrantedAuthority(role.name)),
+                    "userId" to userId,
+                    "scope" to listOf(role.name),
                 )
             )
 
@@ -45,15 +44,12 @@ class UserTokenService(
             iss = jwtProperties.issuer,
             sub = TokenType.REFRESH_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.refreshTokenExpirationSec)),
-            privateClaims = mutableMapOf(
-                "userId" to userId.toString()
+            privateClaims = mapOf(
+                "userId" to userId
             )
         )
 
-        val refreshToken = jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
-        refreshTokenRepository.save(refreshToken, userId)
-
-        return refreshToken
+        return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
     fun createRegisterToken(socialId: String, provider: String): String {
@@ -61,7 +57,7 @@ class UserTokenService(
             iss = jwtProperties.issuer,
             sub = TokenType.REGISTER_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.registerTokenExpirationSec)),
-            privateClaims = mutableMapOf(
+            privateClaims = mapOf(
                 "socialId" to socialId,
                 "provider" to provider,
             )
@@ -121,6 +117,7 @@ class UserTokenService(
     fun saveRefreshToken(token: String, userId: Long) {
         refreshTokenRepository.save(token, userId)
     }
+
     fun deleteRefreshToken(userId: Long) {
         refreshTokenRepository.deleteByUserId(userId)
     }
