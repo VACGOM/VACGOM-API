@@ -1,11 +1,10 @@
 package kr.co.vacgom.api.user.repository
 
-import kr.co.vacgom.api.user.domain.User
-import java.util.*
+import kr.co.vacgom.api.user.User
 
 interface UserRepository {
     fun save(user: User)
-    fun findBySocialId(socialId: String): User?
-    fun findByUserId(userId: UUID): User?
-    fun deleteByUserId(userId: UUID)
+    fun findBySocialIdOrNull(socialId: String): User?
+    fun findById(userId: Long): User?
+    fun deleteById(userId: Long)
 }
