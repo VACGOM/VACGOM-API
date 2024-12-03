@@ -9,6 +9,7 @@ plugins {
     id("com.google.cloud.tools.jib") version "3.4.3"
 
     kotlin("jvm") version "2.0.21"
+    kotlin("plugin.lombok") version "2.1.0"
     kotlin("plugin.jpa") version "2.0.21"
     kotlin("plugin.spring") version "2.0.21"
 }
@@ -38,12 +39,12 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Testing
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.9.1")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.9.1")
     testImplementation("io.mockk:mockk:1.13.13")
-
 
     // Database
     runtimeOnly("com.mysql:mysql-connector-j")
