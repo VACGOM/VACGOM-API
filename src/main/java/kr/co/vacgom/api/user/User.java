@@ -8,14 +8,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.regex.Pattern;
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider;
 import kr.co.vacgom.api.global.entity.BaseEntity;
 import kr.co.vacgom.api.user.domain.enums.UserRole;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "TB_USER")
 public class User extends BaseEntity {
@@ -47,6 +50,13 @@ public class User extends BaseEntity {
     private UserRole role;
 
     public User(String nickname, String socialId, SocialLoginProvider provider, UserRole role) {
+        String nickNameRegex = "^[가-힣a-z0-9!@#$%^&*(),.?\":{}|<>_\\-+=\\[\\]\\\\/'~` ]*$";
+        int sizeLimit = 2;
+
+        if (nickname.length() < sizeLimit || !Pattern.matches(nickNameRegex, nickname)) {
+            throw new IllegalArgumentException();
+        }
+
         this.nickname = nickname;
         this.socialId = socialId;
         this.provider = provider;

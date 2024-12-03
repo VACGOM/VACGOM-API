@@ -9,15 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import kr.co.vacgom.api.global.entity.BaseEntity;
 import kr.co.vacgom.api.user.domain.enums.Gender;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "TB_BABY")
-public class Baby {
+public class Baby extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
@@ -43,4 +46,11 @@ public class Baby {
     @Column(nullable = false)
     @Comment("[Not Null] 아기 생년월일")
     private LocalDate birthday;
+
+    public Baby(String name, String profileImg, Gender gender, LocalDate birthday) {
+        this.name = name;
+        this.profileImg = profileImg;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
 }

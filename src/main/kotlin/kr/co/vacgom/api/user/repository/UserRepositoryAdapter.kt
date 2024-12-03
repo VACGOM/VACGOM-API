@@ -6,13 +6,13 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UserRepositoryAdapter(
-    val userJpaRepository: UserJpaRepository
+    private val userJpaRepository: UserJpaRepository
 ): UserRepository {
-    override fun save(user: User) {
-        userJpaRepository.save(user)
+    override fun save(user: User): User {
+        return userJpaRepository.save(user)
     }
 
-    override fun findBySocialIdOrNull(socialId: String): User? {
+    override fun findBySocialId(socialId: String): User? {
         return userJpaRepository.findBySocialId(socialId)
     }
 

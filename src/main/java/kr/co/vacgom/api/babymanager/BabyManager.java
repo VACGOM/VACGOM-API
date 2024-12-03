@@ -1,4 +1,4 @@
-package kr.co.vacgom.api.baby;
+package kr.co.vacgom.api.babymanager;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,15 +9,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import kr.co.vacgom.api.baby.Baby;
+import kr.co.vacgom.api.global.entity.BaseEntity;
 import kr.co.vacgom.api.user.User;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "TB_BABY_MANAGER")
-public class BabyManager {
+public class BabyManager extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
@@ -41,4 +45,10 @@ public class BabyManager {
     @Column(nullable = false)
     @Comment("[Not Null] 대표 돌보미 여부")
     private Boolean isAdmin;
+
+    public BabyManager(User manager, Baby baby, Boolean isAdmin) {
+        this.manager = manager;
+        this.baby = baby;
+        this.isAdmin = isAdmin;
+    }
 }
