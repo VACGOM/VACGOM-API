@@ -1,25 +1,24 @@
 package kr.co.vacgom.api.user.repository
 
-import org.springframework.stereotype.Repository
-import java.util.*
+import org.springframework.stereotype.Component
 
-@Repository
+@Component
 class RefreshTokenTestRepository(
-    private val db: MutableMap<UUID, String> = mutableMapOf(),
-): RefreshTokenRepository {
-    override fun update(token: String, userId: UUID) {
+    private val db: MutableMap<Long, String> = mutableMapOf(),
+) {
+    fun update(token: String, userId: Long) {
         db[userId] = token
     }
 
-    override fun save(token: String, userId: UUID) {
+    fun save(token: String, userId: Long) {
         db[userId] = token
     }
 
-    override fun deleteByUserId(userId: UUID) {
+    fun deleteByUserId(userId: Long) {
         db.remove(userId)
     }
 
-    override fun findAll(): Map<UUID, String> {
+    fun findAll(): Map<Long, String> {
         return db.toMap()
     }
 }

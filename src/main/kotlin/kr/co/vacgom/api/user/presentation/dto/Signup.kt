@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.presentation.dto
 
 import kr.co.vacgom.api.user.domain.enums.Gender
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class Signup {
@@ -13,7 +14,7 @@ class Signup {
             val name: String,
             val profileImgUrl: String,
             val gender: Gender,
-            val birthday: LocalDateTime,
+            val birthday: LocalDate,
         )
     }
 

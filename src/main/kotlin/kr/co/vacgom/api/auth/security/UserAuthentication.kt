@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority
 import java.util.*
 
 class UserAuthentication(
-    private val userId: UUID,
+    private val userId: Long,
     authorities: Collection<GrantedAuthority>,
 ) : AbstractAuthenticationToken(authorities) {
 

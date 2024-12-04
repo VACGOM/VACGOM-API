@@ -20,7 +20,7 @@ class UserController(
 
     @DeleteMapping
     fun revoke() {
-        val userId: UUID = SecurityContextUtil.getPrincipal()
+        val userId = SecurityContextUtil.getPrincipal()
         userService.revoke(userId)
     }
 }

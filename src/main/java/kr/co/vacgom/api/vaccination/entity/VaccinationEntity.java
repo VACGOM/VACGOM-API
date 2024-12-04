@@ -1,8 +1,20 @@
 package kr.co.vacgom.api.vaccination.entity;
 
+import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
+import static jakarta.persistence.FetchType.LAZY;
+import static lombok.AccessLevel.PRIVATE;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-import kr.co.vacgom.api.entity.BabyEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
+import java.util.UUID;
+import kr.co.vacgom.api.baby.Baby;
 import kr.co.vacgom.api.global.entity.BaseEntity;
 import kr.co.vacgom.api.global.util.UuidBinaryConverter;
 import kr.co.vacgom.api.global.util.UuidUtility;
@@ -11,13 +23,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-
-import java.time.LocalDate;
-import java.util.UUID;
-
-import static com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING;
-import static jakarta.persistence.FetchType.LAZY;
-import static lombok.AccessLevel.PRIVATE;
 
 @Entity
 @Table(name = "TB_VACCINATION")
@@ -70,5 +75,5 @@ public class VaccinationEntity extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "BABY_ID")
     @Comment("[NotNull] 아기 Id")
-    private BabyEntity baby;
+    private Baby baby;
 }
