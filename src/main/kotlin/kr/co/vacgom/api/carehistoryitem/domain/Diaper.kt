@@ -1,20 +1,25 @@
 package kr.co.vacgom.api.carehistoryitem.domain
 
+import jakarta.persistence.*
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
+import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.DIAPER
 import kr.co.vacgom.api.carehistoryitem.domain.enums.ExcrementType
 import kr.co.vacgom.api.global.util.UuidCreator
+import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
 import java.util.*
 
+@Entity
+@Table(name = "TB_DIAPER")
 class Diaper (
-    val id: UUID = UuidCreator.create(),
-    val excrementType: ExcrementType,
-    itemType: CareHistoryItemType,
+    id: UUID = UuidCreator.create(),
+    excrementType: ExcrementType,
+    itemType: CareHistoryItemType = DIAPER,
     executionDate: LocalDateTime,
-): CareHistoryItem(executionDate, itemType) {
-    companion object {
-        fun create(excrementType: ExcrementType, executionDate: LocalDateTime, itemType: CareHistoryItemType): Diaper {
-            return Diaper(excrementType = excrementType, executionDate = executionDate, itemType = itemType)
-        }
-    }
+): CareHistoryItem(id, executionDate, itemType) {
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Comment("[Not Null] 대소변 타입")
+    var excrementType: ExcrementType = excrementType
+        protected set
 }
