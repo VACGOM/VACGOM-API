@@ -8,15 +8,15 @@ import java.time.LocalDateTime
 class BabyFormulaTest : FunSpec({
     test("BabyFormula 객체 정상 생성 테스트") {
         val amount = 100
-        val executionDate = LocalDateTime.now()
+        val executionTime = LocalDateTime.now()
 
         val babyFormula = BabyFormula(
             amount = amount,
-            executionDate = executionDate,
+            executionTime = executionTime,
             itemType = CareHistoryItemType.BABY_FOOD
         )
 
-        babyFormula.executionDate shouldBe executionDate
+        babyFormula.executionTime shouldBe executionTime
         babyFormula.amount shouldBe amount
     }
 

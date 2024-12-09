@@ -9,7 +9,7 @@ class BabyFoodDto {
     data class Request(
         val babyId: UUID,
         val amount: Int,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {

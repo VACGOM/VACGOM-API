@@ -9,7 +9,7 @@ class SnackDto {
     data class Request(
         val babyId: UUID,
         val memo: String,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {

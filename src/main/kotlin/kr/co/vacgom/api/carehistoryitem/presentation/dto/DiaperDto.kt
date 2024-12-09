@@ -10,7 +10,7 @@ class DiaperDto {
     data class Request(
         val babyId: UUID,
         val excrementType: ExcrementType,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {

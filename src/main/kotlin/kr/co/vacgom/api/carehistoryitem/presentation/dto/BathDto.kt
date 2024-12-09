@@ -10,7 +10,7 @@ class BathDto {
         val babyId: UUID,
         val startDate: LocalDateTime,
         val endDate: LocalDateTime,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
     class Response {
         class DailyStat(

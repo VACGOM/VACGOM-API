@@ -2,20 +2,19 @@ package kr.co.vacgom.api.carehistoryitem.repository
 
 import kr.co.vacgom.api.carehistoryitem.domain.CareHistory
 import kr.co.vacgom.api.carehistoryitem.domain.CareHistoryItem
-import org.springframework.stereotype.Repository
-import java.time.LocalDateTime
+import org.springframework.stereotype.Component
+import java.time.LocalDate
 import java.util.*
 
-@Repository
+@Component
 class CareHistoryItemTestRepository(
     private val db: MutableList<CareHistoryItem> = mutableListOf(),
-): CareHistoryItemRepository {
-
-    override fun saveHistoryItem(item: CareHistoryItem) {
+) {
+    fun saveHistoryItem(item: CareHistoryItem) {
         db.add(item)
     }
 
-    override fun findByBabyIdAndExecutionDate(babyId: UUID, executionDate: LocalDateTime): CareHistory {
+    fun findByBabyIdAndExecutionTime(babyId: UUID, executionDate: LocalDate): CareHistory {
         val careHistoryItemsByType = db.groupBy { it.itemType }
         return CareHistory(babyId, executionDate, careHistoryItemsByType)
     }

@@ -12,12 +12,12 @@ class CareHistoryItemCreateService(
     private val careHistoryItemRepository: CareHistoryItemRepository,
 ) {
     fun addBreastFeeding(request: BreastFeedingDto.Request) {
-        val newBreastFeeding = BreastFeeding.create(
-            startDate = request.startDate,
-            endDate = request.endDate,
+        val newBreastFeeding = BreastFeeding(
+            startTime = request.startDate,
+            endTime = request.endDate,
             minutes = ChronoUnit.MINUTES.between(request.startDate, request.endDate).toInt(),
             breastDirection = request.breastDirection,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.BREAST_FEEDING
         )
 
@@ -25,9 +25,9 @@ class CareHistoryItemCreateService(
     }
 
     fun addBabyFormula(request: BabyFormulaDto.Request) {
-        val newBabyFormula = BabyFormula.create(
+        val newBabyFormula = BabyFormula(
             amount = request.amount,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.BABY_FORMULA,
         )
 
@@ -35,9 +35,9 @@ class CareHistoryItemCreateService(
     }
 
     fun addBreastPumping(request: BreastPumpingDto.Request) {
-        val newBreastPumping = BreastPumping.create(
+        val newBreastPumping = BreastPumping(
             amount = request.amount,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.BREAST_PUMPING
         )
 
@@ -45,9 +45,9 @@ class CareHistoryItemCreateService(
     }
 
     fun addBabyFood(request: BabyFoodDto.Request) {
-        val newBabyFood = BabyFood.create(
+        val newBabyFood = BabyFood(
             amount = request.amount,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.BABY_FOOD
         )
 
@@ -55,9 +55,9 @@ class CareHistoryItemCreateService(
     }
 
     fun addDiaper(request: DiaperDto.Request) {
-        val newDiaper = Diaper.create(
+        val newDiaper = Diaper(
             excrementType = request.excrementType,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.DIAPER,
         )
 
@@ -67,11 +67,11 @@ class CareHistoryItemCreateService(
     fun addBath(request: BathDto.Request) {
         val minutes = ChronoUnit.MINUTES.between(request.startDate, request.endDate).toInt()
 
-        val newBath = Bath.create(
-            startDate = request.startDate,
-            endDate = request.endDate,
+        val newBath = Bath(
+            startTime = request.startDate,
+            endTime = request.endDate,
             minutes = minutes,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.BATH
         )
 
@@ -81,11 +81,11 @@ class CareHistoryItemCreateService(
     fun addSleep(request: SleepDto.Request) {
         val minutes = ChronoUnit.MINUTES.between(request.startDate, request.endDate).toInt()
 
-        val newSleep = Sleep.create(
-            startDate = request.startDate,
-            endDate = request.endDate,
+        val newSleep = Sleep(
+            startTime = request.startDate,
+            endTime = request.endDate,
             minutes = minutes,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.SLEEP,
         )
 
@@ -93,10 +93,10 @@ class CareHistoryItemCreateService(
     }
 
     fun addHealth(request: HealthDto.Request) {
-        val newHealth = Health.create(
+        val newHealth = Health(
             temperature = request.temperature,
             memo = request.memo,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.HEALTH,
         )
 
@@ -104,9 +104,9 @@ class CareHistoryItemCreateService(
     }
 
     fun addSnack(request: SnackDto.Request) {
-        val newSnack = Snack.create(
+        val newSnack = Snack(
             memo = request.memo,
-            executionDate = request.executionDate,
+            executionTime = request.executionTime,
             itemType = CareHistoryItemType.SNACK,
         )
 

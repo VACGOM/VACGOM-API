@@ -1,21 +1,22 @@
 package kr.co.vacgom.api.entity;
 
+import static lombok.AccessLevel.PRIVATE;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.LocalDate;
 import kr.co.vacgom.api.entity.constants.Sex;
 import kr.co.vacgom.api.global.entity.BaseEntity;
-import kr.co.vacgom.api.global.util.UuidBinaryConverter;
-import kr.co.vacgom.api.global.util.UuidUtility;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-
-import java.time.LocalDate;
-import java.util.UUID;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Entity
 @Table(name = "TB_BABY")
@@ -26,14 +27,13 @@ import static lombok.AccessLevel.PRIVATE;
 public class BabyEntity extends BaseEntity {
 
     @Id
-    @Convert(converter = UuidBinaryConverter.class)
     @Column(
-            columnDefinition = "BINARY(16)",
+            name = "baby_id",
             nullable = false,
             updatable = false
     )
     @Comment("[Not Null] 유저 Id")
-    private UUID id = UuidUtility.generateRandomUUID();
+    private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(nullable = false)

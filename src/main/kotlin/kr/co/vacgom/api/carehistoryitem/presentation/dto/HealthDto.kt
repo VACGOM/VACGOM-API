@@ -10,7 +10,7 @@ class HealthDto {
         val babyId: UUID,
         val temperature: Double,
         val memo: String,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {
@@ -29,7 +29,7 @@ class HealthDto {
 
                     return DailyStat(
                         careName = type.typeName,
-                        temperature = items.sumOf { it.temperature} / items.size
+                        temperature = items.sumOf { it.temperature } / items.size
                     )
                 }
             }
