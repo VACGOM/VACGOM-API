@@ -1,6 +1,6 @@
 package kr.co.vacgom.api.baby.repository
 
-import kr.co.vacgom.api.user.domain.Baby
+import kr.co.vacgom.api.baby.domain.Baby
 import org.springframework.stereotype.Repository
 
 @Repository

@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.baby.application
 
 import kr.co.vacgom.api.baby.repository.BabyRepository
-import kr.co.vacgom.api.user.domain.Baby
+import kr.co.vacgom.api.baby.domain.Baby
 import org.springframework.stereotype.Service
 
 @Service
