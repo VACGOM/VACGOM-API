@@ -29,7 +29,7 @@ class HealthDto {
 
                     return DailyStat(
                         careName = type.typeName,
-                        temperature = items.sumOf { it.temperature} / items.size
+                        temperature = items.sumOf { it.temperature } / items.size
                     )
                 }
             }

@@ -3,14 +3,14 @@ package kr.co.vacgom.api.carehistoryitem.presentation.dto
 import kr.co.vacgom.api.carehistoryitem.domain.*
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.global.util.snakeToCamelCase
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.*
 
 class CareHistoryDto{
     class Response {
         data class Daily(
             val babyId: UUID,
-            val executionDate: LocalDateTime,
+            val executionDate: LocalDate,
             val careItems: Map<String, AbstractDailyStatDto>
         ) {
             companion object {
