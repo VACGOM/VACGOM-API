@@ -16,8 +16,8 @@ class Health (
     temperature: Double,
     memo: String,
     itemType: CareHistoryItemType = HEALTH,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Comment("체온")
     var temperature: Double = temperature
         protected set

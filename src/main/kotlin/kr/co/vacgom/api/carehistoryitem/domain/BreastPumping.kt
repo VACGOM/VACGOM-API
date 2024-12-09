@@ -16,8 +16,8 @@ class BreastPumping (
     id: UUID = UuidCreator.create(),
     amount: Int,
     itemType: CareHistoryItemType = BREAST_PUMPING,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 유축 양")
     var amount = amount

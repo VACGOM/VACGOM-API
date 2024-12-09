@@ -16,8 +16,8 @@ class BabyFood(
     id: UUID = UuidCreator.create(),
     amount: Int,
     itemType: CareHistoryItemType = BABY_FOOD,
-    executionDate: LocalDateTime,
-) : CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+) : CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 이유식 양")
     var amount = amount

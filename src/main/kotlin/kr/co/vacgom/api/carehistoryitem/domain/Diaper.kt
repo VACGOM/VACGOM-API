@@ -15,8 +15,8 @@ class Diaper (
     id: UUID = UuidCreator.create(),
     excrementType: ExcrementType,
     itemType: CareHistoryItemType = DIAPER,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Comment("[Not Null] 대소변 타입")

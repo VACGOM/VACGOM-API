@@ -10,7 +10,7 @@ class HealthDto {
         val babyId: UUID,
         val temperature: Double,
         val memo: String,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {

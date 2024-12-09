@@ -3,17 +3,16 @@ package kr.co.vacgom.api.baby.domain
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.user.domain.Baby
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.Gender
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 class BabyTest : FunSpec({
     test("Baby 객체 정상 생성 테스트") {
         val name = "name"
         val profileImg = "profileImgUrl"
         val gender = Gender.MALE
-        val birthday = LocalDateTime.now()
+        val birthday = LocalDate.now()
         val managerGroup = ManagerGroup.create(
             adminManager = User.create(
                 nickname = "nickname",

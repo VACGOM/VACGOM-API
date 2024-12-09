@@ -8,24 +8,18 @@ import java.time.temporal.ChronoUnit
 
 class BathTest : FunSpec({
     test("Bath 객체 정상 생성 테스트") {
-        val startDate = LocalDateTime.now()
-        val endDate = LocalDateTime.now().plusMinutes(30)
+        val startTime = LocalDateTime.now()
+        val endTime = LocalDateTime.now().plusMinutes(30)
 
-        val bath = Bath.create(
-            startDate = startDate,
-            endDate = endDate,
-            minutes = ChronoUnit.MINUTES.between(startDate, endDate).toInt(),
-            executionDate = startDate,
+        val bath = Bath(
+            startTime = startTime,
+            endTime = endTime,
+            minutes = ChronoUnit.MINUTES.between(startTime, endTime).toInt(),
+            executionTime = startTime,
             itemType = CareHistoryItemType.BATH
         )
 
-        bath.startDate shouldBe startDate
-        bath.endDate shouldBe endDate
-    }
-
-    test("temp test"){
-        val startDate = LocalDateTime.now()
-        val endDate = LocalDateTime.now().plusMinutes(30)
-        println(ChronoUnit.HOURS.between(startDate, endDate))
+        bath.startTime shouldBe startTime
+        bath.endTime shouldBe endTime
     }
 })

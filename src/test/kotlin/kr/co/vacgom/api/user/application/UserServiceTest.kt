@@ -13,7 +13,7 @@ import kr.co.vacgom.api.user.domain.enums.Gender
 import kr.co.vacgom.api.user.presentation.dto.Signup
 import kr.co.vacgom.api.user.repository.RefreshTokenRepository
 import kr.co.vacgom.api.user.repository.UserRepository
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 class UserServiceTest : DescribeSpec( {
 
@@ -37,7 +37,7 @@ class UserServiceTest : DescribeSpec( {
                 "baby${it.ordinal}",
                 "profileImgUrl",
                 it,
-                LocalDateTime.now(),
+                LocalDate.now(),
             )
         }
 

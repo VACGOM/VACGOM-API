@@ -15,8 +15,8 @@ class Snack (
     id: UUID = UuidCreator.create(),
     memo: String,
     itemType: CareHistoryItemType = SNACK,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Comment("메모")
     var memo: String? = memo
         protected set

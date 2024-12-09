@@ -8,15 +8,15 @@ import java.time.LocalDateTime
 class BreastPumpingTest : FunSpec({
     test("BreastPumping 객체 정상 생성 테스트") {
         val amount = 100
-        val executionDate = LocalDateTime.now()
+        val executionTime = LocalDateTime.now()
 
         val breastPumping = BreastPumping(
             amount = amount,
             itemType = CareHistoryItemType.BREAST_PUMPING,
-            executionDate = executionDate
+            executionTime = executionTime
         )
 
         breastPumping.amount shouldBe amount
-        breastPumping.executionDate shouldBe executionDate
+        breastPumping.executionTime shouldBe executionTime
     }
 })

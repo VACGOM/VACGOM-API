@@ -18,8 +18,8 @@ class BreastFeeding (
     minutes: Int,
     breastDirection: BreastDirection,
     itemType: CareHistoryItemType = BREAST_FEEDING,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 모유수유 시작 시간")
     var startTime: LocalDateTime = startTime

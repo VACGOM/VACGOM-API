@@ -20,8 +20,8 @@ class Bath (
     endTime: LocalDateTime,
     minutes: Int,
     itemType: CareHistoryItemType = BATH,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 목욕 시작 시간")
     var startTime: LocalDateTime = startTime

@@ -16,8 +16,8 @@ class BabyFormula (
     id: UUID = UuidCreator.create(),
     amount: Int,
     itemType: CareHistoryItemType = BABY_FORMULA,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 분유 양")
     var amount = amount

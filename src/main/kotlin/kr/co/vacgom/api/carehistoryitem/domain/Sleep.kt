@@ -18,8 +18,8 @@ class Sleep (
     startTime: LocalDateTime,
     endTime: LocalDateTime,
     itemType: CareHistoryItemType = SLEEP,
-    executionDate: LocalDateTime,
-): CareHistoryItem(id, executionDate, itemType) {
+    executionTime: LocalDateTime,
+): CareHistoryItem(id, executionTime, itemType) {
     @Column(nullable = false)
     @Comment("[Not Null] 수면 시작 시간")
     var startTime: LocalDateTime = startTime
