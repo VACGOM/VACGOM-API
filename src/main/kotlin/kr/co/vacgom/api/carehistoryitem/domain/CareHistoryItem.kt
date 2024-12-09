@@ -32,4 +32,6 @@ abstract class CareHistoryItem(
     @Comment("[Not Null] 수행 시간")
     var executionTime: LocalDateTime = executionTime
         protected set
+
+    //Todo(용현) BabyId 외래키 추가 필요
 }
