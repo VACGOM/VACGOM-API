@@ -8,22 +8,22 @@ import java.time.LocalDateTime
 
 class BreastFeedingTest : FunSpec({
     test("BreastFeeding 객체 정상 생성 테스트") {
-        val startDate = LocalDateTime.now()
-        val endDate = LocalDateTime.now().plusMinutes(10)
+        val startTime = LocalDateTime.now()
+        val endTime = LocalDateTime.now().plusMinutes(10)
         val minutes = 10
         val breastDirection = BreastDirection.LEFT
 
         val breastFeeding = BreastFeeding(
-            startDate = startDate,
-            endDate = endDate,
+            startTime = startTime,
+            endTime = endTime,
             minutes = minutes,
             breastDirection = breastDirection,
-            executionDate = startDate,
+            executionTime = startTime,
             itemType = CareHistoryItemType.BATH
         )
 
-        breastFeeding.startDate shouldBe startDate
-        breastFeeding.endDate shouldBe endDate
+        breastFeeding.startTime shouldBe startTime
+        breastFeeding.endTime shouldBe endTime
         breastFeeding.minutes shouldBe minutes
         breastFeeding.breastDirection shouldBe breastDirection
     }

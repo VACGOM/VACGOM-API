@@ -3,14 +3,19 @@ val imageTag = System.getenv("IMAGE_TAG") ?: "latest"
 val repoURL: String? = System.getenv("IMAGE_REPO_URL")
 
 plugins {
-    id("org.springframework.boot") version "3.3.6"
+    id("org.springframework.boot") version "3.4.0"
     id("io.spring.dependency-management") version "1.1.6"
     id("io.freefair.lombok") version "8.10.2"
     id("com.google.cloud.tools.jib") version "3.4.3"
 
     kotlin("jvm") version "2.0.21"
+    kotlin("plugin.lombok") version "2.1.0"
     kotlin("plugin.jpa") version "2.0.21"
     kotlin("plugin.spring") version "2.0.21"
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
 }
 
 group = "kr.co.vacgom.api"
@@ -38,14 +43,18 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Testing
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.9.1")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.9.1")
+    testImplementation("io.mockk:mockk:1.13.13")
 
     // Database
     runtimeOnly("com.mysql:mysql-connector-j")
 
     // OpenFeign
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.4")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
 
     // Utilities
     implementation("com.github.f4b6a3:uuid-creator:6.0.0")

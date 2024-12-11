@@ -7,22 +7,22 @@ import java.time.LocalDateTime
 
 class SleepTest : FunSpec({
     test("Sleep 객체 정상 생성 테스트") {
-        val startDate = LocalDateTime.now()
-        val endDate = LocalDateTime.now().plusHours(8)
+        val startTime = LocalDateTime.now()
+        val endTime = LocalDateTime.now().plusHours(8)
         val minutes = 30
 
         val sleep = Sleep(
             minutes = minutes,
-            startDate = startDate,
-            endDate = endDate,
+            startTime = startTime,
+            endTime = endTime,
             itemType = CareHistoryItemType.SLEEP,
-            executionDate = startDate
+            executionTime = startTime
         )
 
         sleep.minutes shouldBe minutes
-        sleep.executionDate shouldBe startDate
+        sleep.executionTime shouldBe startTime
         sleep.itemType shouldBe CareHistoryItemType.SLEEP
-        sleep.startDate shouldBe startDate
-        sleep.endDate shouldBe endDate
+        sleep.startTime shouldBe startTime
+        sleep.endTime shouldBe endTime
     }
 })

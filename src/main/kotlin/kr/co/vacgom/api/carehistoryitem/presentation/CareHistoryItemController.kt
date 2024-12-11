@@ -6,7 +6,7 @@ import kr.co.vacgom.api.carehistoryitem.presentation.CareHistoryItemPath.CARE_HI
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.*
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.util.*
 
 @RestController
@@ -15,14 +15,14 @@ class CareHistoryItemController(
     private val careHistoryItemCreateService: CareHistoryItemCreateService,
     private val careHistoryItemGetService: CareHistoryItemGetService
 ) {
-
     @GetMapping
     fun getCareHistoryByExecutionDate(
         @RequestParam babyId: UUID,
-        @RequestParam executionDate: LocalDateTime,
+        @RequestParam executionDate: LocalDate,
     ): CareHistoryDto.Response.Daily {
         return careHistoryItemGetService.getCareHistoryByExecutionDate(babyId, executionDate)
     }
+
     @PostMapping("/breast-feeding")
     fun addBreastFeeding(@RequestBody request: BreastFeedingDto.Request) {
         careHistoryItemCreateService.addBreastFeeding(request)

@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.domain
 
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
 import org.springframework.security.core.GrantedAuthority

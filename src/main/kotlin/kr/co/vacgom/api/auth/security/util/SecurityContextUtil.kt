@@ -4,7 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*
 
 object SecurityContextUtil {
-    fun getPrincipal(): UUID {
-        return SecurityContextHolder.getContext().authentication.principal as UUID
+    fun getPrincipal(): Long {
+        return SecurityContextHolder.getContext().authentication.principal as Long
     }
 }
