@@ -56,6 +56,9 @@ dependencies {
     // OpenFeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
 
+    // Redisson
+    implementation("org.redisson:redisson-spring-boot-starter:3.40.0")
+
     // Utilities
     implementation("com.github.f4b6a3:uuid-creator:6.0.0")
 

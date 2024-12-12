@@ -1,24 +1,18 @@
 package kr.co.vacgom.api.user.repository
 
+import kr.co.vacgom.api.user.domain.RefreshToken
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 class RefreshTokenRepositoryAdapter(
-    private val refreshTokenTestRepository: RefreshTokenTestRepository
+    private val refreshTokenRedisRepository: RefreshTokenRedisRepository
 ): RefreshTokenRepository {
-    override fun update(token: String, userId: Long) {
-        refreshTokenTestRepository.update(token, userId)
+    override fun save(token: RefreshToken) {
+        refreshTokenRedisRepository.save(token)
     }
 
-    override fun save(token: String, userId: Long) {
-        refreshTokenTestRepository.save(token, userId)
-    }
-
-    override fun deleteByUserId(userId: Long) {
-        refreshTokenTestRepository.deleteByUserId(userId)
-    }
-
-    override fun findAll(): Map<Long, String> {
-        return refreshTokenTestRepository.findAll()
+    override fun deleteByUserId(userId: UUID) {
+        refreshTokenRedisRepository.deleteById(userId)
     }
 }
