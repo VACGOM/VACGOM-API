@@ -5,5 +5,5 @@ import kr.co.vacgom.api.user.presentation.dto.Login
 
 interface OAuthStrategy {
     fun getUserInfo(request: Login.Request.Social): SocialAuthInfo
-    fun revokeUser(socialId: String)
+    fun revokeUser(socialId: String?)
 }

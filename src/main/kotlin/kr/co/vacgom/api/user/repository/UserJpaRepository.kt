@@ -1,6 +1,6 @@
 package kr.co.vacgom.api.user.repository
 
-import kr.co.vacgom.api.user.User
+import kr.co.vacgom.api.user.domain.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface UserJpaRepository : JpaRepository<User, Long> {

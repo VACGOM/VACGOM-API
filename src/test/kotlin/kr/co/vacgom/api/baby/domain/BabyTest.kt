@@ -13,29 +13,18 @@ class BabyTest : FunSpec({
         val profileImg = "profileImgUrl"
         val gender = Gender.MALE
         val birthday = LocalDate.now()
-        val managerGroup = ManagerGroup.create(
-            adminManager = User.create(
-                nickname = "nickname",
-                socialId = "socialId",
-                provider = SocialLoginProvider.KAKAO,
-                roles = emptyList(),
-            ),
-            managers = mutableSetOf()
-        )
 
-        val baby = Baby.create(
-            name,
-            profileImg,
-            gender,
-            birthday,
-            managerGroup
+        val baby = Baby(
+            name = name,
+            profileImg = profileImg,
+            gender = gender,
+            birthday = birthday,
         )
 
         baby.name shouldBe name
         baby.profileImg shouldBe profileImg
         baby.gender shouldBe gender
         baby.birthday shouldBe birthday
-        baby.managerGroup shouldBe managerGroup
 
         //Todo: 추후 Baby 도메인 제약 사항 추가 시 검증 필요
     }

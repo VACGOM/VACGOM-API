@@ -15,7 +15,7 @@ import java.util.*
 class User(
     id: UUID = UuidCreator.create(),
     nickname: String,
-    socialId: String,
+    socialId: String?,
     provider: SocialLoginProvider,
     role: UserRole,
 ): BaseTimeEntity() {
@@ -33,7 +33,7 @@ class User(
 
     @Column(nullable = false)
     @Comment("[Not Null] 소셜 id")
-    var socialId: String = socialId
+    var socialId: String? = socialId
         protected set
 
     @Enumerated(EnumType.STRING)
