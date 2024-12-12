@@ -20,7 +20,6 @@ class User(
     role: UserRole,
 ): BaseTimeEntity() {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, updatable = false)
     @Comment("[Not Null] 유저 id")
     var id = id

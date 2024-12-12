@@ -5,7 +5,7 @@ import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.global.util.UuidCreator
 import kr.co.vacgom.api.user.domain.User
 import org.hibernate.annotations.Comment
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(name = "TB_BABY_MANAGER")
@@ -16,7 +16,6 @@ class BabyManager(
     isAdmin: Boolean = false,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baby_manager_id", nullable = false, updatable = false)
     @Comment("[Not Null] 아기 매니저 id")
     var id: UUID = id

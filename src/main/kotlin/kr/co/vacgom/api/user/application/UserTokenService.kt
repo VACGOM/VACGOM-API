@@ -32,7 +32,7 @@ class UserTokenService(
                 sub = TokenType.ACCESS_TOKEN.name,
                 exp = Date.from(Instant.now().plusSeconds(jwtProperties.accessTokenExpirationSec)),
                 privateClaims = mutableMapOf(
-                    "userId" to userId,
+                    "userId" to userId.toString(),
                     "scope" to listOf(role.name),
                 )
             )
@@ -40,14 +40,13 @@ class UserTokenService(
         return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
-
     fun createRefreshToken(userId: UUID): String {
         val jwtPayLoad = JwtPayload(
             iss = jwtProperties.issuer,
             sub = TokenType.REFRESH_TOKEN.name,
             exp = Date.from(Instant.now().plusSeconds(jwtProperties.refreshTokenExpirationSec)),
             privateClaims = mapOf(
-                "userId" to userId
+                "userId" to userId.toString()
             )
         )
 

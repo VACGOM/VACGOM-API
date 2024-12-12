@@ -18,7 +18,6 @@ class Baby(
     birthday: LocalDate,
 ): BaseTimeEntity() {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baby_id", nullable = false, updatable = false)
     @Comment("[Not Null] 아기 id")
     var id: UUID = id
