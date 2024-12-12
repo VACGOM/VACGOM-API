@@ -25,7 +25,8 @@ abstract class BaseTimeEntity(
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd a HH:mm")
     @Comment("[Not Null] 생성 일시 시각")
-    private var createdAt: LocalDateTime? = createdAt
+    var createdAt: LocalDateTime = createdAt
+        protected set
 
     @Column(
         nullable = false,
@@ -35,5 +36,6 @@ abstract class BaseTimeEntity(
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd a HH:mm")
     @Comment("[Not Null] 수정 일시 시각")
-    private var updatedAt: LocalDateTime? = updatedAt
+    var updatedAt: LocalDateTime = updatedAt
+        protected set
 }
