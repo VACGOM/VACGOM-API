@@ -1,7 +1,7 @@
 package kr.co.vacgom.api.user.application
 
-import kr.co.vacgom.api.baby.Baby
 import kr.co.vacgom.api.baby.application.BabyService
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.babymanager.BabyManager
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
@@ -34,10 +34,10 @@ class UserService(
 
         val newBabies = request.babies.map {
             Baby(
-                it.name,
-                it.profileImgUrl,
-                it.gender,
-                it.birthday,
+                name = it.name,
+                profileImg = it.profileImgUrl,
+                gender = it.gender,
+                birthday = it.birthday,
             )
         }
 
