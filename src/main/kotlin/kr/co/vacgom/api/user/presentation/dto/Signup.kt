@@ -1,8 +1,7 @@
 package kr.co.vacgom.api.user.presentation.dto
 
-import kr.co.vacgom.api.user.domain.enums.Gender
+import kr.co.vacgom.api.baby.domain.enums.Gender
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class Signup {
     data class Request(

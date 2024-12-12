@@ -6,12 +6,12 @@ import java.util.*
 
 sealed class UserTokenClaims {
     data class AccessTokenClaims(
-        val userId: Long,
+        val userId: UUID,
         val authorities: List<GrantedAuthority>
     )
 
     data class RefreshTokenClaims(
-        val userId: Long,
+        val userId: UUID,
     )
 
     data class RegisterTokenClaims(

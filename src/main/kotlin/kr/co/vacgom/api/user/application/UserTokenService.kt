@@ -8,7 +8,6 @@ import kr.co.vacgom.api.auth.jwt.JwtProvider
 import kr.co.vacgom.api.auth.jwt.TokenType
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.global.util.snakeToCamelCase
 import kr.co.vacgom.api.user.application.dto.UserTokenClaims
 import kr.co.vacgom.api.user.domain.RefreshToken
 import kr.co.vacgom.api.user.domain.enums.UserRole
@@ -74,7 +73,7 @@ class UserTokenService(
         val userId = jwtPayload.privateClaims["userId"] as Claim
 
         return UserTokenClaims.AccessTokenClaims(
-            userId = userId.asLong(),
+            userId = UUID.fromString(userId.asString()),
             authorities = (jwtPayload.privateClaims["scope"] as Claim).asList(SimpleGrantedAuthority::class.java)
         )
     }
@@ -84,7 +83,7 @@ class UserTokenService(
         val userId = jwtPayload.privateClaims["userId"] as Claim
 
         return UserTokenClaims.RefreshTokenClaims(
-            userId = userId.asLong(),
+            userId = UUID.fromString(userId.asString()),
         )
     }
 

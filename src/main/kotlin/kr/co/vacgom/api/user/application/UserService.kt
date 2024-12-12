@@ -12,6 +12,7 @@ import kr.co.vacgom.api.user.presentation.dto.Signup
 import kr.co.vacgom.api.user.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 @Transactional
@@ -63,7 +64,7 @@ class UserService(
         )
     }
 
-    fun revoke(userId: Long) {
+    fun revoke(userId: UUID) {
         val findUser = userRepository.findById(userId)
             ?: throw BusinessException(UserError.USER_NOT_FOUND)
 

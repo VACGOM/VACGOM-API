@@ -1,9 +1,9 @@
 package kr.co.vacgom.api.baby.domain
 
 import jakarta.persistence.*
+import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
-import kr.co.vacgom.api.user.domain.enums.Gender
 import org.hibernate.annotations.Comment
 import java.time.LocalDate
 import java.util.*

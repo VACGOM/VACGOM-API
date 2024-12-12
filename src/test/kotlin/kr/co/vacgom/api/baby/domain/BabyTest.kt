@@ -2,9 +2,7 @@ package kr.co.vacgom.api.baby.domain
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.user.domain.User
-import kr.co.vacgom.api.user.domain.enums.Gender
+import kr.co.vacgom.api.baby.domain.enums.Gender
 import java.time.LocalDate
 
 class BabyTest : FunSpec({

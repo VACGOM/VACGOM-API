@@ -8,9 +8,9 @@ import io.mockk.every
 import io.mockk.mockk
 import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.baby.application.BabyService
+import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.user.domain.enums.Gender
 import kr.co.vacgom.api.user.presentation.dto.Signup
 import kr.co.vacgom.api.user.repository.UserRepository
 import java.time.LocalDate
