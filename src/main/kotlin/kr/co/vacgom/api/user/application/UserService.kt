@@ -5,7 +5,7 @@ import kr.co.vacgom.api.baby.application.BabyService
 import kr.co.vacgom.api.babymanager.BabyManager
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.user.User
+import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Signup
@@ -26,10 +26,10 @@ class UserService(
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
         val newUser = User(
-            request.nickname,
-            registerToken.socialId,
-            registerToken.provider,
-            UserRole.ROLE_USER,
+            nickname = request.nickname,
+            socialId = registerToken.socialId,
+            provider = registerToken.provider,
+            role = UserRole.ROLE_USER,
         )
 
         val newBabies = request.babies.map {

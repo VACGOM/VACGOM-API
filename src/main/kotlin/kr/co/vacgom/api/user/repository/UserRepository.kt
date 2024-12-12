@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.repository
 
-import kr.co.vacgom.api.user.User
+import kr.co.vacgom.api.user.domain.User
+
 
 interface UserRepository {
     fun save(user: User): User
