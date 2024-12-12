@@ -9,7 +9,7 @@ import io.mockk.mockk
 import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.user.User
+import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
@@ -64,10 +64,10 @@ class AuthServiceTest : DescribeSpec({
         context("연결 해제 하려는 유저의 socialId가 존재하지 않으면") {
             it("${UserError.SOCIAL_ID_NOT_FOUND.name} 예외가 발생한다.") {
                 val notSocialIdUser = User(
-                    "nickname",
-                    null,
-                    SocialLoginProvider.KAKAO,
-                    UserRole.ROLE_USER
+                    nickname = "nickname",
+                    socialId = null,
+                    provider = SocialLoginProvider.KAKAO,
+                    role = UserRole.ROLE_USER
                 )
 
                 val result = shouldThrow<BusinessException> { sut.unlinkUser(notSocialIdUser) }
@@ -79,10 +79,10 @@ class AuthServiceTest : DescribeSpec({
 }) {
     companion object {
         val savedUser = User(
-            "nickname",
-            "socialId",
-            SocialLoginProvider.KAKAO,
-            UserRole.ROLE_USER,
+            nickname = "nickname",
+            socialId = "socialId",
+            provider = SocialLoginProvider.KAKAO,
+            role = UserRole.ROLE_USER,
         )
     }
 }

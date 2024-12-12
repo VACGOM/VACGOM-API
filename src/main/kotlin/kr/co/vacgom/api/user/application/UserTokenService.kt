@@ -9,6 +9,7 @@ import kr.co.vacgom.api.auth.jwt.TokenType
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.application.dto.UserTokenClaims
+import kr.co.vacgom.api.user.domain.RefreshToken
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.repository.RefreshTokenRepository
@@ -25,7 +26,7 @@ class UserTokenService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val userRepository: UserRepository,
 ) {
-    fun createAccessToken(userId: Long, role: UserRole): String {
+    fun createAccessToken(userId: UUID, role: UserRole): String {
         val jwtPayLoad = JwtPayload(
                 iss = jwtProperties.issuer,
                 sub = TokenType.ACCESS_TOKEN.name,
@@ -39,7 +40,8 @@ class UserTokenService(
         return jwtProvider.createToken(jwtPayLoad, jwtProperties.secret)
     }
 
-    fun createRefreshToken(userId: Long): String {
+
+    fun createRefreshToken(userId: UUID): String {
         val jwtPayLoad = JwtPayload(
             iss = jwtProperties.issuer,
             sub = TokenType.REFRESH_TOKEN.name,
@@ -71,7 +73,7 @@ class UserTokenService(
         val userId = jwtPayload.privateClaims["userId"] as Claim
 
         return UserTokenClaims.AccessTokenClaims(
-            userId = userId.asLong(),
+            userId = UUID.fromString(userId.asString()),
             authorities = (jwtPayload.privateClaims["scope"] as Claim).asList(SimpleGrantedAuthority::class.java)
         )
     }
@@ -81,7 +83,7 @@ class UserTokenService(
         val userId = jwtPayload.privateClaims["userId"] as Claim
 
         return UserTokenClaims.RefreshTokenClaims(
-            userId = userId.asLong(),
+            userId = UUID.fromString(userId.asString()),
         )
     }
 
@@ -114,11 +116,12 @@ class UserTokenService(
         }
     }
 
-    fun saveRefreshToken(token: String, userId: Long) {
-        refreshTokenRepository.save(token, userId)
+    fun saveRefreshToken(token: String, userId: UUID) {
+        val refreshToken = RefreshToken(userId = userId, refreshToken = token)
+        refreshTokenRepository.save(refreshToken)
     }
 
-    fun deleteRefreshToken(userId: Long) {
+    fun deleteRefreshToken(userId: UUID) {
         refreshTokenRepository.deleteByUserId(userId)
     }
 

@@ -2,9 +2,9 @@ package kr.co.vacgom.api.user.application
 
 import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.auth.security.util.SecurityContextUtil
-import kr.co.vacgom.api.user.User
+import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
 import kr.co.vacgom.api.user.repository.UserRepository

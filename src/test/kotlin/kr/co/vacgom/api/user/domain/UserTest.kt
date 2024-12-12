@@ -5,7 +5,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.user.domain.enums.UserRole
-import kr.co.vacgom.api.user.User
 
 class UserTest : FunSpec({
     test("User 객체 정상 생성 테스트") {
@@ -15,10 +14,10 @@ class UserTest : FunSpec({
         val role = UserRole.ROLE_USER
 
         val user = User(
-            nickname,
-            socialId,
-            provider,
-            role,
+            nickname = nickname,
+            socialId = socialId,
+            provider = provider,
+            role = role,
         )
 
         nickname shouldBe user.nickname
@@ -32,10 +31,10 @@ class UserTest : FunSpec({
             test("IllegalArgumentException 예외가 발생한다.") {
                 val result = shouldThrow<IllegalArgumentException> {
                     User(
-                        "1",
-                        "socialId",
-                        SocialLoginProvider.KAKAO,
-                        UserRole.ROLE_USER
+                        nickname = "1",
+                        socialId = "socialId",
+                        provider = SocialLoginProvider.KAKAO,
+                        role = UserRole.ROLE_USER
                     )
                 }
 
@@ -47,10 +46,10 @@ class UserTest : FunSpec({
             test("IllegalArgumentException 예외가 발생한다.") {
                 val result = shouldThrow<IllegalArgumentException> {
                     User(
-                        "AB2!",
-                        "socialId",
-                        SocialLoginProvider.KAKAO,
-                        UserRole.ROLE_USER
+                        nickname = "AB2!",
+                        socialId = "socialId",
+                        provider = SocialLoginProvider.KAKAO,
+                        role = UserRole.ROLE_USER
                     )
                 }
 

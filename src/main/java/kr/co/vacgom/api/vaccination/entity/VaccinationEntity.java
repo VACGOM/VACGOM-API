@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.UUID;
-import kr.co.vacgom.api.baby.Baby;
+import kr.co.vacgom.api.baby.domain.Baby;
 import kr.co.vacgom.api.global.entity.BaseEntity;
 import kr.co.vacgom.api.global.util.UuidBinaryConverter;
 import kr.co.vacgom.api.global.util.UuidUtility;
