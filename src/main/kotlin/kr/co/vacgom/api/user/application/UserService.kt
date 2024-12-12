@@ -2,8 +2,8 @@ package kr.co.vacgom.api.user.application
 
 import kr.co.vacgom.api.baby.application.BabyService
 import kr.co.vacgom.api.baby.domain.Baby
-import kr.co.vacgom.api.babymanager.BabyManager
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
+import kr.co.vacgom.api.babymanager.domain.BabyManager
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
@@ -46,9 +46,9 @@ class UserService(
 
         val managers = savedBabies.map { baby ->
             BabyManager(
-                savedUser,
-                baby,
-                true
+                manager = savedUser,
+                baby = baby,
+                isAdmin = true
             )
         }
 
