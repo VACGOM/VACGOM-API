@@ -12,7 +12,7 @@ class BreastFeedingDto {
         val startDate: LocalDateTime,
         val endDate: LocalDateTime,
         val breastDirection: BreastDirection,
-        val executionDate: LocalDateTime,
+        val executionTime: LocalDateTime,
     )
 
     class Response {

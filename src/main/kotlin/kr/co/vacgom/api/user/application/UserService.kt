@@ -1,16 +1,16 @@
 package kr.co.vacgom.api.user.application
 
 import kr.co.vacgom.api.baby.application.BabyService
-import kr.co.vacgom.api.baby.domain.ManagerGroup
+import kr.co.vacgom.api.baby.domain.Baby
+import kr.co.vacgom.api.babymanager.application.BabyManagerService
+import kr.co.vacgom.api.babymanager.domain.BabyManager
 import kr.co.vacgom.api.global.exception.error.BusinessException
-import kr.co.vacgom.api.user.domain.Baby
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Signup
-import kr.co.vacgom.api.user.repository.RefreshTokenRepository
+import kr.co.vacgom.api.user.presentation.dto.UserDto
 import kr.co.vacgom.api.user.repository.UserRepository
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -22,49 +22,68 @@ class UserService(
     private val userRepository: UserRepository,
     private val authService: AuthService,
     private val babyService: BabyService,
-    private val refreshTokenRepository: RefreshTokenRepository,
+    private val babyManagerService: BabyManagerService,
 ) {
+
     fun signup(request: Signup.Request): Signup.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
-        val newUser = User.create(
+        val newUser = User(
             nickname = request.nickname,
             socialId = registerToken.socialId,
             provider = registerToken.provider,
-            roles = arrayListOf(SimpleGrantedAuthority(UserRole.ROLE_USER.name)),
+            role = UserRole.ROLE_USER,
         )
 
         val newBabies = request.babies.map {
-            Baby.create(
+            Baby(
                 name = it.name,
                 profileImg = it.profileImgUrl,
                 gender = it.gender,
                 birthday = it.birthday,
-                managerGroup = ManagerGroup.create(
-                    adminManager = newUser,
-                    managers = mutableSetOf(newUser),
-                )
             )
         }
 
-        newUser.addBabies(newBabies.toSet())
+        val savedUser = userRepository.save(newUser)
+        val savedBabies = babyService.saveAll(newBabies)
 
-        val refreshToken = userTokenService.createRefreshToken(newUser.id)
-        refreshTokenRepository.save(refreshToken, newUser.id)
-        babyService.saveAll(newBabies)
-        userRepository.save(newUser)
+        val managers = savedBabies.map { baby ->
+            BabyManager(
+                manager = savedUser,
+                baby = baby,
+                isAdmin = true
+            )
+        }
+
+        babyManagerService.saveAll(managers)
+
+        val refreshToken = userTokenService.createRefreshToken(savedUser.id)
+        userTokenService.saveRefreshToken(refreshToken, savedUser.id)
 
         return Signup.Response(
-            accessToken = userTokenService.createAccessToken(newUser.id, newUser.roles),
+            accessToken = userTokenService.createAccessToken(savedUser.id, savedUser.role),
             refreshToken = refreshToken,
         )
     }
 
     fun revoke(userId: UUID) {
-        val findUser = userRepository.findByUserId(userId)
+        val findUser = userRepository.findById(userId)
             ?: throw BusinessException(UserError.USER_NOT_FOUND)
 
         authService.unlinkUser(findUser)
-        userRepository.deleteByUserId(userId)
+        userRepository.deleteById(userId)
+    }
+
+    fun getUserDetail(userId: UUID): UserDto.Response.UserDetail {
+        return userRepository.findById(userId)?.let {
+            UserDto.Response.UserDetail(
+                id = it.id,
+                nickname = it.nickname,
+                socialId = it.socialId,
+                provider = it.provider,
+                role = it.role,
+                createdAt = it.createdAt,
+            )
+        } ?: throw BusinessException(UserError.USER_NOT_FOUND)
     }
 }

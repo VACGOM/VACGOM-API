@@ -10,10 +10,10 @@ import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
+import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
 import kr.co.vacgom.api.user.repository.UserRepository
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 class AuthServiceTest : DescribeSpec({
 
@@ -33,7 +33,7 @@ class AuthServiceTest : DescribeSpec({
                 it("엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
                     val request = Login.Request.Social("oauth_access_token")
 
-                    every { userRepositoryMock.findBySocialId(any()) } returns savedUser
+                    every { userRepositoryMock.findById(any()) } returns savedUser
 
                     val result = sut.socialLogin(provider.name, request)
 
@@ -63,11 +63,11 @@ class AuthServiceTest : DescribeSpec({
     describe("소셜 로그인 연결 해제 예외 테스트") {
         context("연결 해제 하려는 유저의 socialId가 존재하지 않으면") {
             it("${UserError.SOCIAL_ID_NOT_FOUND.name} 예외가 발생한다.") {
-                val notSocialIdUser = User.create(
-                    "nickname",
-                    null,
-                    SocialLoginProvider.KAKAO,
-                    emptyList()
+                val notSocialIdUser = User(
+                    nickname = "nickname",
+                    socialId = null,
+                    provider = SocialLoginProvider.KAKAO,
+                    role = UserRole.ROLE_USER
                 )
 
                 val result = shouldThrow<BusinessException> { sut.unlinkUser(notSocialIdUser) }
@@ -78,11 +78,11 @@ class AuthServiceTest : DescribeSpec({
     }
 }) {
     companion object {
-        val savedUser = User.create(
-            "nickname",
-            "socialId",
-            SocialLoginProvider.KAKAO,
-            arrayListOf(SimpleGrantedAuthority("ROLE_USER")
-        ))
+        val savedUser = User(
+            nickname = "nickname",
+            socialId = "socialId",
+            provider = SocialLoginProvider.KAKAO,
+            role = UserRole.ROLE_USER,
+        )
     }
 }

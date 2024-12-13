@@ -2,8 +2,8 @@ package kr.co.vacgom.api.user.application
 
 import kr.co.vacgom.api.auth.oauth.OAuthHandler
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.auth.security.util.SecurityContextUtil
+import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.exception.UserError
 import kr.co.vacgom.api.user.presentation.dto.Login
@@ -20,12 +20,15 @@ class AuthService(
         val socialAuthInfo = oauthHandler.handleUserInfo(SocialLoginProvider.parse(provider), request)
         val findUser = userRepository.findBySocialId(socialAuthInfo.socialId)
             ?: return Login.Response.Register(
-                    userTokenService.createRegisterToken(socialAuthInfo.socialId, provider)
+                userTokenService.createRegisterToken(socialAuthInfo.socialId, provider)
             )
 
+        val refreshToken = userTokenService.createRefreshToken(findUser.id)
+        userTokenService.saveRefreshToken(refreshToken, findUser.id)
+
         return Login.Response.Success(
-            userTokenService.createAccessToken(findUser.id, findUser.roles),
-            userTokenService.createRefreshToken(findUser.id),
+            userTokenService.createAccessToken(findUser.id, findUser.role),
+            refreshToken,
         )
     }
 

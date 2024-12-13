@@ -1,10 +1,9 @@
 package kr.co.vacgom.api.user.repository
 
+import kr.co.vacgom.api.user.domain.RefreshToken
 import java.util.*
 
 interface RefreshTokenRepository {
-    fun update(token: String, userId: UUID)
-    fun save(token: String, userId: UUID)
+    fun save(token: RefreshToken)
     fun deleteByUserId(userId: UUID)
-    fun findAll(): Map<UUID, String>
 }

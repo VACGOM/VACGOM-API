@@ -8,14 +8,14 @@ import java.time.LocalDateTime
 class SnackTest : FunSpec({
     test("Snack 객체 정상 생성 테스트") {
         val memo = "과자 5봉지나 먹음. 크게 성장할 듯"
-        val executionDate = LocalDateTime.now()
+        val executionTime = LocalDateTime.now()
         val snack = Snack(
             memo = memo,
             itemType = CareHistoryItemType.SNACK,
-            executionDate = executionDate
+            executionTime = executionTime
         )
 
         snack.memo shouldBe memo
-        snack.executionDate shouldBe executionDate
+        snack.executionTime shouldBe executionTime
     }
 })

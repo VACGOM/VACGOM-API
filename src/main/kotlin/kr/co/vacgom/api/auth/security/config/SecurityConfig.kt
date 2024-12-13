@@ -21,7 +21,7 @@ class SecurityConfig {
                             apiExceptionHandlingFilter: ApiExceptionHandlingFilter,
     ): SecurityFilterChain {
         httpSecurity {
-            authorizeRequests { authorize(anyRequest, permitAll) }
+            authorizeHttpRequests { authorize(anyRequest, permitAll) }
             httpBasic { disable() }
             formLogin { disable() }
             logout { disable() }
