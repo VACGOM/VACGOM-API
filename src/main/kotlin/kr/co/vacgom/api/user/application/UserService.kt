@@ -49,7 +49,7 @@ class UserService(
 
         val managers = savedBabies.map { baby ->
             BabyManager(
-                manager = savedUser,
+                user = savedUser,
                 baby = baby,
                 isAdmin = true
             )
