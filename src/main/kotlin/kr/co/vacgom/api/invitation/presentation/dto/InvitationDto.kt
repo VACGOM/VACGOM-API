@@ -1,7 +1,6 @@
 package kr.co.vacgom.api.invitation.presentation.dto
 
 import kr.co.vacgom.api.invitation.domain.CareScope
-import java.util.*
 
 class InvitationDto {
     class Request {
@@ -10,6 +9,6 @@ class InvitationDto {
     }
 
     class Response {
-        data class Create(val invitationCode: UUID)
+        data class Create(val invitationCode: String)
     }
 }

@@ -23,7 +23,8 @@ class InvitationController(
     }
 
     @PostMapping
-    fun registerInvitationCode() {
-
+    fun registerInvitationCode(@RequestBody request: InvitationDto.Request.Register) {
+        val userId = SecurityContextUtil.getPrincipal()
+        invitationService.registerInvitationCode(userId, request.invitationCode)
     }
 }

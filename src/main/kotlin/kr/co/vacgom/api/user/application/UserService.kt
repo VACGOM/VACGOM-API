@@ -24,7 +24,6 @@ class UserService(
     private val babyService: BabyService,
     private val babyManagerService: BabyManagerService,
 ) {
-
     fun signup(request: Signup.Request): Signup.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
@@ -85,5 +84,10 @@ class UserService(
                 createdAt = it.createdAt,
             )
         } ?: throw BusinessException(UserError.USER_NOT_FOUND)
+    }
+
+    @Transactional(readOnly = true)
+    fun getUserById(userId: UUID): User {
+        return userRepository.findById(userId) ?: throw BusinessException(UserError.USER_NOT_FOUND)
     }
 }
