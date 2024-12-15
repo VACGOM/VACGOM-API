@@ -14,7 +14,7 @@ class BabyManagerService(
         return babyManagerRepository.saveAll(managers)
     }
 
-    fun getBabiesByUserIsAdmin(userId: UUID): Set<Baby> {
-        return babyManagerRepository.findByUserIdAndIsAdmin(userId).map { it.baby }.toSet()
+    fun getBabiesByUserIsAdmin(userId: UUID): List<Baby> {
+        return babyManagerRepository.findByUserIdAndAdminIs(userId, true).map { it.baby }
     }
 }

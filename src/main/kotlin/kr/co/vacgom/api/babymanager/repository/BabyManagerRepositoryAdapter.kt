@@ -16,7 +16,7 @@ class BabyManagerRepositoryAdapter(
         return babyManagerJpaRepository.saveAll(managers)
     }
 
-    override fun findByUserIdAndIsAdmin(userId: UUID): Set<BabyManager> {
-        return babyManagerJpaRepository.findByUserIdAndAdminIs(userId, true)
+    override fun findByUserIdAndAdminIs(userId: UUID, isAdmin: Boolean): List<BabyManager> {
+        return babyManagerJpaRepository.findByUserIdAndAdminIs(userId, isAdmin)
     }
 }

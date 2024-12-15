@@ -7,5 +7,5 @@ import java.util.*
 interface BabyManagerRepository {
     fun save(babyManager: BabyManager): BabyManager
     fun saveAll(managers: Collection<BabyManager>): List<BabyManager>
-    fun findByUserIdAndIsAdmin(userId: UUID): Set<BabyManager>
+    fun findByUserIdAndAdminIs(userId: UUID, isAdmin: Boolean): List<BabyManager>
 }
