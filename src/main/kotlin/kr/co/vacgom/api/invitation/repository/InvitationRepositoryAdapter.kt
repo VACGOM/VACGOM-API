@@ -2,16 +2,16 @@ package kr.co.vacgom.api.invitation.repository
 
 import kr.co.vacgom.api.invitation.domain.InvitationCode
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class InvitationRepositoryAdapter(
-    private val invitationRedisRepository: InvitationRedisRepository
+    private val invitationRedisRepository: InvitationRedisRepository,
 ): InvitationRepository {
-    override fun saveInvitationCode(invitationCode: InvitationCode) {
-        invitationRedisRepository.save(invitationCode)
+    override fun save(invitationCode: InvitationCode, ttl: Long) {
+        invitationRedisRepository.save(invitationCode, ttl)
     }
 
-    override fun getAndDeleteInvitationCode(code: UUID) {
+    override fun getAndDeleteInvitationCode(code: String): InvitationCode? {
+        return invitationRedisRepository.getAndDeleteInvitationCode(code)
     }
 }

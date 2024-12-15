@@ -1,9 +1,8 @@
 package kr.co.vacgom.api.invitation.repository
 
 import kr.co.vacgom.api.invitation.domain.InvitationCode
-import java.util.*
 
 interface InvitationRepository {
-    fun saveInvitationCode(invitationCode: InvitationCode)
-    fun getAndDeleteInvitationCode(code: UUID)
+    fun save(invitationCode: InvitationCode, ttl: Long)
+    fun getAndDeleteInvitationCode(code: String): InvitationCode?
 }
