@@ -24,12 +24,12 @@ class BabyManagerTest : FunSpec({
         )
         
         val babyManager = BabyManager(
-            manager = user,
+            user = user,
             baby = baby,
             isAdmin = true
         )
 
-        babyManager.manager shouldBe user
+        babyManager.user shouldBe user
         babyManager.baby shouldBe baby
         babyManager.isAdmin shouldBe true
     }

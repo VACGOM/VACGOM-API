@@ -11,7 +11,7 @@ import java.util.*
 @Table(name = "TB_BABY_MANAGER")
 class BabyManager(
     id: UUID = UuidCreator.create(),
-    manager: User,
+    user: User,
     baby: Baby,
     isAdmin: Boolean = false,
 ) {
@@ -24,7 +24,7 @@ class BabyManager(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", nullable = false)
     @Comment("[Not Null] 아기 매니저 id")
-    var manager: User = manager
+    var user: User = user
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
