@@ -24,6 +24,7 @@ class UserService(
     private val babyService: BabyService,
     private val babyManagerService: BabyManagerService,
 ) {
+
     fun signup(request: Signup.Request): Signup.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
@@ -45,7 +46,6 @@ class UserService(
 
         val savedUser = userRepository.save(newUser)
         val savedBabies = babyService.saveAll(newBabies)
-
         val managers = savedBabies.map { baby ->
             BabyManager(
                 user = savedUser,
