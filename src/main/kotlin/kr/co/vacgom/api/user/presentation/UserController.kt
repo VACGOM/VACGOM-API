@@ -6,6 +6,7 @@ import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.user.application.UserService
 import kr.co.vacgom.api.user.presentation.UserPath.USER
 import kr.co.vacgom.api.user.presentation.dto.Signup
+import kr.co.vacgom.api.user.presentation.dto.UserDto
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -14,7 +15,7 @@ class UserController(
     private val userService: UserService,
 ) {
     @GetMapping
-    fun getUserDetail(): BaseResponse<*> {
+    fun getUserDetail(): BaseResponse<UserDto.Response.UserDetail> {
         val userId = SecurityContextUtil.getPrincipal()
         return BaseResponse.success(userService.getUserDetail(userId))
     }
