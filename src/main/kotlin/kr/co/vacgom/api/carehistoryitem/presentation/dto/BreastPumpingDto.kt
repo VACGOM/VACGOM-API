@@ -1,11 +1,13 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
+import io.swagger.v3.oas.annotations.media.Schema
 import kr.co.vacgom.api.carehistoryitem.domain.BreastPumping
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDateTime
 import java.util.*
 
 class BreastPumpingDto {
+    @Schema(name = "BreastPumpingDto.Request")
     data class Request(
         val babyId: UUID,
         val amount: Int,
@@ -13,6 +15,7 @@ class BreastPumpingDto {
     )
 
     class Response {
+        @Schema(name = "BreastPumpingDto.Response.DailyStat")
         class DailyStat(
             careName: String,
             val amount: Int,

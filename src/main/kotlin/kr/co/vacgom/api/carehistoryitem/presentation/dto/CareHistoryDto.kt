@@ -1,5 +1,6 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
+import io.swagger.v3.oas.annotations.media.Schema
 import kr.co.vacgom.api.carehistoryitem.domain.*
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.global.util.snakeToCamelCase
@@ -8,6 +9,7 @@ import java.util.*
 
 class CareHistoryDto{
     class Response {
+        @Schema(name = "CareHistoryDto.Response.DailyStat")
         data class Daily(
             val babyId: UUID,
             val executionDate: LocalDate,

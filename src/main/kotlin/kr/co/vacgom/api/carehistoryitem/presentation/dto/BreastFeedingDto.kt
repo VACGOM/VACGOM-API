@@ -1,5 +1,6 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
+import io.swagger.v3.oas.annotations.media.Schema
 import kr.co.vacgom.api.carehistoryitem.domain.BreastFeeding
 import kr.co.vacgom.api.carehistoryitem.domain.enums.BreastDirection
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
@@ -7,6 +8,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 class BreastFeedingDto {
+    @Schema(name = "BreastFeedingDto.Request")
     data class Request(
         val babyId: UUID,
         val startDate: LocalDateTime,
@@ -16,6 +18,7 @@ class BreastFeedingDto {
     )
 
     class Response {
+        @Schema(name = "BreastFeedingDto.Response.DailyStat")
         class DailyStat(
             careName: String,
             val leftStat: BreastFeedingStat,
