@@ -2,6 +2,7 @@ package kr.co.vacgom.api.carehistoryitem.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.HEALTH
 import kr.co.vacgom.api.global.util.UuidCreator
@@ -15,9 +16,10 @@ class Health (
     id: UUID = UuidCreator.create(),
     temperature: Double,
     memo: String,
+    baby: Baby,
     itemType: CareHistoryItemType = HEALTH,
     executionTime: LocalDateTime,
-): CareHistoryItem(id, executionTime, itemType) {
+): CareHistoryItem(id, executionTime, itemType, baby) {
     @Comment("체온")
     var temperature: Double = temperature
         protected set

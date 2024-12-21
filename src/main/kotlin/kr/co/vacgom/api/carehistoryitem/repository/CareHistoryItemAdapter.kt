@@ -20,7 +20,8 @@ class CareHistoryItemAdapter(
         val startExecutionDateTime = LocalDateTime.of(executionDate, LocalTime.MIN)
         val endExecutionDateTime = LocalDateTime.of(executionDate, LocalTime.MAX)
 
-        val careHistoryItems = careHistoryItemJpaRepository.findByExecutionTimeBetween(
+        val careHistoryItems = careHistoryItemJpaRepository.findByBabyIdAndExecutionTimeBetween(
+            babyId,
             startExecutionDateTime,
             endExecutionDateTime
         )

@@ -3,6 +3,7 @@ package kr.co.vacgom.api.carehistoryitem.domain
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.BABY_FORMULA
 import kr.co.vacgom.api.global.util.UuidCreator
@@ -15,9 +16,10 @@ import java.util.*
 class BabyFormula (
     id: UUID = UuidCreator.create(),
     amount: Int,
+    baby: Baby,
     itemType: CareHistoryItemType = BABY_FORMULA,
     executionTime: LocalDateTime,
-): CareHistoryItem(id, executionTime, itemType) {
+): CareHistoryItem(id, executionTime, itemType, baby) {
     @Column(nullable = false)
     @Comment("[Not Null] 분유 양")
     var amount = amount
