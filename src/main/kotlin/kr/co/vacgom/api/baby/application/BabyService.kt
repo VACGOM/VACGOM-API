@@ -1,9 +1,7 @@
 package kr.co.vacgom.api.baby.application
 
 import kr.co.vacgom.api.baby.domain.Baby
-import kr.co.vacgom.api.baby.exceptioin.BabyError
 import kr.co.vacgom.api.baby.repository.BabyRepository
-import kr.co.vacgom.api.global.exception.error.BusinessException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -22,6 +20,6 @@ class BabyService(
     }
 
     fun getBabyById(id: UUID): Baby {
-        return babyRepository.findById(id) ?: throw BusinessException(BabyError.BABY_NOT_FOUND)
+        return babyRepository.findById(id)
     }
 }
