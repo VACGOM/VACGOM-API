@@ -3,6 +3,7 @@ package kr.co.vacgom.api.carehistoryitem.domain
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.SLEEP
 import kr.co.vacgom.api.global.util.UuidCreator
@@ -17,9 +18,10 @@ class Sleep (
     minutes: Int,
     startTime: LocalDateTime,
     endTime: LocalDateTime,
+    baby: Baby,
     itemType: CareHistoryItemType = SLEEP,
     executionTime: LocalDateTime,
-): CareHistoryItem(id, executionTime, itemType) {
+): CareHistoryItem(id, executionTime, itemType, baby) {
     @Column(nullable = false)
     @Comment("[Not Null] 수면 시작 시간")
     var startTime: LocalDateTime = startTime

@@ -2,6 +2,7 @@ package kr.co.vacgom.api.carehistoryitem.domain
 
 import jakarta.persistence.*
 import jakarta.persistence.InheritanceType.JOINED
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import org.hibernate.annotations.Comment
@@ -15,6 +16,7 @@ abstract class CareHistoryItem(
     id: UUID,
     executionTime: LocalDateTime,
     itemType: CareHistoryItemType,
+    baby: Baby,
 ): BaseTimeEntity() {
     @Id
     @Column(name = "care_history_item_id", nullable = false, updatable = false, columnDefinition = "BINARY(16)")
@@ -33,5 +35,9 @@ abstract class CareHistoryItem(
     var executionTime: LocalDateTime = executionTime
         protected set
 
-    //Todo(용현) BabyId 외래키 추가 필요
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "baby_id", nullable = false)
+    @Comment("[Not Null] 아기 ID")
+    var baby: Baby = baby
+        protected set
 }
