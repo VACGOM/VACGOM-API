@@ -6,3 +6,4 @@ import java.util.*
 interface BabyRepository {
     fun saveAll(babies: List<Baby>): List<Baby>
     fun findBabiesById(ids: List<UUID>): List<Baby>
+}

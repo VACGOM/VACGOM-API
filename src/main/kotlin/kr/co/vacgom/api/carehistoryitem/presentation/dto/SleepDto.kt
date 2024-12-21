@@ -1,11 +1,13 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
+import io.swagger.v3.oas.annotations.media.Schema
 import kr.co.vacgom.api.carehistoryitem.domain.Sleep
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDateTime
 import java.util.*
 
 class SleepDto {
+    @Schema(name = "SleepDto.Request")
     data class Request(
         val babyId: UUID,
         val startDate: LocalDateTime,
@@ -14,6 +16,7 @@ class SleepDto {
     )
 
     class Response {
+        @Schema(name = "SleepDto.Response.DailyStat")
         class DailyStat(
             careName: String,
             val hours: Int,

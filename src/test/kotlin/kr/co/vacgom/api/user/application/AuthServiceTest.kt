@@ -12,7 +12,7 @@ import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
-import kr.co.vacgom.api.user.presentation.dto.Login
+import kr.co.vacgom.api.user.presentation.dto.LoginDto
 import kr.co.vacgom.api.user.repository.UserRepository
 
 class AuthServiceTest : DescribeSpec({
@@ -31,13 +31,13 @@ class AuthServiceTest : DescribeSpec({
         enumValues<SocialLoginProvider>().forEach { provider ->
             context("$provider 소셜 로그인 시도 과정에서 회원이 존재한다면") {
                 it("엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
-                    val request = Login.Request.Social("oauth_access_token")
+                    val request = LoginDto.Request.Social("oauth_access_token")
 
                     every { userRepositoryMock.findById(any()) } returns savedUser
 
                     val result = sut.socialLogin(provider.name, request)
 
-                    result.shouldBeTypeOf<Login.Response.Success>()
+                    result.shouldBeTypeOf<LoginDto.Response.Success>()
                     result.accessToken.shouldBeTypeOf<String>()
                     result.refreshToken.shouldBeTypeOf<String>()
                 }
@@ -47,13 +47,13 @@ class AuthServiceTest : DescribeSpec({
         enumValues<SocialLoginProvider>().forEach { provider ->
             context("$provider 소셜 로그인 시도 과정에서 회원이 존재하지 않는다면") {
                 it("RegisterToken을 반환한다.") {
-                    val request = Login.Request.Social("oauth_access_token")
+                    val request = LoginDto.Request.Social("oauth_access_token")
 
                     every { userRepositoryMock.findBySocialId(any()) } returns null
 
                     val result = sut.socialLogin(provider.name, request)
 
-                    result.shouldBeTypeOf<Login.Response.Register>()
+                    result.shouldBeTypeOf<LoginDto.Response.Register>()
                     result.registerToken.shouldBeTypeOf<String>()
                 }
             }

@@ -8,7 +8,7 @@ import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
-import kr.co.vacgom.api.user.presentation.dto.Signup
+import kr.co.vacgom.api.user.presentation.dto.SignupDto
 import kr.co.vacgom.api.user.presentation.dto.UserDto
 import kr.co.vacgom.api.user.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -25,7 +25,7 @@ class UserService(
     private val babyManagerService: BabyManagerService,
 ) {
 
-    fun signup(request: Signup.Request): Signup.Response {
+    fun signup(request: SignupDto.Request): SignupDto.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
         val newUser = User(
@@ -59,7 +59,7 @@ class UserService(
         val refreshToken = userTokenService.createRefreshToken(savedUser.id)
         userTokenService.saveRefreshToken(refreshToken, savedUser.id)
 
-        return Signup.Response(
+        return SignupDto.Response(
             accessToken = userTokenService.createAccessToken(savedUser.id, savedUser.role),
             refreshToken = refreshToken,
         )
