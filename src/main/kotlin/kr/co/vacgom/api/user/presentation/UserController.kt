@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(BASE_V3 + USER)
 class UserController(
     private val userService: UserService,
-): UserApi {
+) : UserApi {
     @GetMapping
     override fun getUserDetail(): BaseResponse<UserDto.Response.UserDetail> {
         val userId = SecurityContextUtil.getPrincipal()
@@ -21,7 +21,7 @@ class UserController(
     }
 
     @PostMapping
-    override fun signup(@RequestBody request: SignupDto.Request): BaseResponse<SignupDto.Response> {
+    override fun signup(@ModelAttribute request: SignupDto.Request): BaseResponse<SignupDto.Response> {
         return BaseResponse.success(userService.signup(request))
     }
 

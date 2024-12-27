@@ -12,6 +12,7 @@ import kr.co.vacgom.api.baby.application.BabyService
 import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.s3.S3Service
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
@@ -25,13 +26,14 @@ class UserServiceTest: DescribeSpec( {
     val authServiceMock: AuthService = mockk(relaxed = true)
     val babyServiceMock: BabyService = mockk(relaxed = true)
     val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
-
+    val s3ServiceMock: S3Service = mockk(relaxed = true)
     val sut = UserService(
         userTokenServiceMock,
         userRepositoryMock,
         authServiceMock,
         babyServiceMock,
         babyManagerServiceMock,
+        s3ServiceMock,
     )
 
     describe("회원 상세 조회 테스트") {
@@ -73,7 +75,6 @@ class UserServiceTest: DescribeSpec( {
         val babiesRequests = enumValues<Gender>().map {
             SignupDto.Request.Baby(
                 "baby${it.ordinal}",
-                "profileImgUrl",
                 it,
                 LocalDate.now()
             )
@@ -87,7 +88,7 @@ class UserServiceTest: DescribeSpec( {
             )
 
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
-                val result = sut.signup(request)
+                val result = sut.signup(request, emptyList())
 
                 result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
@@ -103,7 +104,7 @@ class UserServiceTest: DescribeSpec( {
             )
 
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
-                val result = sut.signup(request)
+                val result = sut.signup(request, emptyList())
 
                 result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
@@ -123,7 +124,7 @@ class UserServiceTest: DescribeSpec( {
             } throws BusinessException(JwtError.JWT_EXCEPTION)
 
             it("토큰 에러가 발생한다.") {
-                val result = shouldThrow<BusinessException> { sut.signup(request) }
+                val result = shouldThrow<BusinessException> { sut.signup(request, emptyList()) }
                 result.errorCode shouldBe JwtError.JWT_EXCEPTION
                 result.message shouldBe JwtError.JWT_EXCEPTION.message
             }

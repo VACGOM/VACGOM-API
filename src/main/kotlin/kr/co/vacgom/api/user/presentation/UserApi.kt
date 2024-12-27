@@ -40,13 +40,17 @@ interface UserApi {
         operationId = "signup",
         description = """
             엑세스 토큰 필요 X
+            request -> Content-Type: application/json
+            babyImages -> Content-Type: multipart/form-data
         """,
         responses = [
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = SignupDto.Response::class))]),
             ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ]
     )
-    fun signup(@Parameter(description = "", required = true) request: SignupDto.Request): BaseResponse<SignupDto.Response>
+    fun signup(
+        @Parameter(description = "", required = true) request: SignupDto.Request,
+    ): BaseResponse<SignupDto.Response>
 
     companion object {
         const val USER = "/users"

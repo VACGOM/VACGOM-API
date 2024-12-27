@@ -18,7 +18,7 @@ class BabyManagerTest : FunSpec({
 
         val baby = Baby(
             name = "name",
-            profileImg = "profileImgUrl",
+            profileImg = null,
             gender = kr.co.vacgom.api.baby.domain.enums.Gender.MALE,
             birthday = java.time.LocalDate.now()
         )
