@@ -3,6 +3,7 @@ package kr.co.vacgom.api.auth.filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import kr.co.vacgom.api.auth.jwt.JwtProvider
 import kr.co.vacgom.api.auth.security.UserAuthentication
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
@@ -19,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class JwtAuthenticationFilter(
     private val userTokenService: UserTokenService,
+    private val jwtProvider: JwtProvider,
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -26,7 +28,7 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        userTokenService.extractToken(request)?.run {
+        jwtProvider.extractToken(request)?.run {
             val accessToken = userTokenService.resolveAccessToken(this)
             val userAuthentication = UserAuthentication(accessToken.userId, accessToken.authorities)
 

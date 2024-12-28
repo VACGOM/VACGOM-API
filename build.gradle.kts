@@ -57,6 +57,9 @@ dependencies {
     // OpenFeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
 
+    //S3
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.2")
+
     // Redisson
     implementation("org.redisson:redisson-spring-boot-starter:3.40.0")
 

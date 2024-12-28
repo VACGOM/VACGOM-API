@@ -5,6 +5,7 @@ import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.babymanager.domain.BabyManager
 import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.s3.S3Service
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
@@ -23,8 +24,8 @@ class UserService(
     private val authService: AuthService,
     private val babyService: BabyService,
     private val babyManagerService: BabyManagerService,
+    private val s3Service: S3Service,
 ) {
-
     fun signup(request: SignupDto.Request): SignupDto.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
@@ -38,11 +39,12 @@ class UserService(
         val newBabies = request.babies.map {
             Baby(
                 name = it.name,
-                profileImg = it.profileImgUrl,
+                profileImg = s3Service.uploadImage(it.profileImg),
                 gender = it.gender,
                 birthday = it.birthday,
             )
         }
+
 
         val savedUser = userRepository.save(newUser)
         val savedBabies = babyService.saveAll(newBabies)
