@@ -15,7 +15,7 @@ class SignupDto {
         data class Baby(
             val name: String,
             val gender: Gender,
-            val profileImg: MultipartFile,
+            val profileImg: MultipartFile?,
             val birthday: LocalDate,
         )
     }
