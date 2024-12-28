@@ -7,8 +7,8 @@ class InvitationDto {
     class Request {
         @Schema(name = "InvitationDto.Request.Create")
         data class Create(val careScope: CareScope)
-        @Schema(name = "InvitationDto.Request.Register")
-        data class Register(val invitationCode: String)
+        @Schema(name = "InvitationDto.Request.Get")
+        data class Get(val invitationCode: String)
     }
 
     class Response {

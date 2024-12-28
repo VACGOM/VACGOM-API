@@ -41,7 +41,7 @@ interface UserApi {
         description = """
             엑세스 토큰 필요 X
             request -> Content-Type: application/json
-            babyImages -> Content-Type: multipart/form-data
+            profileImg -> Content-Type: multipart/form-data
         """,
         responses = [
             ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = SignupDto.Response::class))]),
