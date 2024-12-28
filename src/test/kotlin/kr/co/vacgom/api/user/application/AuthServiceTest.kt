@@ -16,7 +16,6 @@ import kr.co.vacgom.api.user.presentation.dto.LoginDto
 import kr.co.vacgom.api.user.repository.UserRepository
 
 class AuthServiceTest : DescribeSpec({
-
     val oauthHandlerMock: OAuthHandler = mockk(relaxed = true)
     val userTokenServiceMock: UserTokenService = mockk(relaxed = true)
     val userRepositoryMock: UserRepository = mockk(relaxed = true)

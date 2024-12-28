@@ -15,5 +15,5 @@ interface BabyManagerJpaRepository: JpaRepository<BabyManager, UUID> {
         @Param("userId") userId: UUID,
         @Param("babyId") babyId: UUID,
         @Param("isAdmin")isAdmin: Boolean
-    ): BabyManager
+    ): BabyManager?
 }
