@@ -15,8 +15,8 @@ class S3Service(
     private val cdnUrl: String,
     private val s3Operation: S3Operations,
 ) {
-    fun uploadImage(file: MultipartFile): String? {
-        if (file.isEmpty) {
+    fun uploadImage(file: MultipartFile?): String? {
+        if (file == null || file.isEmpty) {
             return null
         }
 

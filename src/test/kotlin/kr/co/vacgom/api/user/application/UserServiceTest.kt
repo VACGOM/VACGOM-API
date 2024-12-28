@@ -76,6 +76,7 @@ class UserServiceTest: DescribeSpec( {
             SignupDto.Request.Baby(
                 "baby${it.ordinal}",
                 it,
+                null,
                 LocalDate.now()
             )
         }
@@ -88,7 +89,7 @@ class UserServiceTest: DescribeSpec( {
             )
 
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
-                val result = sut.signup(request, emptyList())
+                val result = sut.signup(request)
 
                 result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
@@ -104,7 +105,7 @@ class UserServiceTest: DescribeSpec( {
             )
 
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
-                val result = sut.signup(request, emptyList())
+                val result = sut.signup(request)
 
                 result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
@@ -124,7 +125,7 @@ class UserServiceTest: DescribeSpec( {
             } throws BusinessException(JwtError.JWT_EXCEPTION)
 
             it("토큰 에러가 발생한다.") {
-                val result = shouldThrow<BusinessException> { sut.signup(request, emptyList()) }
+                val result = shouldThrow<BusinessException> { sut.signup(request) }
                 result.errorCode shouldBe JwtError.JWT_EXCEPTION
                 result.message shouldBe JwtError.JWT_EXCEPTION.message
             }
