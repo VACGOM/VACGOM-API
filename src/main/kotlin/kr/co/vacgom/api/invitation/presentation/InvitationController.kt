@@ -21,14 +21,17 @@ class InvitationController(
     override fun createInvitationCode(@RequestBody request: InvitationDto.Request.Create): BaseResponse<InvitationDto.Response.Create> {
         val userId = SecurityContextUtil.getPrincipal()
 
-        return BaseResponse.success {
-            invitationService.createInvitationCode(userId, request.careScope)
-        }
+        return when(request.babyId) {
+            null -> invitationService.createInvitationCodeByUserIsAdmin(userId)
+            else -> invitationService.createInvitationCodeByBabyId(userId, request.babyId)
+        }.let { BaseResponse.success(it) }
     }
 
     @PostMapping
-    override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): List<BabyDto.Response.Detail> {
+    override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>> {
         val userId = SecurityContextUtil.getPrincipal()
+
         return invitationService.getBabiesByInvitationCode(userId, request.invitationCode)
+            .let { BaseResponse.success(it) }
     }
 }

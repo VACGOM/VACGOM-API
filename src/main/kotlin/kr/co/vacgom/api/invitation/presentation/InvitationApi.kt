@@ -32,7 +32,7 @@ interface InvitationApi {
             ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ]
     )
-    fun getBabiesByInvitationCode(request: InvitationDto.Request.Get): List<BabyDto.Response.Detail>
+    fun getBabiesByInvitationCode(request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>>
 
 
     companion object {

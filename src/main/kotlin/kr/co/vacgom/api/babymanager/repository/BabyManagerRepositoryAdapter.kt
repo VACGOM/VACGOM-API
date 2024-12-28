@@ -19,4 +19,8 @@ class BabyManagerRepositoryAdapter(
     override fun findByUserIdAndAdminIs(userId: UUID, isAdmin: Boolean): List<BabyManager> {
         return babyManagerJpaRepository.findByUserIdAndAdminIs(userId, isAdmin)
     }
+
+    override fun findByBabyIdAndUserIdAndAdminIs(userId: UUID, babyId: UUID, isAdmin: Boolean): BabyManager {
+        return babyManagerJpaRepository.findByBabyIdAndUserIdAndAdminIs(userId, babyId, isAdmin)
+    }
 }
