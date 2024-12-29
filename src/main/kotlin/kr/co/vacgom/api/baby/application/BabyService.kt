@@ -9,7 +9,7 @@ import java.util.*
 @Service
 @Transactional
 class BabyService(
-    private val babyRepository: BabyRepository
+    private val babyRepository: BabyRepository,
 ) {
     fun saveAll(babies: List<Baby>): List<Baby> {
         return babyRepository.saveAll(babies)
