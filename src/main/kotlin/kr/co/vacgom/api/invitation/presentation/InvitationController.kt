@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.invitation.presentation
 
 import kr.co.vacgom.api.auth.security.util.SecurityContextUtil
+import kr.co.vacgom.api.baby.presentation.dto.BabyDto
 import kr.co.vacgom.api.global.common.dto.BaseResponse
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.invitation.application.InvitationService
@@ -20,14 +21,17 @@ class InvitationController(
     override fun createInvitationCode(@RequestBody request: InvitationDto.Request.Create): BaseResponse<InvitationDto.Response.Create> {
         val userId = SecurityContextUtil.getPrincipal()
 
-        return BaseResponse.success {
-            invitationService.createInvitationCode(userId, request.careScope)
-        }
+        return when(request.babyId) {
+            null -> invitationService.createInvitationCodeByUserIsAdmin(userId)
+            else -> invitationService.createInvitationCodeByBabyId(userId, request.babyId)
+        }.let { BaseResponse.success(it) }
     }
 
     @PostMapping
-    override fun registerInvitationCode(@RequestBody request: InvitationDto.Request.Register) {
+    override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>> {
         val userId = SecurityContextUtil.getPrincipal()
-        invitationService.registerInvitationCode(userId, request.invitationCode)
+
+        return invitationService.getBabiesByInvitationCode(userId, request.invitationCode)
+            .let { BaseResponse.success(it) }
     }
 }

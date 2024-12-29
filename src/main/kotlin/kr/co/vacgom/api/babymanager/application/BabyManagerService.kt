@@ -14,6 +14,10 @@ class BabyManagerService(
         return babyManagerRepository.saveAll(managers)
     }
 
+    fun getBabyByIdAndUserIsAdmin(userId: UUID, babyId: UUID): Baby {
+        return babyManagerRepository.findByBabyIdAndUserIdAndAdminIs(userId, babyId, true).baby
+    }
+
     fun getBabiesByUserIsAdmin(userId: UUID): List<Baby> {
         return babyManagerRepository.findByUserIdAndAdminIs(userId, true).map { it.baby }
     }

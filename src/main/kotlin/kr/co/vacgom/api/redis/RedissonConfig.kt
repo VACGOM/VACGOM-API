@@ -14,7 +14,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
-private class RedissonConfig(
+class RedissonConfig(
     @Value("\${redis.host}")
     private val host: String,
 
