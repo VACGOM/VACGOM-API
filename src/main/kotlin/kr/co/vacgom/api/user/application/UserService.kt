@@ -39,7 +39,7 @@ class UserService(
         val newBabies = request.babies.map {
             Baby(
                 name = it.name,
-                profileImg = s3Service.uploadImage(it.profileImg),
+                profileImg = it.profileImg,
                 gender = it.gender,
                 birthday = it.birthday,
             )
