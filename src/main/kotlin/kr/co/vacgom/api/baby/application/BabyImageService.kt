@@ -18,7 +18,6 @@ class BabyImageService(
     private val s3Service: S3Service,
 ) {
     fun uploadBabyImages(images: List<MultipartFile>): List<BabyDto.Response.UploadedImage> {
-
         return images.map {
             val path = "${BABY_PROFILE_DIR}${UuidCreator.create()}.${extractExt(it)}"
 

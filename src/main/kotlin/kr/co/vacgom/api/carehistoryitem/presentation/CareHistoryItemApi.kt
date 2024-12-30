@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.*
 import kr.co.vacgom.api.global.common.dto.BaseResponse
 import kr.co.vacgom.api.global.exception.error.ErrorResponse
+import org.springframework.web.bind.annotation.RequestBody
 import java.time.LocalDate
 import java.util.*
 
@@ -70,7 +71,7 @@ interface CareHistoryItemApi {
         ]
     )
     fun addBabyFood(request: BabyFoodDto.Request)
-
+    
     @Operation(
         summary = "기저귀 기록 추가 API",
         operationId = "addBreastFeeding",
@@ -114,7 +115,7 @@ interface CareHistoryItemApi {
         ]
     )
     fun addHealth(request: HealthDto.Request)
-
+    
     @Operation(
         summary = "간식 기록 추가 API",
         operationId = "addBreastFeeding",

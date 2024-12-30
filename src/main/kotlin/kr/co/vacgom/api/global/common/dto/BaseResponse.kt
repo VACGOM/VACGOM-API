@@ -6,6 +6,10 @@ data class BaseResponse<T>(
         val data: T? = null,
 ) {
     companion object {
+        fun <T> success(block: () -> T): BaseResponse<T> {
+            return BaseResponse(true, null, block())
+        }
+
         fun <T> success(data: T?): BaseResponse<T> {
             return BaseResponse(true, null, data)
         }
