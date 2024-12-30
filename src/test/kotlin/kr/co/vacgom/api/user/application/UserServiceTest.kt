@@ -76,7 +76,7 @@ class UserServiceTest: DescribeSpec( {
             SignupDto.Request.Baby(
                 "baby${it.ordinal}",
                 it,
-                null,
+                "profileImgUrl",
                 LocalDate.now()
             )
         }

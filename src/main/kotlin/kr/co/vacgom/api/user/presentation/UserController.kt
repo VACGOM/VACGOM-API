@@ -21,7 +21,7 @@ class UserController(
     }
 
     @PostMapping
-    override fun signup(@ModelAttribute request: SignupDto.Request): BaseResponse<SignupDto.Response> {
+    override fun signup(@RequestBody request: SignupDto.Request): BaseResponse<SignupDto.Response> {
         return BaseResponse.success(userService.signup(request))
     }
 
