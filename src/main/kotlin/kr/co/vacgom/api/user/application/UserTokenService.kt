@@ -11,6 +11,7 @@ import kr.co.vacgom.api.user.application.dto.UserTokenClaims
 import kr.co.vacgom.api.user.domain.RefreshToken
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
+import kr.co.vacgom.api.user.presentation.dto.TokenDto
 import kr.co.vacgom.api.user.repository.RefreshTokenRepository
 import kr.co.vacgom.api.user.repository.UserRepository
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -96,12 +97,12 @@ class UserTokenService(
         )
     }
 
-    fun reIssueAccessToken(token: String): String {
+    fun reIssueAccessToken(token: String): TokenDto.Response.Access {
         val refreshToken = resolveRefreshToken(token)
         val findUser = userRepository.findById(refreshToken.userId)
             ?: throw BusinessException(UserError.USER_NOT_FOUND)
 
-        return createAccessToken(findUser.id, findUser.role)
+        return createAccessToken(findUser.id, findUser.role).let { TokenDto.Response.Access(it) }
     }
 
     fun saveRefreshToken(token: String, userId: UUID) {
