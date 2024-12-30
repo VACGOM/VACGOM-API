@@ -3,6 +3,7 @@ package kr.co.vacgom.api.baby.application
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kr.co.vacgom.api.baby.presentation.dto.BabyDto
 import kr.co.vacgom.api.global.util.UuidCreator
 import kr.co.vacgom.api.s3.S3Service
 import org.apache.tomcat.util.http.fileupload.InvalidFileNameException
@@ -16,8 +17,7 @@ class BabyImageService(
     private val cdnUrl: String,
     private val s3Service: S3Service,
 ) {
-    fun uploadBabyImages(images: List<MultipartFile>): List<String> {
-
+    fun uploadBabyImages(images: List<MultipartFile>): List<BabyDto.Response.UploadedImage> {
         return images.map {
             val path = "${BABY_PROFILE_DIR}${UuidCreator.create()}.${extractExt(it)}"
 
@@ -25,7 +25,7 @@ class BabyImageService(
                 s3Service.uploadImage(path, it)
             }
 
-            "${cdnUrl}/${path}"
+            BabyDto.Response.UploadedImage("${cdnUrl}/${path}")
         }
     }
 

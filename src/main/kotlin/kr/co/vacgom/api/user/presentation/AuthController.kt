@@ -25,9 +25,7 @@ class AuthController(
         @PathVariable provider: String,
         @RequestBody request: LoginDto.Request.Social
     ): BaseResponse<LoginDto.Response> {
-        return BaseResponse.success{
-            authService.socialLogin(provider, request)
-        }
+        return authService.socialLogin(provider, request).let { BaseResponse.success(it) }
     }
 
     @PostMapping("/logout")
@@ -40,8 +38,6 @@ class AuthController(
         val refreshToken = jwtProvider.extractToken(request)
             ?: throw BusinessException(JwtError.MALFORMED_JWT)
 
-        return BaseResponse.success(TokenDto.Response.Access(
-            userTokenService.reIssueAccessToken(refreshToken),
-        ))
+        return userTokenService.reIssueAccessToken(refreshToken).let { BaseResponse.success(it) }
     }
 }

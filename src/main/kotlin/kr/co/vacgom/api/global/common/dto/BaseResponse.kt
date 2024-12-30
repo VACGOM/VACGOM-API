@@ -1,9 +1,9 @@
 package kr.co.vacgom.api.global.common.dto
 
 data class BaseResponse<T>(
-        val result: Boolean,
-        val message: String?,
-        val data: T?,
+        val result: Boolean = true,
+        val message: String? = "",
+        val data: T? = null,
 ) {
     companion object {
         fun <T> success(block: () -> T): BaseResponse<T> {

@@ -17,12 +17,12 @@ class UserController(
     @GetMapping
     override fun getUserDetail(): BaseResponse<UserDto.Response.UserDetail> {
         val userId = SecurityContextUtil.getPrincipal()
-        return BaseResponse.success(userService.getUserDetail(userId))
+        return userService.getUserDetail(userId).let { BaseResponse.success(it) }
     }
 
     @PostMapping
     override fun signup(@RequestBody request: SignupDto.Request): BaseResponse<SignupDto.Response> {
-        return BaseResponse.success(userService.signup(request))
+        return userService.signup(request).let { BaseResponse.success(it) }
     }
 
     @DeleteMapping
