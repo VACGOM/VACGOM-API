@@ -1,7 +1,6 @@
 package kr.co.vacgom.api.user.application
 
 import com.auth0.jwt.interfaces.Claim
-import jakarta.servlet.http.HttpServletRequest
 import kr.co.vacgom.api.auth.jwt.JwtPayload
 import kr.co.vacgom.api.auth.jwt.JwtProperties
 import kr.co.vacgom.api.auth.jwt.JwtProvider
@@ -105,16 +104,6 @@ class UserTokenService(
         return createAccessToken(findUser.id, findUser.role)
     }
 
-    fun extractToken(request: HttpServletRequest): String? {
-        val bearerToken = request.getHeader(TOKEN_HEADER)
-
-        return if (bearerToken != null && bearerToken.startsWith(BEARER_PREFIX)) {
-            bearerToken.substring(BEARER_PREFIX.length)
-        } else {
-            null
-        }
-    }
-
     fun saveRefreshToken(token: String, userId: UUID) {
         val refreshToken = RefreshToken(userId = userId, refreshToken = token)
         refreshTokenRepository.save(refreshToken)
@@ -122,10 +111,5 @@ class UserTokenService(
 
     fun deleteRefreshToken(userId: UUID) {
         refreshTokenRepository.deleteByUserId(userId)
-    }
-
-    companion object {
-        const val TOKEN_HEADER = "Authorization"
-        const val BEARER_PREFIX = "Bearer "
     }
 }

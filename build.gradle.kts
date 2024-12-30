@@ -57,17 +57,23 @@ dependencies {
     // OpenFeign
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
 
+    //S3
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.2")
+
     // Redisson
     implementation("org.redisson:redisson-spring-boot-starter:3.40.0")
+
+    //Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 
     // Utilities
     implementation("com.github.f4b6a3:uuid-creator:6.0.0")
 
     // JWT
-    implementation("io.jsonwebtoken:jjwt-api:0.12.6")
-    implementation("io.jsonwebtoken:jjwt-gson:0.12.6")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
     implementation("com.auth0:java-jwt:4.4.0")
+
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }

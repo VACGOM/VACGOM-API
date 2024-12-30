@@ -3,13 +3,14 @@ package kr.co.vacgom.api.auth.filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import kr.co.vacgom.api.auth.jwt.JwtProvider
+import kr.co.vacgom.api.auth.security.UserAuthentication
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath
-import kr.co.vacgom.api.auth.security.UserAuthentication
 import kr.co.vacgom.api.user.application.UserTokenService
-import kr.co.vacgom.api.user.presentation.AuthPath
-import kr.co.vacgom.api.user.presentation.UserPath
+import kr.co.vacgom.api.user.presentation.AuthApi
+import kr.co.vacgom.api.user.presentation.UserApi
 import org.springframework.http.HttpMethod
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -19,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class JwtAuthenticationFilter(
     private val userTokenService: UserTokenService,
+    private val jwtProvider: JwtProvider,
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -26,7 +28,7 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        userTokenService.extractToken(request)?.run {
+        jwtProvider.extractToken(request)?.run {
             val accessToken = userTokenService.resolveAccessToken(this)
             val userAuthentication = UserAuthentication(accessToken.userId, accessToken.authorities)
 
@@ -47,9 +49,12 @@ class JwtAuthenticationFilter(
 
     companion object {
         private val ignoredPath: Map<String, HttpMethod> = mapOf(
-            GlobalPath.BASE_V3 + AuthPath.AUTH.plus("/login/**") to HttpMethod.POST,
             "/actuator/health" to HttpMethod.GET,
-            GlobalPath.BASE_V3 + UserPath.USER to HttpMethod.POST,
+            "/swagger-ui/**" to HttpMethod.GET,
+            "/v3/api-docs/swagger-config" to HttpMethod.GET,
+            "/v3/api-docs.yaml" to HttpMethod.GET,
+            GlobalPath.BASE_V3 + AuthApi.AUTH.plus("/login/**") to HttpMethod.POST,
+            GlobalPath.BASE_V3 + UserApi.USER to HttpMethod.POST,
             GlobalPath.BASE_V3.plus("/TEST/**") to HttpMethod.POST
         )
     }

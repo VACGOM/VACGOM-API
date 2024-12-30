@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.carehistoryitem.domain
 
 import jakarta.persistence.*
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.BreastDirection
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.BREAST_FEEDING
@@ -17,9 +18,10 @@ class BreastFeeding (
     endTime: LocalDateTime,
     minutes: Int,
     breastDirection: BreastDirection,
+    baby: Baby,
     itemType: CareHistoryItemType = BREAST_FEEDING,
     executionTime: LocalDateTime,
-): CareHistoryItem(id, executionTime, itemType) {
+): CareHistoryItem(id, executionTime, itemType, baby) {
     @Column(nullable = false)
     @Comment("[Not Null] 모유수유 시작 시간")
     var startTime: LocalDateTime = startTime

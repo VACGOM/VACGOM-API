@@ -9,6 +9,6 @@ enum class UserError(
     override val status: HttpStatus,
     override val code: String,
 ) : ErrorCode {
-    USER_NOT_FOUND("회원이 존재하지 않습니다.", NOT_FOUND, "M_001"),
-    SOCIAL_ID_NOT_FOUND("소셜 ID가 존재하지 않습니다.", NOT_FOUND, "M_002")
+    USER_NOT_FOUND("회원이 존재하지 않습니다.", NOT_FOUND, "U_001"),
+    SOCIAL_ID_NOT_FOUND("소셜 ID가 존재하지 않습니다.", NOT_FOUND, "U_002")
 }

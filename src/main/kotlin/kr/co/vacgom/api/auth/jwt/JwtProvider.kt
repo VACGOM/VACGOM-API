@@ -5,12 +5,22 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTDecodeException
 import com.auth0.jwt.exceptions.SignatureVerificationException
 import com.auth0.jwt.exceptions.TokenExpiredException
+import jakarta.servlet.http.HttpServletRequest
 import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import org.springframework.stereotype.Component
 
 @Component
 class JwtProvider {
+    fun extractToken(request: HttpServletRequest): String? {
+        val bearerToken = request.getHeader(TOKEN_HEADER)
+
+        return if (bearerToken != null && bearerToken.startsWith(BEARER_PREFIX)) {
+            bearerToken.substring(BEARER_PREFIX.length)
+        } else {
+            null
+        }
+    }
     fun createToken(payload: JwtPayload, secret: String): String {
         return JWT.create()
             .withJWTId(payload.jti).withSubject(payload.sub)
@@ -48,4 +58,9 @@ class JwtProvider {
         SignatureVerificationException::class.java to { throw BusinessException(JwtError.SIGNATURE)},
         Throwable::class.java to { throw BusinessException(JwtError.JWT_EXCEPTION) },
     )
+
+    companion object {
+        const val TOKEN_HEADER = "Authorization"
+        const val BEARER_PREFIX = "Bearer "
+    }
 }

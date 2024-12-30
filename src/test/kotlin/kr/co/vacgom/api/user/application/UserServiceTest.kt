@@ -12,10 +12,11 @@ import kr.co.vacgom.api.baby.application.BabyService
 import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.s3.S3Service
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
-import kr.co.vacgom.api.user.presentation.dto.Signup
+import kr.co.vacgom.api.user.presentation.dto.SignupDto
 import kr.co.vacgom.api.user.repository.UserRepository
 import java.time.LocalDate
 
@@ -25,13 +26,14 @@ class UserServiceTest: DescribeSpec( {
     val authServiceMock: AuthService = mockk(relaxed = true)
     val babyServiceMock: BabyService = mockk(relaxed = true)
     val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
-
+    val s3ServiceMock: S3Service = mockk(relaxed = true)
     val sut = UserService(
         userTokenServiceMock,
         userRepositoryMock,
         authServiceMock,
         babyServiceMock,
         babyManagerServiceMock,
+        s3ServiceMock,
     )
 
     describe("회원 상세 조회 테스트") {
@@ -71,16 +73,16 @@ class UserServiceTest: DescribeSpec( {
 
     describe("회원 가입 테스트") {
         val babiesRequests = enumValues<Gender>().map {
-            Signup.Request.Baby(
+            SignupDto.Request.Baby(
                 "baby${it.ordinal}",
-                "profileImgUrl",
                 it,
+                "profileImgUrl",
                 LocalDate.now()
             )
         }
 
         context("정상적인 회원가입 요청이 들어온 경우") {
-            val request = Signup.Request(
+            val request = SignupDto.Request(
                 "registerToken",
                 "nickname",
                 babiesRequests,
@@ -89,14 +91,14 @@ class UserServiceTest: DescribeSpec( {
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
                 val result = sut.signup(request)
 
-                result.shouldBeTypeOf<Signup.Response>()
+                result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
                 result.refreshToken.shouldBeTypeOf<String>()
             }
         }
 
         context("등록하는 아기 정보가 없는 경우") {
-            val request = Signup.Request(
+            val request = SignupDto.Request(
                 "registerToken",
                 "nickname",
                 emptyList(),
@@ -105,14 +107,14 @@ class UserServiceTest: DescribeSpec( {
             it("정상적으로 엑세스 토큰과 리프레쉬 토큰을 반환한다.") {
                 val result = sut.signup(request)
 
-                result.shouldBeTypeOf<Signup.Response>()
+                result.shouldBeTypeOf<SignupDto.Response>()
                 result.accessToken.shouldBeTypeOf<String>()
                 result.refreshToken.shouldBeTypeOf<String>()
             }
         }
 
         context("registerToken이 유효하지 않은 경우") {
-            val request = Signup.Request(
+            val request = SignupDto.Request(
                 "invalidRegisterToken",
                 "nickname",
                 babiesRequests,

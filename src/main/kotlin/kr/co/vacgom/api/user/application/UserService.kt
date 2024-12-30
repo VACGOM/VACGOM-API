@@ -5,10 +5,11 @@ import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.babymanager.domain.BabyManager
 import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.s3.S3Service
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
 import kr.co.vacgom.api.user.exception.UserError
-import kr.co.vacgom.api.user.presentation.dto.Signup
+import kr.co.vacgom.api.user.presentation.dto.SignupDto
 import kr.co.vacgom.api.user.presentation.dto.UserDto
 import kr.co.vacgom.api.user.repository.UserRepository
 import org.springframework.stereotype.Service
@@ -23,9 +24,9 @@ class UserService(
     private val authService: AuthService,
     private val babyService: BabyService,
     private val babyManagerService: BabyManagerService,
+    private val s3Service: S3Service,
 ) {
-
-    fun signup(request: Signup.Request): Signup.Response {
+    fun signup(request: SignupDto.Request): SignupDto.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
         val newUser = User(
@@ -38,11 +39,12 @@ class UserService(
         val newBabies = request.babies.map {
             Baby(
                 name = it.name,
-                profileImg = it.profileImgUrl,
+                profileImg = it.profileImg,
                 gender = it.gender,
                 birthday = it.birthday,
             )
         }
+
 
         val savedUser = userRepository.save(newUser)
         val savedBabies = babyService.saveAll(newBabies)
@@ -59,7 +61,7 @@ class UserService(
         val refreshToken = userTokenService.createRefreshToken(savedUser.id)
         userTokenService.saveRefreshToken(refreshToken, savedUser.id)
 
-        return Signup.Response(
+        return SignupDto.Response(
             accessToken = userTokenService.createAccessToken(savedUser.id, savedUser.role),
             refreshToken = refreshToken,
         )

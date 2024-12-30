@@ -1,14 +1,19 @@
 package kr.co.vacgom.api.invitation.presentation.dto
 
-import kr.co.vacgom.api.invitation.domain.CareScope
+import io.swagger.v3.oas.annotations.media.Schema
+import java.util.*
 
 class InvitationDto {
     class Request {
-        data class Create(val careScope: CareScope)
-        data class Register(val invitationCode: String)
+        @Schema(name = "InvitationDto.Request.Create")
+        data class Create(val babyId: UUID?)
+
+        @Schema(name = "InvitationDto.Request.Get")
+        data class Get(val invitationCode: String)
     }
 
     class Response {
+        @Schema(name = "InvitationDto.Response.Create")
         data class Create(val invitationCode: String)
     }
 }

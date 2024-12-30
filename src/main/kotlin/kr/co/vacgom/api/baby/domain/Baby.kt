@@ -13,7 +13,7 @@ import java.util.*
 class Baby(
     id: UUID = UuidCreator.create(),
     name: String,
-    profileImg: String,
+    profileImg: String?,
     gender: Gender,
     birthday: LocalDate,
 ): BaseTimeEntity() {
@@ -29,7 +29,7 @@ class Baby(
         protected set
 
     @Comment("[Not Null] 아기 프로필 이미지 url")
-    var profileImg: String = profileImg
+    var profileImg: String? = profileImg
         protected set
 
     @Enumerated(EnumType.STRING)
