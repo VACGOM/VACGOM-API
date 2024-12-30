@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.baby.presentation
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -24,7 +25,10 @@ interface BabyApi {
             ),
         ]
     )
-    fun uploadBabyImage(request: BabyDto.Request.UploadImage): BaseResponse<List<String>>
+    fun uploadBabyImage(
+        @Parameter(description = "이미지 바이너리 데이터")
+        request: BabyDto.Request.UploadImage
+    ): BaseResponse<List<BabyDto.Response.UploadedImage>>
 
     companion object {
         const val BABY = "/babies"

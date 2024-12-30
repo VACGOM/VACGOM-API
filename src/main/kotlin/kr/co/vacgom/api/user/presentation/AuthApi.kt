@@ -45,7 +45,7 @@ interface AuthApi {
             엑세스 토큰 필요 X
         """,
         responses = [
-            ApiResponse(responseCode = "200", description = "로그인 성공 시", content = [Content(schema = Schema(implementation = LoginDto.Response.Success::class))]),
+            ApiResponse(responseCode = "200", description = "로그인 성공 시", content = [Content(schema = Schema(implementation = LoginDto.Response.Success::class)),]),
             ApiResponse(responseCode = "201", description = "회원 가입 필요한 경우", content = [Content(schema = Schema(implementation = LoginDto.Response.Register::class))]),
             ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ]
