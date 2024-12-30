@@ -21,8 +21,8 @@ class CareHistoryItemController(
         @RequestParam babyId: UUID,
         @RequestParam executionDate: LocalDate,
     ): BaseResponse<CareHistoryDto.Response.Daily> {
-        return BaseResponse.success {
-            careHistoryItemGetService.getCareHistoryByExecutionDate(babyId, executionDate)
+        return careHistoryItemGetService.getCareHistoryByExecutionDate(babyId, executionDate).let {
+            BaseResponse.success(it)
         }
     }
 
