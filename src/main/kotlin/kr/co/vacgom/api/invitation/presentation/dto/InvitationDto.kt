@@ -6,9 +6,7 @@ import java.util.*
 class InvitationDto {
     class Request {
         @Schema(name = "InvitationDto.Request.Create")
-        data class Create(
-            val babyId: UUID?,
-        )
+        data class Create(val babyId: UUID?)
 
         @Schema(name = "InvitationDto.Request.Get")
         data class Get(val invitationCode: String)

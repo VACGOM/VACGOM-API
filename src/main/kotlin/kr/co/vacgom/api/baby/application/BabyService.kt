@@ -18,7 +18,7 @@ class BabyService(
     fun getBabiesById(babyIds: List<UUID>): List<Baby> {
         return babyRepository.findBabiesById(babyIds)
     }
-
+    
     fun getBabyById(id: UUID): Baby {
         return babyRepository.findById(id)
     }
