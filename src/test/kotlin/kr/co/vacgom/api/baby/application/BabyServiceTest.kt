@@ -128,6 +128,28 @@ class BabyServiceTest : DescribeSpec({
       }
      }
     }
+
+ describe("아이 정보 수정 테스트") {
+  context("아이가 존재하는 경우") {
+   it("정상적으로 정보 수정이 이루어진다.") {
+    every { babyRepositoryMock.findById(baby.id) } returns baby
+
+    val updateName = "name"
+    val updateProfileImg = "profileImgUrl"
+    val updateGender = Gender.MALE
+    val updateBirthday = LocalDate.of(2022, 1, 1)
+
+    val request = BabyDto.Request.Update(updateName, updateProfileImg, updateGender, updateBirthday)
+
+    val result = sut.updateBabyInfo(baby.id, request)
+
+    result.name shouldBe updateName
+    result.profileImg shouldBe updateProfileImg
+    result.gender shouldBe updateGender
+    result.birthday shouldBe updateBirthday
+   }
+  }
+ }
 }) {
     companion object {
         val baby = Baby(
