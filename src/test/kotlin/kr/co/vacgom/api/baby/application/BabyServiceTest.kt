@@ -10,15 +10,20 @@ import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.baby.exceptioin.BabyError
 import kr.co.vacgom.api.baby.presentation.dto.BabyDto
 import kr.co.vacgom.api.baby.repository.BabyRepository
+import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.global.util.UuidCreator
 import java.time.LocalDate
 import java.time.Period
 
 class BabyServiceTest : DescribeSpec({
    val babyRepositoryMock: BabyRepository = mockk(relaxed = true)
-    val sut = BabyService(
-        babyRepository = babyRepositoryMock,
-    )
+   val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
+
+   val sut = BabyService(
+       babyManagerService = babyManagerServiceMock,
+       babyRepository = babyRepositoryMock,
+   )
 
     describe("아이 다건 조회 테스트") {
      context("아이가 존재하는 경우") {
@@ -147,6 +152,19 @@ class BabyServiceTest : DescribeSpec({
     result.profileImg shouldBe updateProfileImg
     result.gender shouldBe updateGender
     result.birthday shouldBe updateBirthday
+   }
+  }
+ }
+
+ describe("유저 아이 정보 조회 테스트") {
+  context("유저가 존재하는 경우") {
+   it("유저가 대표로 있는 아이 정보가 조회된다.") {
+    every { babyManagerServiceMock.getBabiesByUserId(any()) } returns babies
+
+    val result = sut.getUserBabyDetailsWithAge(UuidCreator.create())
+
+    result.shouldBeTypeOf<ArrayList<BabyDto.Response.DetailWithAge>>()
+    result.size shouldBe babies.size
    }
   }
  }
