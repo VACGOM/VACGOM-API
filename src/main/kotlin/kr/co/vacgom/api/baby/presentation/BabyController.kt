@@ -1,5 +1,6 @@
 package kr.co.vacgom.api.baby.presentation
 
+import kr.co.vacgom.api.auth.security.util.SecurityContextUtil
 import kr.co.vacgom.api.baby.application.BabyImageService
 import kr.co.vacgom.api.baby.application.BabyService
 import kr.co.vacgom.api.baby.presentation.BabyApi.Companion.BABY
@@ -30,6 +31,12 @@ class BabyController(
             true -> babyService.getBabyDetailWithAgeById(babyId).let { BaseResponse.success(it) }
             else -> babyService.getBabyDetailById(babyId).let { BaseResponse.success(it) }
         }
+    }
+
+    @GetMapping
+    override fun getUserBabyDetailsWithAge(): BaseResponse<List<BabyDto.Response.DetailWithAge>> {
+        val userId = SecurityContextUtil.getPrincipal()
+        return babyService.getUserBabyDetailsWithAge(userId).let { BaseResponse.success(it) }
     }
 
     @PatchMapping("/{babyId}")

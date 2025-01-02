@@ -4,6 +4,7 @@ import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.baby.presentation.dto.BabyDto
 import kr.co.vacgom.api.baby.presentation.dto.BabyDto.Response.DetailWithAge.BabyAge
 import kr.co.vacgom.api.baby.repository.BabyRepository
+import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
@@ -11,6 +12,7 @@ import java.util.*
 @Service
 @Transactional
 class BabyService(
+    private val babyManagerService: BabyManagerService,
     private val babyRepository: BabyRepository,
 ) {
     fun getBabiesById(babyIds: List<UUID>): List<Baby> {
@@ -42,6 +44,19 @@ class BabyService(
                 profileImg = it.profileImg,
                 gender = it.gender,
                 birthday = it.birthday,
+            )
+        }
+    }
+
+    fun getUserBabyDetailsWithAge(userId: UUID): List<BabyDto.Response.DetailWithAge> {
+        return babyManagerService.getBabiesByUserId(userId).map {
+            BabyDto.Response.DetailWithAge(
+                id = it.id,
+                name = it.name,
+                profileImg = it.profileImg,
+                gender = it.gender,
+                birthday = it.birthday,
+                age = BabyAge.create(it.birthday),
             )
         }
     }

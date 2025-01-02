@@ -21,4 +21,8 @@ class BabyManagerService(
     fun getBabiesByUserIsAdmin(userId: UUID): List<Baby> {
         return babyManagerRepository.findByUserIdAndAdminIs(userId, true).map { it.baby }
     }
+
+    fun getBabiesByUserId(userId: UUID): List<Baby> {
+        return babyManagerRepository.findByUserId(userId).map { it.baby }.sortedBy { it.birthday }
+    }
 }

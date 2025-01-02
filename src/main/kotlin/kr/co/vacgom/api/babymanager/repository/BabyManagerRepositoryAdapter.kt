@@ -26,4 +26,8 @@ class BabyManagerRepositoryAdapter(
         return babyManagerJpaRepository.findByBabyIdAndUserIdAndAdminIs(userId, babyId, isAdmin)
             ?: throw BusinessException(BabyManagerError.NOT_ADMIN_BABY_MANAGER)
     }
+
+    override fun findByUserId(userId: UUID): List<BabyManager> {
+        return babyManagerJpaRepository.findByUserId(userId)
+    }
 }
