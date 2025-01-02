@@ -71,7 +71,7 @@ interface CareHistoryItemApi {
         ]
     )
     fun addBabyFood(request: BabyFoodDto.Request)
-    
+
     @Operation(
         summary = "기저귀 기록 추가 API",
         operationId = "addBreastFeeding",
@@ -115,7 +115,7 @@ interface CareHistoryItemApi {
         ]
     )
     fun addHealth(request: HealthDto.Request)
-    
+
     @Operation(
         summary = "간식 기록 추가 API",
         operationId = "addBreastFeeding",

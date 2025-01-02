@@ -23,7 +23,7 @@ class BabyDto {
             val gender: Gender,
             val birthday: LocalDate,
         )
-        
+
         @Schema(name = "BabyDto.Response.UploadedImage")
         data class UploadedImage(
             val imageUrl: String
