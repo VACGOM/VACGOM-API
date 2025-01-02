@@ -2,11 +2,13 @@ package kr.co.vacgom.api.baby.application
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.every
 import io.mockk.mockk
 import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.baby.exceptioin.BabyError
+import kr.co.vacgom.api.baby.presentation.dto.BabyDto
 import kr.co.vacgom.api.baby.repository.BabyRepository
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import java.time.LocalDate
@@ -59,13 +61,29 @@ class BabyServiceTest : DescribeSpec({
       }
      }
 
-     context("아이가 존재하고 나이 정보도 함께 조회하는 경우") {
+     context("아이 상세 정보 조회 시 아이가 존재하는 경우") {
+      it("정상적으로 BabyDetail Dto 객체를 반환한다.") {
+       every { babyRepositoryMock.findById(baby.id) } returns baby
+
+       val result = sut.getBabyDetailById(baby.id)
+
+       result.shouldBeTypeOf<BabyDto.Response.Detail>()
+       result.id shouldBe baby.id
+       result.gender shouldBe baby.gender
+       result.profileImg shouldBe baby.profileImg
+       result.name shouldBe baby.name
+       result.birthday shouldBe baby.birthday
+      }
+     }
+
+     context("아이 상세 정보 조회(나이 포함) 시 아이가 존재 하는 경우") {
       it("정상적으로 BabyDetailWithAge Dto 객체를 반환한다.") {
        every { babyRepositoryMock.findById(baby.id) } returns baby
        val period = Period.between(baby.birthday, LocalDate.now())
 
        val result = sut.getBabyDetailWithAgeById(baby.id)
 
+       result.shouldBeTypeOf<BabyDto.Response.DetailWithAge>()
        result.id shouldBe baby.id
        result.gender shouldBe baby.gender
        result.profileImg shouldBe baby.profileImg
@@ -81,9 +99,29 @@ class BabyServiceTest : DescribeSpec({
       it("Baby Not Found 예외가 발생한다.") {
        every { babyRepositoryMock.findById(baby.id) } throws BusinessException(BabyError.BABY_NOT_FOUND)
 
-       val result = shouldThrow<BusinessException> {
-        sut.getBabyById(baby.id)
-       }
+       val result = shouldThrow<BusinessException> { sut.getBabyById(baby.id) }
+
+       result.message shouldBe BabyError.BABY_NOT_FOUND.message
+       result.errorCode shouldBe BabyError.BABY_NOT_FOUND
+      }
+     }
+
+     context("아이 상세 정보 조회 시 아이가 존재하지 않는 경우") {
+      it("Baby Not Found 예외가 발생한다.") {
+       every { babyRepositoryMock.findById(baby.id) } throws BusinessException(BabyError.BABY_NOT_FOUND)
+
+       val result = shouldThrow<BusinessException> { sut.getBabyDetailById(baby.id) }
+
+       result.message shouldBe BabyError.BABY_NOT_FOUND.message
+       result.errorCode shouldBe BabyError.BABY_NOT_FOUND
+      }
+     }
+
+     context("아이 상세 정보 조회(나이 포함) 시 아이가 존재하지 않는 경우") {
+      it("Baby Not Found 예외가 발생한다.") {
+       every { babyRepositoryMock.findById(baby.id) } throws BusinessException(BabyError.BABY_NOT_FOUND)
+
+       val result = shouldThrow<BusinessException> { sut.getBabyDetailWithAgeById(baby.id) }
 
        result.message shouldBe BabyError.BABY_NOT_FOUND.message
        result.errorCode shouldBe BabyError.BABY_NOT_FOUND
