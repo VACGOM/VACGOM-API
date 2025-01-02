@@ -55,6 +55,25 @@ interface BabyApi {
     )
     fun getBabyDetail(babyId: UUID, withAge: Boolean?): BaseResponse<BabyDto.Response>
 
+    @Operation(
+        summary = "아기 정보 업데이트 API",
+        operationId = "updateBaby",
+        description = """""",
+        responses = [
+            ApiResponse(
+                responseCode = "200",
+                description = "OK",
+                content = [Content(schema = Schema(implementation = BabyDto.Response.Detail::class))]
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "Bad Request",
+                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+            ),
+        ]
+    )
+    fun updateBaby(babyId: UUID, request: BabyDto.Request.Update): BaseResponse<BabyDto.Response.Detail>
+
     companion object {
         const val BABY = "/babies"
     }

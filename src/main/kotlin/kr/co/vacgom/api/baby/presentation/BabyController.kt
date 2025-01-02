@@ -31,4 +31,12 @@ class BabyController(
             else -> babyService.getBabyDetailById(babyId).let { BaseResponse.success(it) }
         }
     }
+
+    @PatchMapping("/{babyId}")
+    override fun updateBaby(
+        @PathVariable babyId: UUID,
+        @RequestBody request: BabyDto.Request.Update
+    ): BaseResponse<BabyDto.Response.Detail> {
+        return babyService.updateBabyInfo(babyId, request).let { BaseResponse.success(it) }
+    }
 }

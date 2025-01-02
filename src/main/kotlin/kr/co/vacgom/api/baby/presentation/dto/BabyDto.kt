@@ -8,10 +8,17 @@ import java.time.Period
 import java.util.*
 
 class BabyDto {
-    @Schema(name = "BabyDto.Request.UploadImage")
     class Request {
+        @Schema(name = "BabyDto.Request.UploadImage")
         data class UploadImage(
             val images: List<MultipartFile>,
+        )
+
+        data class Update(
+            val name: String,
+            val profileImg: String?,
+            val gender: Gender,
+            val birthday: LocalDate,
         )
     }
 
