@@ -14,8 +14,8 @@ class BabyDto {
         )
     }
 
-    @Schema(name = "BabyDto.Response.Detail")
     class Response {
+        @Schema(name = "BabyDto.Response.Detail")
         data class Detail(
             val id: UUID,
             val name: String,
@@ -24,6 +24,7 @@ class BabyDto {
             val birthday: LocalDate,
         )
 
+        @Schema(name = "BabyDto.Response.UploadedImage")
         data class UploadedImage(
             val imageUrl: String
         )

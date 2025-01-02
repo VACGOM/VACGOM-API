@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.*
 import kr.co.vacgom.api.global.common.dto.BaseResponse
 import kr.co.vacgom.api.global.exception.error.ErrorResponse
+import org.springframework.web.bind.annotation.RequestBody
 import java.time.LocalDate
 import java.util.*
 
