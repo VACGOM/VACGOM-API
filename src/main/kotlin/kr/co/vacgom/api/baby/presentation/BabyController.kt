@@ -28,7 +28,7 @@ class BabyController(
     ): BaseResponse<BabyDto.Response> {
         return when(withAge) {
             true -> babyService.getBabyDetailWithAgeById(babyId).let { BaseResponse.success(it) }
-            else -> babyService.getBabyDetailWithAgeById(babyId).let { BaseResponse.success(it) }
+            else -> babyService.getBabyDetailById(babyId).let { BaseResponse.success(it) }
         }
     }
 }

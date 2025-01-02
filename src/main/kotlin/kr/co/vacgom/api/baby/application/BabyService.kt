@@ -37,4 +37,16 @@ class BabyService(
             )
         }
     }
+
+    fun getBabyDetailById(id: UUID): BabyDto.Response {
+        return babyRepository.findById(id).let {
+            BabyDto.Response.Detail(
+                id = it.id,
+                name = it.name,
+                profileImg = it.profileImg,
+                gender = it.gender,
+                birthday = it.birthday,
+            )
+        }
+    }
 }
