@@ -9,4 +9,5 @@ interface BabyManagerRepository {
     fun findByUserIdAndAdminIs(userId: UUID, isAdmin: Boolean): List<BabyManager>
     fun findByBabyIdAndUserIdAndAdminIs(userId: UUID, babyId: UUID, isAdmin: Boolean): BabyManager
     fun findByUserId(userId: UUID): List<BabyManager>
+    fun deleteByBabyIdAndUserIdAndAdminIs(userId: UUID, babyId: UUID, isAdmin: Boolean)
 }

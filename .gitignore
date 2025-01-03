@@ -44,3 +44,6 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+### Redis ###
+.rdb

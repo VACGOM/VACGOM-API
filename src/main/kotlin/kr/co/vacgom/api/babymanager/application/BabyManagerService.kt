@@ -4,9 +4,11 @@ import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.babymanager.domain.BabyManager
 import kr.co.vacgom.api.babymanager.repository.BabyManagerRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
+@Transactional
 class BabyManagerService(
     private val babyManagerRepository: BabyManagerRepository,
 ) {
@@ -27,5 +29,10 @@ class BabyManagerService(
 
     fun getBabiesByUserId(userId: UUID): List<Baby> {
         return babyManagerRepository.findByUserId(userId).map { it.baby }.sortedBy { it.birthday }
+    }
+
+    fun deleteBabyManager(currentUserId: UUID, babyId: UUID, managerId: UUID) {
+        babyManagerRepository.findByBabyIdAndUserIdAndAdminIs(currentUserId, babyId, true)
+        babyManagerRepository.deleteByBabyIdAndUserIdAndAdminIs(managerId, babyId, false)
     }
 }
