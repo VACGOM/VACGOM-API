@@ -42,4 +42,18 @@ class Baby(
     @Comment("[Not Null] 아기 생년월일")
     var birthday: LocalDate = birthday
         protected set
+
+    fun update(
+        name: String,
+        profileImg: String?,
+        gender: Gender,
+        birthday: LocalDate,
+    ): Baby {
+        this.name = name
+        this.profileImg = profileImg
+        this.gender = gender
+        this.birthday = birthday
+
+        return this
+    }
 }

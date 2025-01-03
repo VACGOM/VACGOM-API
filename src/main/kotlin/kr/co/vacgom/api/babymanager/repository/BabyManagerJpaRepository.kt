@@ -16,4 +16,6 @@ interface BabyManagerJpaRepository: JpaRepository<BabyManager, UUID> {
         @Param("babyId") babyId: UUID,
         @Param("isAdmin")isAdmin: Boolean
     ): BabyManager?
+
+    fun findByUserId(userId: UUID): List<BabyManager>
 }

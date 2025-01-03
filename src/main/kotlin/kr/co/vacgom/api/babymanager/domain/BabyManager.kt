@@ -2,6 +2,7 @@ package kr.co.vacgom.api.babymanager.domain
 
 import jakarta.persistence.*
 import kr.co.vacgom.api.baby.domain.Baby
+import kr.co.vacgom.api.global.entity.BaseEntity
 import kr.co.vacgom.api.global.util.UuidCreator
 import kr.co.vacgom.api.user.domain.User
 import org.hibernate.annotations.Comment
@@ -14,7 +15,7 @@ class BabyManager(
     user: User,
     baby: Baby,
     isAdmin: Boolean = false,
-) {
+): BaseEntity() {
     @Id
     @Column(name = "baby_manager_id", nullable = false, updatable = false)
     @Comment("[Not Null] 아기 매니저 id")
