@@ -25,6 +25,21 @@ interface BabyManagerApi {
     )
     fun deleteBabyManager(request: BabyManagerDto.Request.Delete)
 
+    @Operation(
+        summary = "돌보미 아이 연결 해제 API",
+        operationId = "unlinkBaby",
+        description = """""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "OK"),
+            ApiResponse(
+                responseCode = "400",
+                description = "Bad Request",
+                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+            ),
+        ]
+    )
+    fun unlinkBaby(request: BabyManagerDto.Request.Unlink)
+
     companion object {
         const val BABY_MANAGER = "/baby-managers"
     }

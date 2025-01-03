@@ -20,4 +20,10 @@ class BabyManagerController(
         val userId = SecurityContextUtil.getPrincipal()
         babyManagerService.deleteBabyManager(userId, request.babyId, request.managerId)
     }
+
+    @DeleteMapping("/unlink")
+    override fun unlinkBaby(@RequestBody request: BabyManagerDto.Request.Unlink) {
+        val userId = SecurityContextUtil.getPrincipal()
+        babyManagerService.unlinkBaby(userId, request.babyId)
+    }
 }
