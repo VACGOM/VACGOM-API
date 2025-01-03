@@ -8,7 +8,7 @@ import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.every
 import io.mockk.mockk
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
-import kr.co.vacgom.api.baby.application.BabyService
+import kr.co.vacgom.api.baby.application.BabyQueryService
 import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
@@ -27,12 +27,12 @@ import java.util.*
 class InvitationServiceTest : DescribeSpec({
     val invitationRepositoryMock: InvitationRepository = mockk(relaxed = true)
     val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
-    val babyServiceMock: BabyService = mockk(relaxed = true)
+    val babyQueryServiceMock: BabyQueryService = mockk(relaxed = true)
 
     val sut = InvitationService(
         invitationRepositoryMock,
         babyManagerServiceMock,
-        babyServiceMock,
+        babyQueryServiceMock,
     )
 
     describe("초대 코드 생성 테스트") {
@@ -123,7 +123,7 @@ class InvitationServiceTest : DescribeSpec({
         context("초대 코드를 정상적으로 조회한다면") {
             it("해당하는 아기 상세 정보를 반환한다.") {
                 every { invitationRepositoryMock.getAndDeleteInvitationCode(invitationCode.key) } returns invitationCode
-                every { babyServiceMock.getBabiesById(babies.map { it.id }) } returns babies
+                every { babyQueryServiceMock.getBabiesById(babies.map { it.id }) } returns babies
 
                 val result = sut.getBabiesByInvitationCode(adminUser.id, invitationCode.key)
 

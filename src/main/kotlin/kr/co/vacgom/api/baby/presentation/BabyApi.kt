@@ -32,19 +32,17 @@ interface BabyApi {
     ): BaseResponse<List<BabyDto.Response.UploadedImage>>
 
     @Operation(
-        summary = "아기 상세정보(나이 포함 가능) 조회 API",
+        summary = "아기 상세정보(나이 포함 여부 선택 가능) 조회 API",
         operationId = "getBabyDetail",
         description = """""",
         responses = [
             ApiResponse(
                 responseCode = "200",
                 description = "OK",
-                content = [Content(schema = Schema(implementation = BabyDto.Response.Detail::class))]
-            ),
-            ApiResponse(
-                responseCode = "200",
-                description = "OK",
-                content = [Content(schema = Schema(implementation = BabyDto.Response.DetailWithAge::class))]
+                content = [Content(schema = Schema(
+                    oneOf = [BabyDto.Response.Detail::class, BabyDto.Response.DetailWithAge::class],
+                    exampleClasses = [BabyDto.Response.Detail::class, BabyDto.Response.DetailWithAge::class])
+                )]
             ),
             ApiResponse(
                 responseCode = "400",
