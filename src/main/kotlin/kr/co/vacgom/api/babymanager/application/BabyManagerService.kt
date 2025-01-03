@@ -35,4 +35,8 @@ class BabyManagerService(
         babyManagerRepository.findByBabyIdAndUserIdAndAdminIs(currentUserId, babyId, true)
         babyManagerRepository.deleteByBabyIdAndUserIdAndAdminIs(managerId, babyId, false)
     }
+
+    fun unlinkBaby(userId: UUID, babyId: UUID){
+        babyManagerRepository.deleteByBabyIdAndUserIdAndAdminIs(userId, babyId, false)
+    }
 }
