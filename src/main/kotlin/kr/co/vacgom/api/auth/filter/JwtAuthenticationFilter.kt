@@ -5,9 +5,10 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import kr.co.vacgom.api.auth.jwt.JwtProvider
 import kr.co.vacgom.api.auth.security.UserAuthentication
+import kr.co.vacgom.api.baby.presentation.BabyApi.Companion.BABY
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
-import kr.co.vacgom.api.global.presentation.GlobalPath
+import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.presentation.AuthApi
 import kr.co.vacgom.api.user.presentation.UserApi
@@ -53,9 +54,10 @@ class JwtAuthenticationFilter(
             "/swagger-ui/**" to HttpMethod.GET,
             "/v3/api-docs/swagger-config" to HttpMethod.GET,
             "/v3/api-docs.yaml" to HttpMethod.GET,
-            GlobalPath.BASE_V3 + AuthApi.AUTH.plus("/login/**") to HttpMethod.POST,
-            GlobalPath.BASE_V3 + UserApi.USER to HttpMethod.POST,
-            GlobalPath.BASE_V3.plus("/TEST/**") to HttpMethod.POST
+            "$BASE_V3$BABY/images" to HttpMethod.POST,
+            BASE_V3 + AuthApi.AUTH.plus("/login/**") to HttpMethod.POST,
+            BASE_V3 + UserApi.USER to HttpMethod.POST,
+            BASE_V3.plus("/TEST/**") to HttpMethod.POST
         )
     }
 }
