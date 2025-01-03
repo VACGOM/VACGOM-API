@@ -10,6 +10,9 @@ import java.util.*
 class BabyManagerService(
     private val babyManagerRepository: BabyManagerRepository,
 ) {
+    fun save(manager: BabyManager): BabyManager {
+        return babyManagerRepository.save(manager)
+    }
     fun saveAll(managers: Collection<BabyManager>): List<BabyManager> {
         return babyManagerRepository.saveAll(managers)
     }
@@ -20,5 +23,9 @@ class BabyManagerService(
 
     fun getBabiesByUserIsAdmin(userId: UUID): List<Baby> {
         return babyManagerRepository.findByUserIdAndAdminIs(userId, true).map { it.baby }
+    }
+
+    fun getBabiesByUserId(userId: UUID): List<Baby> {
+        return babyManagerRepository.findByUserId(userId).map { it.baby }.sortedBy { it.birthday }
     }
 }
