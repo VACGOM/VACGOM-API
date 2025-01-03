@@ -27,6 +27,11 @@ class UserController(
         return userCommandService.signup(request).let { BaseResponse.success(it) }
     }
 
+    @PostMapping("/invitation")
+    override fun signupByInvitationCode(@RequestBody request: SignupDto.Request.Invitation): BaseResponse<SignupDto.Response> {
+        return userCommandService.signupByInvitationCode(request).let { BaseResponse.success(it) }
+    }
+
     @DeleteMapping
     override fun revoke() {
         val userId = SecurityContextUtil.getPrincipal()
