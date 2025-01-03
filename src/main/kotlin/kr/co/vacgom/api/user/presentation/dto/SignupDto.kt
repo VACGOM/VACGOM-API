@@ -26,7 +26,6 @@ class SignupDto {
             val gender: Gender,
             val profileImg: String?,
             val birthday: LocalDate,
-            val isAdmin: Boolean,
         )
     }
 

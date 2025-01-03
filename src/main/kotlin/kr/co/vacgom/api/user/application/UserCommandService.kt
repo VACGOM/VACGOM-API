@@ -45,11 +45,11 @@ class UserCommandService(
                 )
             }
             .also { babyCommandService.saveAll(it) }
-            .mapIndexed { index, baby ->
+            .map {
                 BabyManager(
                     user = savedUser,
-                    baby = baby,
-                    isAdmin = request.babies[index].isAdmin,
+                    baby = it,
+                    isAdmin = true
                 )
             }
             .let { babyManagerService.saveAll(it) }

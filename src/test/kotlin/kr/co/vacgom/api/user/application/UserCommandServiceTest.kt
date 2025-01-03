@@ -40,7 +40,6 @@ class UserCommandServiceTest : DescribeSpec({
                 it,
                 "profileImgUrl",
                 LocalDate.now(),
-                true
             )
         }
 
