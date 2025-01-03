@@ -4,9 +4,11 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.tags.Tag
 import kr.co.vacgom.api.babymanager.presentation.dto.BabyManagerDto
 import kr.co.vacgom.api.global.exception.error.ErrorResponse
 
+@Tag(name = "아기 돌보미 API")
 interface BabyManagerApi {
     @Operation(
         summary = "공동 돌보미 삭제 API",
