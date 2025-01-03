@@ -9,6 +9,10 @@ import java.util.*
 
 @Repository
 class BabyRepositoryAdapter(private val babyJpaRepository: BabyJpaRepository): BabyRepository {
+    override fun save(newBaby: Baby): Baby {
+        return babyJpaRepository.save(newBaby)
+    }
+
     override fun saveAll(babies: List<Baby>): List<Baby> {
         return babyJpaRepository.saveAll(babies)
     }

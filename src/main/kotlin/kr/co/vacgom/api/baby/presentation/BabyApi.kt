@@ -75,6 +75,21 @@ interface BabyApi {
     fun getUserBabyDetailsWithAge(): BaseResponse<List<BabyDto.Response.DetailWithAge>>
 
     @Operation(
+        summary = "유저 돌봄 아이 추가 API",
+        operationId = "createBaby",
+        description = """""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "OK"),
+            ApiResponse(
+                responseCode = "400",
+                description = "Bad Request",
+                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+            ),
+        ]
+    )
+    fun createBaby(request: BabyDto.Request.Create)
+
+    @Operation(
         summary = "아기 정보 업데이트 API",
         operationId = "updateBaby",
         description = """""",

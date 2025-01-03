@@ -10,6 +10,9 @@ import java.util.*
 class BabyManagerService(
     private val babyManagerRepository: BabyManagerRepository,
 ) {
+    fun save(manager: BabyManager): BabyManager {
+        return babyManagerRepository.save(manager)
+    }
     fun saveAll(managers: Collection<BabyManager>): List<BabyManager> {
         return babyManagerRepository.saveAll(managers)
     }

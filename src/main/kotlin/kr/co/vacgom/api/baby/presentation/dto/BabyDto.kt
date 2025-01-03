@@ -14,6 +14,16 @@ class BabyDto {
             val images: List<MultipartFile>,
         )
 
+        @Schema(name = "BabyDto.Request.Create")
+        data class Create(
+            val name: String,
+            val profileImg: String?,
+            val gender: Gender,
+            val birthday: LocalDate,
+            val isAdmin: Boolean,
+        )
+
+        @Schema(name = "BabyDto.Request.Update")
         data class Update(
             val name: String,
             val profileImg: String?,
