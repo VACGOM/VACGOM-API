@@ -61,7 +61,7 @@ interface BabyApi {
             ApiResponse(
                 responseCode = "200",
                 description = "OK",
-                content = [Content(schema = Schema(implementation = BabyDto.Response.DetailWithAge::class))]
+                useReturnTypeSchema = true
             ),
             ApiResponse(
                 responseCode = "400",

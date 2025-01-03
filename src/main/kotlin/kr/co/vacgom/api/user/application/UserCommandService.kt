@@ -26,33 +26,31 @@ class UserCommandService(
     fun signup(request: SignupDto.Request): SignupDto.Response {
         val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
 
-        val newUser = User(
+        val savedUser = User(
             nickname = request.nickname,
             socialId = registerToken.socialId,
             provider = registerToken.provider,
             role = UserRole.ROLE_USER,
-        )
+        ).let { userRepository.save(it) }
 
-        val newBabies = request.babies.map {
-            Baby(
-                name = it.name,
-                profileImg = it.profileImg,
-                gender = it.gender,
-                birthday = it.birthday,
-            )
-        }
-
-        val savedUser = userRepository.save(newUser)
-        val savedBabies = babyCommandService.saveAll(newBabies)
-        val managers = savedBabies.map { baby ->
-            BabyManager(
-                user = savedUser,
-                baby = baby,
-                isAdmin = true
-            )
-        }
-
-        babyManagerService.saveAll(managers)
+        request.babies
+            .map {
+                Baby(
+                    name = it.name,
+                    profileImg = it.profileImg,
+                    gender = it.gender,
+                    birthday = it.birthday,
+                )
+            }
+            .also { babyCommandService.saveAll(it) }
+            .mapIndexed { index, baby ->
+                BabyManager(
+                    user = savedUser,
+                    baby = baby,
+                    isAdmin = request.babies[index].isAdmin,
+                )
+            }
+            .let { babyManagerService.saveAll(it) }
 
         val refreshToken = userTokenService.createRefreshToken(savedUser.id)
         userTokenService.saveRefreshToken(refreshToken, savedUser.id)
