@@ -36,7 +36,8 @@ class UserCommandServiceTest : DescribeSpec({
                 "baby${it.ordinal}",
                 it,
                 "profileImgUrl",
-                LocalDate.now()
+                LocalDate.now(),
+                true
             )
         }
 
