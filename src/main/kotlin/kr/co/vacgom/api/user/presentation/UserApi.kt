@@ -50,6 +50,21 @@ interface UserApi {
         @Parameter(description = "", required = true) request: SignupDto.Request,
     ): BaseResponse<SignupDto.Response>
 
+    @Operation(
+        summary = "회원 가입(초대코드) API",
+        operationId = "signupByInvitationCode",
+        description = """
+            엑세스 토큰 필요 X
+        """,
+        responses = [
+            ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = SignupDto.Response::class))]),
+            ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+        ]
+    )
+    fun signupByInvitationCode(
+        @Parameter(description = "", required = true) request: SignupDto.Request.Invitation,
+    ): BaseResponse<SignupDto.Response>
+
     companion object {
         const val USER = "/users"
     }
