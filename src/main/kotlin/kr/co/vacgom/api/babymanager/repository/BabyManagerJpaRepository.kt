@@ -2,6 +2,7 @@ package kr.co.vacgom.api.babymanager.repository
 
 import kr.co.vacgom.api.babymanager.domain.BabyManager
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import java.util.*
@@ -18,4 +19,12 @@ interface BabyManagerJpaRepository: JpaRepository<BabyManager, UUID> {
     ): BabyManager?
 
     fun findByUserId(userId: UUID): List<BabyManager>
+
+    @Modifying
+    @Query("delete from BabyManager bm where bm.user.id = :userId and bm.baby.id = :babyId and bm.isAdmin = :isAdmin")
+    fun deleteByBabyIdAndUserIdAndAdminIs(
+        @Param("userId") userId: UUID,
+        @Param("babyId") babyId: UUID,
+        @Param("isAdmin") isAdmin: Boolean
+    )
 }

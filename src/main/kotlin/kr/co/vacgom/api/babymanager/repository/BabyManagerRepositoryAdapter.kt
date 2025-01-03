@@ -30,4 +30,8 @@ class BabyManagerRepositoryAdapter(
     override fun findByUserId(userId: UUID): List<BabyManager> {
         return babyManagerJpaRepository.findByUserId(userId)
     }
+
+    override fun deleteByBabyIdAndUserIdAndAdminIs(userId: UUID, babyId: UUID, isAdmin: Boolean) {
+        babyManagerJpaRepository.deleteByBabyIdAndUserIdAndAdminIs(userId, babyId, isAdmin)
+    }
 }
