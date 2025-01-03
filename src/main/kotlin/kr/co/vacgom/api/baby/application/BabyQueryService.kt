@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-@Transactional
-class BabyService(
+@Transactional(readOnly = true)
+class BabyQueryService(
     private val babyManagerService: BabyManagerService,
     private val babyRepository: BabyRepository,
 ) {
     fun getBabiesById(babyIds: List<UUID>): List<Baby> {
         return babyRepository.findBabiesById(babyIds)
     }
-    
+
     fun getBabyById(id: UUID): Baby {
         return babyRepository.findById(id)
     }
@@ -59,26 +59,5 @@ class BabyService(
                 age = BabyAge.create(it.birthday),
             )
         }
-    }
-
-    fun updateBabyInfo(babyId: UUID, request: BabyDto.Request.Update): BabyDto.Response.Detail {
-        babyRepository.findById(babyId).update(
-            request.name,
-            request.profileImg,
-            request.gender,
-            request.birthday
-        ).let {
-            return BabyDto.Response.Detail(
-                id = it.id,
-                name = it.name,
-                profileImg = it.profileImg,
-                gender = it.gender,
-                birthday = it.birthday,
-            )
-        }
-    }
-
-    fun saveAll(babies: List<Baby>): List<Baby> {
-        return babyRepository.saveAll(babies)
     }
 }
