@@ -8,6 +8,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kr.co.vacgom.api.auth.jwt.exception.JwtError
 import kr.co.vacgom.api.baby.application.BabyCommandService
+import kr.co.vacgom.api.baby.application.BabyQueryService
 import kr.co.vacgom.api.baby.domain.enums.Gender
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.global.exception.error.BusinessException
@@ -21,12 +22,14 @@ class UserCommandServiceTest : DescribeSpec({
     val authServiceMock: AuthService = mockk(relaxed = true)
     val babyCommandServiceMock: BabyCommandService = mockk(relaxed = true)
     val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
+    val babyQueryServiceMock: BabyQueryService = mockk(relaxed = true)
 
     val sut = UserCommandService(
         userTokenServiceMock,
         userRepositoryMock,
         authServiceMock,
         babyCommandServiceMock,
+        babyQueryServiceMock,
         babyManagerServiceMock,
     )
 
@@ -37,7 +40,6 @@ class UserCommandServiceTest : DescribeSpec({
                 it,
                 "profileImgUrl",
                 LocalDate.now(),
-                true
             )
         }
 

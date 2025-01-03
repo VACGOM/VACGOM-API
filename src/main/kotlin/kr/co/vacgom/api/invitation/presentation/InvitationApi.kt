@@ -34,7 +34,6 @@ interface InvitationApi {
     )
     fun getBabiesByInvitationCode(request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>>
 
-
     companion object {
         const val INVITATION = "/invitation"
     }

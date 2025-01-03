@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.user.application
 
 import kr.co.vacgom.api.baby.application.BabyCommandService
+import kr.co.vacgom.api.baby.application.BabyQueryService
 import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.babymanager.application.BabyManagerService
 import kr.co.vacgom.api.babymanager.domain.BabyManager
@@ -21,6 +22,7 @@ class UserCommandService(
     private val userRepository: UserRepository,
     private val authService: AuthService,
     private val babyCommandService: BabyCommandService,
+    private val babyQueryService: BabyQueryService,
     private val babyManagerService: BabyManagerService,
 ) {
     fun signup(request: SignupDto.Request): SignupDto.Response {
@@ -43,17 +45,44 @@ class UserCommandService(
                 )
             }
             .also { babyCommandService.saveAll(it) }
-            .mapIndexed { index, baby ->
+            .map {
                 BabyManager(
                     user = savedUser,
-                    baby = baby,
-                    isAdmin = request.babies[index].isAdmin,
+                    baby = it,
+                    isAdmin = true
                 )
             }
             .let { babyManagerService.saveAll(it) }
 
         val refreshToken = userTokenService.createRefreshToken(savedUser.id)
         userTokenService.saveRefreshToken(refreshToken, savedUser.id)
+
+        return SignupDto.Response(
+            accessToken = userTokenService.createAccessToken(savedUser.id, savedUser.role),
+            refreshToken = refreshToken,
+        )
+    }
+
+    fun signupByInvitationCode(request: SignupDto.Request.Invitation): SignupDto.Response {
+        val registerToken = userTokenService.resolveRegisterToken(request.registerToken)
+
+        val savedUser = User(
+            nickname = request.nickname,
+            socialId = registerToken.socialId,
+            provider = registerToken.provider,
+            role = UserRole.ROLE_USER,
+        ).let { userRepository.save(it) }
+
+        babyQueryService.getBabiesById(request.babyIds).map {
+            BabyManager(
+                user = savedUser,
+                baby = it,
+                isAdmin = false
+            )
+        }.let { babyManagerService.saveAll(it) }
+
+        val refreshToken = userTokenService.createRefreshToken(savedUser.id)
+            .also { userTokenService.saveRefreshToken(it, savedUser.id) }
 
         return SignupDto.Response(
             accessToken = userTokenService.createAccessToken(savedUser.id, savedUser.role),
