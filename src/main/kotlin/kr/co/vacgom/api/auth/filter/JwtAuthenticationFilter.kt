@@ -54,7 +54,7 @@ class JwtAuthenticationFilter(
             "/swagger-ui/**" to HttpMethod.GET,
             "/v3/api-docs/swagger-config" to HttpMethod.GET,
             "/v3/api-docs.yaml" to HttpMethod.GET,
-            BASE_V3 + BABY + "images" to HttpMethod.POST,
+            BASE_V3 + BABY + "/images" to HttpMethod.POST,
             BASE_V3 + AuthApi.AUTH + "/login/**" to HttpMethod.POST,
             BASE_V3 + UserApi.USER to HttpMethod.POST,
             BASE_V3 + UserApi.USER + "/invitation" to HttpMethod.POST,
