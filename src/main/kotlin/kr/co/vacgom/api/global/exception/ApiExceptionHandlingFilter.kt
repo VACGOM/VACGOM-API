@@ -32,16 +32,16 @@ class ApiExceptionHandlingFilter(
         chain: FilterChain,
     ) = try {
         val wrappedRequest = ContentCachingRequestWrapper(request)
-        val inputStream = wrappedRequest.inputStream
-        inputStream.readBytes()
         val responseWrapper = ContentCachingResponseWrapper(response)
+
         logRequestBasic(wrappedRequest)
-        logRequestBody(wrappedRequest)
         chain.doFilter(wrappedRequest, responseWrapper)
+        logRequestBody(wrappedRequest)
 
         if (!request.requestURI.contains("/swagger")) {
             logResponse(responseWrapper)
         }
+
         responseWrapper.copyBodyToResponse()
 
     } catch (exception: BusinessException) {
@@ -65,7 +65,6 @@ class ApiExceptionHandlingFilter(
         if (parameterMap.isNotEmpty()) {
             log.info("Request Parameters: $parameterMap")
         }
-
     }
 
     private fun logRequestBody(request: ContentCachingRequestWrapper) {
