@@ -1,6 +1,7 @@
 package kr.co.vacgom.api.vaccine.application
 
 import kr.co.vacgom.api.baby.repository.BabyRepository
+import kr.co.vacgom.api.global.discord.DiscordSender
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.vaccine.domain.UnclassifiedVaccination
 import kr.co.vacgom.api.vaccine.domain.Vaccination
@@ -17,7 +18,8 @@ class VaccinationService(
     private val unclassifiedVaccinationRepository: UnclassifiedVaccinationRepository,
     private val vaccinationRepository: VaccinationRepository,
     private val vaccineRepository: VaccineRepository,
-    private val babyRepository: BabyRepository
+    private val babyRepository: BabyRepository,
+    private val discordSender: DiscordSender
 ) {
     fun createVaccinations(request: VaccinationDto.Request.Create) {
 
@@ -53,7 +55,8 @@ class VaccinationService(
                     baby = baby
                 )
 
-                unclassifiedVaccinationRepository.save(unclassifiedVaccination)
+                val savedUnclassifiedVaccination = unclassifiedVaccinationRepository.save(unclassifiedVaccination)
+                discordSender.sendVaccinationError(baby, savedUnclassifiedVaccination)
             }
         }
     }

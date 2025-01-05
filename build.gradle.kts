@@ -76,6 +76,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    // discord
+    implementation("dev.kord:kord-core:0.15.0")
 }
 
 kotlin {

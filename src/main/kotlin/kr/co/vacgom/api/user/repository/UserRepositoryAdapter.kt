@@ -8,7 +8,7 @@ import java.util.*
 @Repository
 class UserRepositoryAdapter(
     private val userJpaRepository: UserJpaRepository
-): UserRepository {
+) : UserRepository {
     override fun save(user: User): User {
         return userJpaRepository.save(user)
     }
@@ -23,5 +23,9 @@ class UserRepositoryAdapter(
 
     override fun deleteById(userId: UUID) {
         userJpaRepository.deleteById(userId)
+    }
+
+    override fun findAll(): List<User> {
+        return userJpaRepository.findAll()
     }
 }
