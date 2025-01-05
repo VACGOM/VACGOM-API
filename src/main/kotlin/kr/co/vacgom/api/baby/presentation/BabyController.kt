@@ -42,7 +42,7 @@ class BabyController(
         babyCommandService.createBaby(userId, request)
     }
 
-    @PostMapping("/images", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping("/images", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     override fun uploadBabyImage(@ModelAttribute request: BabyDto.Request.UploadImage): BaseResponse<List<BabyDto.Response.UploadedImage>> {
         return babyImageService.uploadBabyImages(request.images).let { BaseResponse.success(it) }
     }
