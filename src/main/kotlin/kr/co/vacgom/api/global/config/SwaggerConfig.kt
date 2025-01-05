@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.media.Schema
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
+import io.swagger.v3.oas.models.servers.Server
 import kr.co.vacgom.api.global.common.dto.BaseResponse
 import org.springdoc.core.customizers.OperationCustomizer
 import org.springframework.context.annotation.Bean
@@ -26,8 +27,13 @@ class SwaggerConfig {
                 .scheme("bearer")
                 .bearerFormat("JWT")
         )
+
+        val server = Server()
+        server.url("https://api-dev-v2.vacgom.co.kr")
+
         return OpenAPI()
             .components(Components())
+            .addServersItem(server)
             .info(apiInfo())
             .addSecurityItem(securityRequirement)
             .components(components)
@@ -76,8 +82,8 @@ class SwaggerConfig {
 
     private fun apiInfo(): Info {
         return Info()
-            .title("VACGOM Open API") // API의 제목
-            .description("VACGOM Open API") // API에 대한 설명
-            .version("3.0.0") // API의 버전
+            .title("VACGOM Open API")
+            .description("VACGOM Open API")
+            .version("3.0.0")
     }
 }
