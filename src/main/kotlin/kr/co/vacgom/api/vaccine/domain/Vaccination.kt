@@ -12,12 +12,12 @@ import java.util.*
 
 @Entity
 @Table(name = "TB_VACCINATION")
-class Vaccination private constructor(
-    @Column(nullable = true)
+class Vaccination(
+    id: UUID = UuidCreator.create(),
+
     @Comment("[Nullable] 백신 접종 차수")
     val doseRound: Long?,
 
-    @Column
     @Comment("[Nullable] 백신 접종 차수 및 접종 정보")
     val doseRoundDescription: String?,
 
@@ -50,11 +50,7 @@ class Vaccination private constructor(
 ) : BaseTimeEntity() {
 
     @Id
-    @Column(
-        columnDefinition = "BINARY(16)",
-        nullable = false,
-        updatable = false
-    )
+    @Column(nullable = false, updatable = false)
     @Comment("[Not Null] 백신 접종 내역 엔티티 Id")
-    val id: UUID = UuidCreator.create()
+    var id: UUID = id
 }
