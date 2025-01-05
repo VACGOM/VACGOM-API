@@ -23,7 +23,7 @@ interface VaccinationApi {
             ),
         ]
     )
-    fun createVaccinations(request: List<VaccinationDto.Request.Create>)
+    fun createVaccinations(request: VaccinationDto.Request.Create)
 
     companion object {
         const val VACCINATIONS = "/vaccinations"

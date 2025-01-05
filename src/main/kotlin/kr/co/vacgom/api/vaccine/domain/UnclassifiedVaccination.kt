@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING
 import jakarta.persistence.*
 import jakarta.persistence.FetchType.LAZY
 import kr.co.vacgom.api.baby.domain.Baby
+import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
 import org.hibernate.annotations.Comment
 import java.time.LocalDate
@@ -12,7 +13,7 @@ import java.util.*
 
 @Entity
 @Table(name = "TB_VACCINATION_UNCLASSIFIED")
-class UnclassifiedVaccination private constructor(
+class UnclassifiedVaccination(
     @Column(nullable = false)
     @Comment("[Not Null] 미분류 백신 이름")
     val name: String,
@@ -46,7 +47,7 @@ class UnclassifiedVaccination private constructor(
     @JoinColumn(name = "BABY_ID")
     @Comment("[NotNull] 아기 Id")
     val baby: Baby
-) {
+) : BaseTimeEntity() {
 
     @Id
     @Column(

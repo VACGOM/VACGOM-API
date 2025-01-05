@@ -43,10 +43,11 @@ class ApiExceptionHandlingFilter(
         }
 
         responseWrapper.copyBodyToResponse()
-
     } catch (exception: BusinessException) {
+        log.warn(exception.message)
         setErrorResponse(response, exception)
     } catch (exception: Exception) {
+        log.error(exception.message)
         setErrorResponse(response, BusinessException(GlobalError.INTERNAL_SERVER_ERROR))
     }
 
