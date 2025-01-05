@@ -37,7 +37,7 @@ class SecurityConfig {
         )
         configuration.allowedHeaders = listOf("*")
 
-        source.registerCorsConfiguration("/**", configuration)
+        source.registerCorsConfiguration("/yaho", configuration)
 
         httpSecurity {
             cors { configurationSource = source }
