@@ -1,6 +1,7 @@
 package kr.co.vacgom.api
 
 import kr.co.vacgom.api.auth.oauth.enums.SocialLoginProvider
+import kr.co.vacgom.api.global.common.dto.BaseResponse
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.repository.UserRepository
@@ -19,25 +20,26 @@ class TestController(
 ) {
 
     @PostMapping
-    fun test(@RequestParam tokenType: String): ResponseEntity<String> {
+    fun test(@RequestParam tokenType: String): BaseResponse<String> {
         val user = userRepository.findAll()[0]
 
         when (tokenType) {
             "ACCESS" -> {
                 val accessToken = userTokenService.createAccessToken(user.id, user.role)
-                return ResponseEntity.ok(accessToken)
+                return BaseResponse.success(accessToken)
             }
             "REFRESH" -> {
                 val refreshToken = userTokenService.createRefreshToken(user.id)
-                return ResponseEntity.ok(refreshToken)
+                return BaseResponse.success(refreshToken)
+
             }
             "REGISTER" -> {
                 val socialId = "testSocialId${Random(System.currentTimeMillis()).nextInt()}"
                 val registerToken = userTokenService.createRegisterToken(socialId, SocialLoginProvider.KAKAO.name)
-                return ResponseEntity.ok(registerToken)
+                return BaseResponse.success(registerToken)
             }
         }
 
-        return ResponseEntity.internalServerError().build()
+        return BaseResponse.fail("토큰 타입이 올바르지 않습니다.")
     }
 }
