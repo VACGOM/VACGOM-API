@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class BabyRepositoryAdapter(private val babyJpaRepository: BabyJpaRepository): BabyRepository {
+class BabyRepositoryAdapter(private val babyJpaRepository: BabyJpaRepository) : BabyRepository {
     override fun save(newBaby: Baby): Baby {
         return babyJpaRepository.save(newBaby)
     }
@@ -20,8 +20,12 @@ class BabyRepositoryAdapter(private val babyJpaRepository: BabyJpaRepository): B
     override fun findBabiesById(ids: List<UUID>): List<Baby> {
         return babyJpaRepository.findAllById(ids)
     }
-    
+
     override fun findById(id: UUID): Baby {
         return babyJpaRepository.findByIdOrNull(id) ?: throw BusinessException(BabyError.BABY_NOT_FOUND)
+    }
+
+    override fun findAll(): List<Baby> {
+        return babyJpaRepository.findAll()
     }
 }

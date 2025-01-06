@@ -8,4 +8,5 @@ interface BabyRepository {
     fun saveAll(babies: List<Baby>): List<Baby>
     fun findBabiesById(ids: List<UUID>): List<Baby>
     fun findById(id: UUID): Baby
+    fun findAll(): List<Baby>
 }
