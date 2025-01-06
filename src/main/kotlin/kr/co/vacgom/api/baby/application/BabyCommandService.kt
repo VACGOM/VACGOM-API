@@ -52,8 +52,9 @@ class BabyCommandService(
     }
 
     fun deleteById(userId: UUID, babyId: UUID) {
-        val findBaby = babyManagerService.getBabyByIdAndUserIsAdmin(userId, babyId)
-        babyRepository.deleteBaby(findBaby)
+        babyManagerService.getBabyByIdAndUserIsAdmin(userId, babyId).let {
+            babyRepository.deleteBaby(it)
+        }
     }
 
     fun saveAll(babies: List<Baby>): List<Baby> {
