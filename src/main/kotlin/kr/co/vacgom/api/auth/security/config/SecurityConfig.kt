@@ -24,23 +24,7 @@ class SecurityConfig {
         jwtAuthenticationFilter: JwtAuthenticationFilter,
         apiExceptionHandlingFilter: ApiExceptionHandlingFilter,
     ): SecurityFilterChain {
-        val configuration = CorsConfiguration()
-        val source = UrlBasedCorsConfigurationSource()
-
-        configuration.allowedOrigins = listOf(
-            "http://localhost:3000",
-            "http://localhost:80",
-            "https://vacgom.co.kr"
-        )
-        configuration.allowedMethods = listOf(
-            "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
-        )
-        configuration.allowedHeaders = listOf("*")
-
-        source.registerCorsConfiguration("/yaho", configuration)
-
         httpSecurity {
-            cors { configurationSource = source }
             authorizeHttpRequests { authorize(anyRequest, permitAll) }
             httpBasic { disable() }
             formLogin { disable() }

@@ -31,6 +31,7 @@ class TestController(
             "REFRESH" -> {
                 val refreshToken = userTokenService.createRefreshToken(user.id)
                 return BaseResponse.success(refreshToken)
+
             }
             "REGISTER" -> {
                 val socialId = "testSocialId${Random(System.currentTimeMillis()).nextInt()}"
