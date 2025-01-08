@@ -15,7 +15,11 @@ class HealthDto {
         val executionTime: LocalDateTime,
     )
 
-    class Response {
+    data class Response(
+        val executionTime: LocalDateTime,
+        val temperature: Double,
+        val memo: String,
+    ) {
         @Schema(name = "HealthDto.Response.DailyStat")
         class DailyStat(
             careName: String,

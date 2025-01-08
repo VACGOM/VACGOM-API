@@ -14,7 +14,10 @@ class BreastPumpingDto {
         val executionTime: LocalDateTime,
     )
 
-    class Response {
+    data class Response(
+        val executionTime: LocalDateTime,
+        val amount: Int,
+    ) {
         @Schema(name = "BreastPumpingDto.Response.DailyStat")
         class DailyStat(
             careName: String,

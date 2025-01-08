@@ -14,7 +14,12 @@ class BathDto {
         val endDate: LocalDateTime,
         val executionTime: LocalDateTime,
     )
-    class Response {
+
+    data class Response(
+        val executionTime: LocalDateTime,
+        val startTime: LocalDateTime,
+        val endTime: LocalDateTime,
+    ) {
         @Schema(name = "BathDto.Response.DailyStat")
         class DailyStat(
             careName: String,

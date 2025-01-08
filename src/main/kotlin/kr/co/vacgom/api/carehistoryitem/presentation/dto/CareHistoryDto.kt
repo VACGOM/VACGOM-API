@@ -8,15 +8,22 @@ import java.time.LocalDate
 import java.util.*
 
 class CareHistoryDto{
-    class Response {
+    sealed class Response {
+        @Schema(name = "CareHistoryDto.Response.CareHistoryItemDaily")
+        data class CareHistoryItemDaily(
+            val babyId: UUID,
+            val executionDate: LocalDate,
+            val careItems: List<Any>
+        ): Response()
+
         @Schema(name = "CareHistoryDto.Response.DailyStat")
-        data class Daily(
+        data class DailyStat(
             val babyId: UUID,
             val executionDate: LocalDate,
             val careItems: Map<String, AbstractDailyStatDto>
-        ) {
+        ): Response() {
             companion object {
-                fun of(careHistory: CareHistory): Daily {
+                fun of(careHistory: CareHistory): DailyStat {
                     val careItems = enumValues<CareHistoryItemType>().associate { itemType ->
                         val items = careHistory.careHistoryItems[itemType] ?: emptyList()
 
@@ -70,7 +77,7 @@ class CareHistoryDto{
                         itemType.name.lowercase().snakeToCamelCase() to dailyItemValue
                     }
 
-                    return Daily(
+                    return DailyStat(
                         babyId = careHistory.babyId,
                         executionDate = careHistory.executionDate,
                         careItems = careItems,

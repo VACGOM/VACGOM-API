@@ -14,7 +14,10 @@ class BabyFoodDto {
         val executionTime: LocalDateTime,
     )
 
-    class Response {
+    data class Response(
+        val executionTime: LocalDateTime,
+        val amount: Int
+    ) {
         @Schema(name = "BabyFoodDto.DailyStat")
         class DailyStat(
             careName: String,

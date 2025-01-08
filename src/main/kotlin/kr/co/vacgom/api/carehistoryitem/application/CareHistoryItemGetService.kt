@@ -29,6 +29,7 @@ class CareHistoryItemGetService(
         return CareHistoryDto.Response.CareHistoryItemDaily(
             babyId,
             executionDate,
+//            emptyList()
             careHistory.careHistoryItems[itemType]
         )
     }

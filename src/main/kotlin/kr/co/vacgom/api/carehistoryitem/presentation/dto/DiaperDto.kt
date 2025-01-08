@@ -15,7 +15,10 @@ class DiaperDto {
         val executionTime: LocalDateTime,
     )
 
-    class Response {
+    data class Response(
+        val executionTime: LocalDateTime,
+        val excrementType: ExcrementType
+    ) {
         @Schema(name = "Diaper.Response.DailyStat")
         class DailyStat(
             careName: String,

@@ -14,7 +14,10 @@ class SnackDto {
         val executionTime: LocalDateTime,
     )
 
-    class Response {
+    data class Response(
+        val executionTime: LocalDateTime,
+        val memo: String,
+    ) {
         @Schema(name = "SnackDto.Response.DailyStat")
         class DailyStat(
             careName: String,
