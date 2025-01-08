@@ -7,6 +7,7 @@ import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import kr.co.vacgom.api.invitation.application.InvitationService
 import kr.co.vacgom.api.invitation.presentation.InvitationApi.Companion.INVITATION
 import kr.co.vacgom.api.invitation.presentation.dto.InvitationDto
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -27,7 +28,7 @@ class InvitationController(
         }.let { BaseResponse.success(it) }
     }
 
-    @PostMapping
+    @PostMapping("/get")
     override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>> {
         val userId = SecurityContextUtil.getPrincipal()
 
