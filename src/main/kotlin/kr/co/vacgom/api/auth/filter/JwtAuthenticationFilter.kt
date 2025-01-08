@@ -57,6 +57,7 @@ class JwtAuthenticationFilter(
             BASE_V3 + BABY + "/images" to HttpMethod.POST,
             BASE_V3 + AuthApi.AUTH + "/login/**" to HttpMethod.POST,
             BASE_V3 + UserApi.USER to HttpMethod.POST,
+            BASE_V3 + "/**" to HttpMethod.OPTIONS,
             BASE_V3 + UserApi.USER + "/invitation" to HttpMethod.POST,
             BASE_V3 + "/TEST/**" to HttpMethod.POST
         )
