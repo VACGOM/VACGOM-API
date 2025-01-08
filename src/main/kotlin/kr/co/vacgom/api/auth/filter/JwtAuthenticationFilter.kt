@@ -9,6 +9,8 @@ import kr.co.vacgom.api.baby.presentation.BabyApi.Companion.BABY
 import kr.co.vacgom.api.global.exception.error.BusinessException
 import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
+import kr.co.vacgom.api.invitation.presentation.InvitationApi
+import kr.co.vacgom.api.invitation.presentation.InvitationApi.Companion.INVITATION
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.presentation.AuthApi
 import kr.co.vacgom.api.user.presentation.UserApi
@@ -58,7 +60,8 @@ class JwtAuthenticationFilter(
             BASE_V3 + AuthApi.AUTH + "/login/**" to HttpMethod.POST,
             BASE_V3 + UserApi.USER to HttpMethod.POST,
             BASE_V3 + "/**" to HttpMethod.OPTIONS,
-            BASE_V3 + UserApi.USER + "/invitation" to HttpMethod.POST,
+            BASE_V3 + UserApi.USER + INVITATION to HttpMethod.POST,
+            BASE_V3 + INVITATION to HttpMethod.POST,
             BASE_V3 + "/TEST/**" to HttpMethod.POST
         )
     }
