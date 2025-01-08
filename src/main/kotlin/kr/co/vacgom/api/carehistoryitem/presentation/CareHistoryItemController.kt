@@ -2,6 +2,7 @@ package kr.co.vacgom.api.carehistoryitem.presentation
 
 import kr.co.vacgom.api.carehistoryitem.application.CareHistoryItemCreateService
 import kr.co.vacgom.api.carehistoryitem.application.CareHistoryItemGetService
+import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.presentation.CareHistoryItemApi.Companion.CARE_HISTORY
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.*
 import kr.co.vacgom.api.global.common.dto.BaseResponse
@@ -17,12 +18,20 @@ class CareHistoryItemController(
     private val careHistoryItemGetService: CareHistoryItemGetService
 ): CareHistoryItemApi {
     @GetMapping
-    override fun getCareHistoryByExecutionDate(
+    override fun getCareHistoryItemsByExecutionDate(
         @RequestParam babyId: UUID,
         @RequestParam executionDate: LocalDate,
-    ): BaseResponse<CareHistoryDto.Response.Daily> {
-        return careHistoryItemGetService.getCareHistoryByExecutionDate(babyId, executionDate).let {
-            BaseResponse.success(it)
+        @RequestParam itemType: CareHistoryItemType?,
+    ): BaseResponse<CareHistoryDto.Response> {
+        return when (itemType) {
+            null -> careHistoryItemGetService.getCareHistoryByExecutionDate(babyId, executionDate).let {
+                BaseResponse.success(it)
+            }
+            else -> careHistoryItemGetService.getCareHistoryItemsByItemTypeAndExecutionDate(
+                babyId,
+                itemType,
+                executionDate
+            ).let { BaseResponse.success(it) }
         }
     }
 
