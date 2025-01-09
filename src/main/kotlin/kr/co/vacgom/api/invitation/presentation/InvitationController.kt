@@ -28,11 +28,8 @@ class InvitationController(
         }.let { BaseResponse.success(it) }
     }
 
-    @PostMapping("/get")
+    @PostMapping
     override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>> {
-        val userId = SecurityContextUtil.getPrincipal()
-
-        return invitationService.getBabiesByInvitationCode(userId, request.invitationCode)
-            .let { BaseResponse.success(it) }
+        return invitationService.getBabiesByInvitationCode(request.invitationCode).let { BaseResponse.success(it) }
     }
 }
