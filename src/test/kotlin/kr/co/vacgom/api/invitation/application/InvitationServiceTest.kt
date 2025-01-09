@@ -125,7 +125,7 @@ class InvitationServiceTest : DescribeSpec({
                 every { invitationRepositoryMock.getAndDeleteInvitationCode(invitationCode.key) } returns invitationCode
                 every { babyQueryServiceMock.getBabiesById(babies.map { it.id }) } returns babies
 
-                val result = sut.getBabiesByInvitationCode(adminUser.id, invitationCode.key)
+                val result = sut.getBabiesByInvitationCode(invitationCode.key)
 
                 result.forEachIndexed { index, detail ->
                     detail.id shouldBe babies[index].id
@@ -143,11 +143,10 @@ class InvitationServiceTest : DescribeSpec({
                     invitationRepositoryMock.getAndDeleteInvitationCode(invitationCode.key)
                 } throws BusinessException(InvitationError.INVITATION_CODE_NOT_FOUND)
 
-                val result = shouldThrow<BusinessException> { sut.getBabiesByInvitationCode(adminUser.id, invitationCode.key) }
+                val result = shouldThrow<BusinessException> { sut.getBabiesByInvitationCode(invitationCode.key) }
 
                 result.errorCode shouldBe InvitationError.INVITATION_CODE_NOT_FOUND
             }
         }
     }
-
 })
