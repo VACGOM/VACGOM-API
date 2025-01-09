@@ -28,7 +28,7 @@ class InvitationController(
         }.let { BaseResponse.success(it) }
     }
 
-    @PostMapping
+    @PostMapping("/get")
     override fun getBabiesByInvitationCode(@RequestBody request: InvitationDto.Request.Get): BaseResponse<List<BabyDto.Response.Detail>> {
         return invitationService.getBabiesByInvitationCode(request.invitationCode).let { BaseResponse.success(it) }
     }
