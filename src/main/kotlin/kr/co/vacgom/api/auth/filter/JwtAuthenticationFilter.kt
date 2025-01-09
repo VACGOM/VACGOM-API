@@ -13,7 +13,9 @@ import kr.co.vacgom.api.invitation.presentation.InvitationApi
 import kr.co.vacgom.api.invitation.presentation.InvitationApi.Companion.INVITATION
 import kr.co.vacgom.api.user.application.UserTokenService
 import kr.co.vacgom.api.user.presentation.AuthApi
+import kr.co.vacgom.api.user.presentation.AuthApi.Companion.AUTH
 import kr.co.vacgom.api.user.presentation.UserApi
+import kr.co.vacgom.api.user.presentation.UserApi.Companion.USER
 import org.springframework.http.HttpMethod
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -57,10 +59,10 @@ class JwtAuthenticationFilter(
             "/v3/api-docs/swagger-config" to HttpMethod.GET,
             "/v3/api-docs.yaml" to HttpMethod.GET,
             BASE_V3 + BABY + "/images" to HttpMethod.POST,
-            BASE_V3 + AuthApi.AUTH + "/login/**" to HttpMethod.POST,
-            BASE_V3 + UserApi.USER to HttpMethod.POST,
+            BASE_V3 + AUTH + "/login/**" to HttpMethod.POST,
+            BASE_V3 + USER to HttpMethod.POST,
             BASE_V3 + "/**" to HttpMethod.OPTIONS,
-            BASE_V3 + UserApi.USER + INVITATION to HttpMethod.POST,
+            BASE_V3 + USER + INVITATION to HttpMethod.POST,
             BASE_V3 + INVITATION to HttpMethod.POST,
             BASE_V3 + "/TEST/**" to HttpMethod.POST
         )

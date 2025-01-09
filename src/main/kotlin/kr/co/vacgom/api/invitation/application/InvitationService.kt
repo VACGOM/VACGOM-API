@@ -43,7 +43,7 @@ class InvitationService(
     }
 
     @Transactional
-    fun getBabiesByInvitationCode(userId: UUID, code: String): List<BabyDto.Response.Detail> {
+    fun getBabiesByInvitationCode(code: String): List<BabyDto.Response.Detail> {
         val invitationCode = invitationRepository.getAndDeleteInvitationCode(code)
             ?: throw BusinessException(InvitationError.INVITATION_CODE_NOT_FOUND)
 
