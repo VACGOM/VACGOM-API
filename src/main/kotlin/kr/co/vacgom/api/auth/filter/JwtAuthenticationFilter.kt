@@ -33,6 +33,7 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        println(request)
         jwtProvider.extractToken(request)?.run {
             val accessToken = userTokenService.resolveAccessToken(this)
             val userAuthentication = UserAuthentication(accessToken.userId, accessToken.authorities)
@@ -46,7 +47,7 @@ class JwtAuthenticationFilter(
 
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
         return ignoredPath.any { (ignoredPathURI, method) ->
-            val matchedPath = AntPathMatcher().matchStart(ignoredPathURI, request.requestURI)
+            val matchedPath = AntPathMatcher().match(ignoredPathURI, request.requestURI)
             val matchedMethod = method.matches(request.method)
             matchedPath && matchedMethod
         }
