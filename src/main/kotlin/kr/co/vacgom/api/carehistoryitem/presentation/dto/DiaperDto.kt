@@ -1,9 +1,11 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
+import kr.co.vacgom.api.carehistoryitem.domain.BabyFood
 import kr.co.vacgom.api.carehistoryitem.domain.Diaper
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.ExcrementType
+import kr.co.vacgom.api.carehistoryitem.presentation.dto.BabyFoodDto.Response.DailyDetail
 import java.time.LocalDateTime
 import java.util.*
 
@@ -15,10 +17,24 @@ class DiaperDto {
         val executionTime: LocalDateTime,
     )
 
-    data class Response(
-        val executionTime: LocalDateTime,
-        val excrementType: ExcrementType
-    ) {
+    class Response {
+        @Schema(name = "DiaperDto.Response.DailyDetail")
+        class DailyDetail(
+            careName: String,
+            val excrementType: String,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Diaper): DailyDetail {
+                    return DailyDetail(
+                        careName = item.itemType.typeName,
+                        excrementType = item.excrementType.typeName,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
+
         @Schema(name = "Diaper.Response.DailyStat")
         class DailyStat(
             careName: String,

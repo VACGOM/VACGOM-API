@@ -2,7 +2,6 @@ package kr.co.vacgom.api.carehistoryitem.domain
 
 import jakarta.persistence.*
 import kr.co.vacgom.api.baby.domain.Baby
-import kr.co.vacgom.api.carehistoryitem.domain.enums.BreastDirection
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.BREAST_FEEDING
 import kr.co.vacgom.api.global.util.UuidCreator

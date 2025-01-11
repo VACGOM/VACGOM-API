@@ -14,10 +14,20 @@ class BabyFoodDto {
         val executionTime: LocalDateTime,
     )
 
-    data class Response(
-        val executionTime: LocalDateTime,
-        val amount: Int
-    ) {
+    class Response {
+        @Schema(name = "BabyFoodDto.Response.DailyDetail")
+        class DailyDetail(
+            careName: String,
+            val amount: Int,
+            val executionTime: LocalDateTime
+        ) : AbstractDailyDetailDto(careName){
+            companion object {
+                fun of(item: BabyFood): DailyDetail {
+                    return DailyDetail(careName = item.itemType.typeName, amount = item.amount, executionTime = item.executionTime)
+                }
+            }
+        }
+
         @Schema(name = "BabyFoodDto.DailyStat")
         class DailyStat(
             careName: String,

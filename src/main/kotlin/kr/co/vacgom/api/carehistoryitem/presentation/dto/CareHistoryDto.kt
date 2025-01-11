@@ -1,20 +1,46 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.*
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.global.util.snakeToCamelCase
+import org.bouncycastle.asn1.x500.style.RFC4519Style.c
 import java.time.LocalDate
 import java.util.*
 
 class CareHistoryDto{
     sealed class Response {
         @Schema(name = "CareHistoryDto.Response.CareHistoryItemDaily")
-        data class CareHistoryItemDaily(
+        data class DailyDetail(
             val babyId: UUID,
+            val careItems: List<AbstractDailyDetailDto>,
             val executionDate: LocalDate,
-            val careItems: List<Any>
-        ): Response()
+        ): Response() {
+            companion object {
+                fun of(itemType: CareHistoryItemType, careHistory: CareHistory): DailyDetail {
+                    val items = careHistory.careHistoryItems[itemType] ?: emptyList()
+
+                    val careItems = when (itemType) {
+                        CareHistoryItemType.BREAST_FEEDING -> items.map { BreastFeedingDto.Response.DailyDetail.of(it as BreastFeeding) }
+                        CareHistoryItemType.BABY_FORMULA -> items.map { BabyFormulaDto.Response.DailyDetail.of(it as BabyFormula) }
+                        CareHistoryItemType.BREAST_PUMPING -> items.map { BreastPumpingDto.Response.DailyDetail.of(it as BreastPumping) }
+                        CareHistoryItemType.BABY_FOOD -> items.map { BabyFoodDto.Response.DailyDetail.of(it as BabyFood) }
+                        CareHistoryItemType.SNACK -> items.map { SnackDto.Response.DailyDetail.of(it as Snack) }
+                        CareHistoryItemType.DIAPER -> items.map { DiaperDto.Response.DailyDetail.of(it as Diaper) }
+                        CareHistoryItemType.BATH -> items.map { BathDto.Response.DailyDetail.of(it as Bath) }
+                        CareHistoryItemType.HEALTH -> items.map { HealthDto.Response.DailyDetail.of(it as Health) }
+                        CareHistoryItemType.SLEEP -> items.map { SleepDto.Response.DailyDetail.of(it as Sleep) }
+                    }
+
+                    return DailyDetail(
+                        babyId = careHistory.babyId,
+                        careItems = careItems,
+                        executionDate = careHistory.executionDate,
+                    )
+                }
+            }
+        }
 
         @Schema(name = "CareHistoryDto.Response.DailyStat")
         data class DailyStat(
