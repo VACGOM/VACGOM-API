@@ -18,25 +18,6 @@ class BreastFeedingDto {
     )
 
     class Response {
-        @Schema(name = "BreastFeedingDto.Response.DailyDetail")
-        class DailyDetail(
-            careName: String,
-            val leftMinutes: Int?,
-            val rightMinutes: Int?,
-            val executionTime: LocalDateTime,
-        ): AbstractDailyDetailDto(careName) {
-            companion object {
-                fun of(item: BreastFeeding): DailyDetail {
-                    return DailyDetail(
-                        careName = item.itemType.typeName,
-                        leftMinutes = item.leftMinutes,
-                        rightMinutes = item.rightMinutes,
-                        executionTime = item.executionTime,
-                    )
-                }
-            }
-        }
-
         @Schema(name = "BreastFeedingDto.Response.DailyStat")
         class DailyStat(
             careName: String,
@@ -55,6 +36,25 @@ class BreastFeedingDto {
                             items.sumOf { it.leftMinutes },
                             items.count { it.leftMinutes != 0 }
                         ),
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "BreastFeeding.Response.Detail")
+        class Detail(
+            careName: String,
+            val leftMinutes: Int?,
+            val rightMinutes: Int?,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: BreastFeeding): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        leftMinutes = item.leftMinutes,
+                        rightMinutes = item.rightMinutes,
+                        executionTime = item.executionTime
                     )
                 }
             }

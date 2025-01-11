@@ -15,20 +15,7 @@ class BabyFoodDto {
     )
 
     class Response {
-        @Schema(name = "BabyFoodDto.Response.DailyDetail")
-        class DailyDetail(
-            careName: String,
-            val amount: Int,
-            val executionTime: LocalDateTime
-        ) : AbstractDailyDetailDto(careName){
-            companion object {
-                fun of(item: BabyFood): DailyDetail {
-                    return DailyDetail(careName = item.itemType.typeName, amount = item.amount, executionTime = item.executionTime)
-                }
-            }
-        }
-
-        @Schema(name = "BabyFoodDto.DailyStat")
+        @Schema(name = "BabyFoodDto.Response.DailyStat")
         class DailyStat(
             careName: String,
             val amount: Int,
@@ -36,6 +23,19 @@ class BabyFoodDto {
             companion object {
                 fun of(type: CareHistoryItemType, items: List<BabyFood>): DailyStat {
                     return DailyStat(careName = type.typeName, amount = items.sumOf { it.amount })
+                }
+            }
+        }
+
+        @Schema(name = "BabyFoodDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val amount: Int,
+            val executionTime: LocalDateTime
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: BabyFood): Detail {
+                    return Detail(careName = item.itemType.typeName, amount = item.amount, executionTime = item.executionTime)
                 }
             }
         }

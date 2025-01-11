@@ -1,10 +1,8 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
-import kr.co.vacgom.api.carehistoryitem.domain.BabyFood
 import kr.co.vacgom.api.carehistoryitem.domain.Sleep
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
-import kr.co.vacgom.api.carehistoryitem.presentation.dto.BabyFoodDto.Response.DailyDetail
 import java.time.LocalDateTime
 import java.util.*
 
@@ -18,25 +16,6 @@ class SleepDto {
     )
 
     class Response {
-        @Schema(name = "SleepDto.Response.DailyDetail")
-        class DailyDetail(
-            careName: String,
-            val startTime: LocalDateTime,
-            val endTime: LocalDateTime,
-            val executionTime: LocalDateTime,
-        ): AbstractDailyDetailDto(careName) {
-            companion object {
-                fun of(item: Sleep): DailyDetail {
-                    return DailyDetail(
-                        careName = item.itemType.typeName,
-                        startTime = item.startTime,
-                        endTime = item.endTime,
-                        executionTime = item.executionTime
-                    )
-                }
-            }
-        }
-
         @Schema(name = "SleepDto.Response.DailyStat")
         class DailyStat(
             careName: String,
@@ -51,6 +30,25 @@ class SleepDto {
                         careName = type.typeName,
                         hours = totalMinutes / 60,
                         minutes = totalMinutes % 60
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "SleepDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val startTime: LocalDateTime,
+            val endTime: LocalDateTime,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Sleep): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        startTime = item.startTime,
+                        endTime = item.endTime,
+                        executionTime = item.executionTime
                     )
                 }
             }
