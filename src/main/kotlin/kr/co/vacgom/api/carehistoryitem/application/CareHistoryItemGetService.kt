@@ -26,11 +26,9 @@ class CareHistoryItemGetService(
     ): CareHistoryDto.Response {
         val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDate(babyId, executionDate)
 
-        return CareHistoryDto.Response.CareHistoryItemDaily(
-            babyId,
-            executionDate,
-//            emptyList()
-            careHistory.careHistoryItems[itemType]
+        return CareHistoryDto.Response.DailyDetail.of(
+            itemType = itemType,
+            careHistory = careHistory
         )
     }
 }
