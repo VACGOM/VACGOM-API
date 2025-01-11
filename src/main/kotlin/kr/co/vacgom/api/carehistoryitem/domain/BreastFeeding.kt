@@ -14,32 +14,43 @@ import java.util.*
 @Table(name = "TB_BREAST_FEEDING")
 class BreastFeeding (
     id: UUID = UuidCreator.create(),
-    startTime: LocalDateTime,
-    endTime: LocalDateTime,
-    minutes: Int,
-    breastDirection: BreastDirection,
+    leftStartTime: LocalDateTime,
+    leftEndTime: LocalDateTime,
+    rightStartTime: LocalDateTime,
+    rightEndTime: LocalDateTime,
+    leftMinutes: Int = 0,
+    rightMinutes: Int = 0,
     baby: Baby,
     itemType: CareHistoryItemType = BREAST_FEEDING,
     executionTime: LocalDateTime,
 ): CareHistoryItem(id, executionTime, itemType, baby) {
     @Column(nullable = false)
-    @Comment("[Not Null] 모유수유 시작 시간")
-    var startTime: LocalDateTime = startTime
+    @Comment("[Not Null] 모유수유(왼) 시작 시간")
+    var leftStartTime: LocalDateTime = leftStartTime
         protected set
 
     @Column(nullable = false)
-    @Comment("[Not Null] 모유수유 종료 시간")
-    var endTime: LocalDateTime = endTime
+    @Comment("[Not Null] 모유수유(왼) 종료 시간")
+    var leftEndTime: LocalDateTime = leftEndTime
+        protected set
+
+    @Column(nullable = false)
+    @Comment("[Not Null] 모유수유(오) 시작 시간")
+    var rightStartTime: LocalDateTime = leftStartTime
+        protected set
+
+    @Column(nullable = false)
+    @Comment("[Not Null] 모유수유(오) 종료 시간")
+    var rightEndTime: LocalDateTime = rightEndTime
         protected set
 
     @Column(nullable = false)
     @Comment("[Not Null] 모유수유 시간(분)")
-    var minutes: Int = minutes
+    var leftMinutes: Int = leftMinutes
         protected set
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Comment("[Not Null] breast 방향")
-    var breastDirection: BreastDirection = breastDirection
+    @Comment("[Not Null] 모유수유 시간(분)")
+    var rightMinutes: Int = rightMinutes
         protected set
 }
