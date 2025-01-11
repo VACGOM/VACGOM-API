@@ -4,17 +4,19 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.baby.domain.enums.Gender
-import kr.co.vacgom.api.carehistoryitem.domain.enums.BreastDirection
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class BreastFeedingTest : FunSpec({
     test("BreastFeeding 객체 정상 생성 테스트") {
-        val startTime = LocalDateTime.now()
-        val endTime = LocalDateTime.now().plusMinutes(10)
-        val minutes = 10
-        val breastDirection = BreastDirection.LEFT
+        val leftStartTime = LocalDateTime.now()
+        val leftEndTime = LocalDateTime.now().plusMinutes(10)
+        val rightStartTime = LocalDateTime.now()
+        val rightEndTime = LocalDateTime.now().plusMinutes(10)
+        val executionTime = LocalDateTime.now()
+        val leftMinutes = 10
+        val rightMinutes = 10
 
         val baby = Baby(
             name = "백곰 아기",
@@ -24,18 +26,24 @@ class BreastFeedingTest : FunSpec({
         )
 
         val breastFeeding = BreastFeeding(
-            startTime = startTime,
-            endTime = endTime,
-            minutes = minutes,
-            breastDirection = breastDirection,
+            leftStartTime = leftStartTime,
+            leftEndTime = leftEndTime,
+            leftMinutes = leftMinutes,
+            rightStartTime = rightStartTime,
+            rightEndTime = rightEndTime,
+            rightMinutes = rightMinutes,
             baby = baby,
-            executionTime = startTime,
-            itemType = CareHistoryItemType.BATH
+            executionTime = executionTime,
+            itemType = CareHistoryItemType.BREAST_FEEDING
         )
 
-        breastFeeding.startTime shouldBe startTime
-        breastFeeding.endTime shouldBe endTime
-        breastFeeding.minutes shouldBe minutes
-        breastFeeding.breastDirection shouldBe breastDirection
+        breastFeeding.leftStartTime shouldBe leftStartTime
+        breastFeeding.leftEndTime shouldBe leftEndTime
+        breastFeeding.leftMinutes shouldBe leftMinutes
+        breastFeeding.rightEndTime shouldBe rightEndTime
+        breastFeeding.rightMinutes shouldBe rightMinutes
+        breastFeeding.executionTime shouldBe executionTime
+        breastFeeding.baby shouldBe baby
+        breastFeeding.itemType shouldBe CareHistoryItemType.BREAST_FEEDING
     }
 })
