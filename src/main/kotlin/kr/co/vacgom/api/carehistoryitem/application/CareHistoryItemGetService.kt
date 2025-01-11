@@ -24,11 +24,13 @@ class CareHistoryItemGetService(
         itemType: CareHistoryItemType,
         executionDate: LocalDate
     ): CareHistoryDto.Response {
-        val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDate(babyId, executionDate)
+        val careHistoryItems = careHistoryItemRepository.findByBabyIdAndExecutionDateAndItemType(babyId, executionDate, itemType)
 
         return CareHistoryDto.Response.DailyDetail.of(
+            babyId = babyId,
+            executionDate = executionDate,
             itemType = itemType,
-            careHistory = careHistory
+            items = careHistoryItems
         )
     }
 }

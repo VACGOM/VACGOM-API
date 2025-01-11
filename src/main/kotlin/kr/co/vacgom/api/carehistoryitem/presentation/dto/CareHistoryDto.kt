@@ -18,9 +18,7 @@ class CareHistoryDto{
             val executionDate: LocalDate,
         ): Response() {
             companion object {
-                fun of(itemType: CareHistoryItemType, careHistory: CareHistory): DailyDetail {
-                    val items = careHistory.careHistoryItems[itemType] ?: emptyList()
-
+                fun of(babyId: UUID, executionDate: LocalDate, itemType: CareHistoryItemType, items: List<CareHistoryItem>): DailyDetail {
                     val careItems = when (itemType) {
                         CareHistoryItemType.BREAST_FEEDING -> items.map { BreastFeedingDto.Response.DailyDetail.of(it as BreastFeeding) }
                         CareHistoryItemType.BABY_FORMULA -> items.map { BabyFormulaDto.Response.DailyDetail.of(it as BabyFormula) }
@@ -34,9 +32,9 @@ class CareHistoryDto{
                     }
 
                     return DailyDetail(
-                        babyId = careHistory.babyId,
+                        babyId = babyId,
                         careItems = careItems,
-                        executionDate = careHistory.executionDate,
+                        executionDate = executionDate
                     )
                 }
             }
