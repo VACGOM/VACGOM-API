@@ -14,6 +14,7 @@ class BathDto {
         val endDate: LocalDateTime,
         val executionTime: LocalDateTime,
     )
+
     class Response {
         @Schema(name = "BathDto.Response.DailyStat")
         class DailyStat(
@@ -29,6 +30,25 @@ class BathDto {
                         careName = type.typeName,
                         hours = totalMinutes / 60,
                         minutes = totalMinutes % 60,
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "BathDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val startTime: LocalDateTime,
+            val endTime: LocalDateTime,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Bath): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        startTime = item.startTime,
+                        endTime = item.endTime,
+                        executionTime = item.executionTime
                     )
                 }
             }

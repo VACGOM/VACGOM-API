@@ -37,5 +37,24 @@ class HealthDto {
                 }
             }
         }
+
+        @Schema(name = "HealthDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val temperature: Double,
+            val memo: String,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Health): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        temperature = item.temperature,
+                        memo = item.memo,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
     }
 }

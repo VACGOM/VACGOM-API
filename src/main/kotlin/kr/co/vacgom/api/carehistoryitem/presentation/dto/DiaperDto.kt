@@ -27,8 +27,23 @@ class DiaperDto {
                 }
             }
         }
+
+        @Schema(name = "DiaperDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val excrementType: String,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Diaper): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        excrementType = item.excrementType.typeName,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
     }
-
-
 }
 

@@ -46,4 +46,4 @@ out/
 .kotlin
 
 ### Redis ###
-.rdb
+dump.rdb

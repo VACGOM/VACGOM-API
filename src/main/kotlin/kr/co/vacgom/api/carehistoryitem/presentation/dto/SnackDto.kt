@@ -26,5 +26,22 @@ class SnackDto {
                 }
             }
         }
+
+        @Schema(name = "SnackDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val memo: String?,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Snack): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        memo = item.memo,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
     }
 }

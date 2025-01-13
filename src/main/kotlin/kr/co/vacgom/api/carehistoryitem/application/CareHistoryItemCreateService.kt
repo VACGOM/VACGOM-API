@@ -16,10 +16,12 @@ class CareHistoryItemCreateService(
     fun addBreastFeeding(request: BreastFeedingDto.Request) {
 
         val newBreastFeeding = BreastFeeding(
-            startTime = request.startDate,
-            endTime = request.endDate,
-            minutes = ChronoUnit.MINUTES.between(request.startDate, request.endDate).toInt(),
-            breastDirection = request.breastDirection,
+            leftStartTime = request.leftStartDate,
+            leftEndTime = request.leftEndDate,
+            leftMinutes = ChronoUnit.MINUTES.between(request.leftStartDate, request.leftEndDate).toInt(),
+            rightStartTime = request.rightStartDate,
+            rightEndTime = request.rightEndDate,
+            rightMinutes = ChronoUnit.MINUTES.between(request.rightStartDate, request.rightEndDate).toInt(),
             baby = babyQueryService.getBabyById(request.babyId),
             executionTime = request.executionTime,
             itemType = CareHistoryItemType.BREAST_FEEDING

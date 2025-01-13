@@ -26,5 +26,18 @@ class BabyFormulaDto {
                 }
             }
         }
+
+        @Schema(name = "BabyFormulaDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val amount: Int,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: BabyFormula): Detail {
+                    return Detail(careName = item.itemType.typeName, amount = item.amount, executionTime = item.executionTime)
+                }
+            }
+        }
     }
 }

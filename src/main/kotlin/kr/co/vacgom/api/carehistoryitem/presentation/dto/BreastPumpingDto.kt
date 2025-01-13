@@ -26,5 +26,22 @@ class BreastPumpingDto {
                 }
             }
         }
+
+        @Schema(name = "BreastPumping.Response.Detail")
+        class Detail(
+            careName: String,
+            val amount: Int,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: BreastPumping): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        amount = item.amount,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
     }
 }

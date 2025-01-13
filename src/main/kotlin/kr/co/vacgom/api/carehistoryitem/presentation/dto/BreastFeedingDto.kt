@@ -2,7 +2,6 @@ package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
 import kr.co.vacgom.api.carehistoryitem.domain.BreastFeeding
-import kr.co.vacgom.api.carehistoryitem.domain.enums.BreastDirection
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDateTime
 import java.util.*
@@ -11,9 +10,10 @@ class BreastFeedingDto {
     @Schema(name = "BreastFeedingDto.Request")
     data class Request(
         val babyId: UUID,
-        val startDate: LocalDateTime,
-        val endDate: LocalDateTime,
-        val breastDirection: BreastDirection,
+        val leftStartDate: LocalDateTime,
+        val leftEndDate: LocalDateTime,
+        val rightStartDate: LocalDateTime,
+        val rightEndDate: LocalDateTime,
         val executionTime: LocalDateTime,
     )
 
@@ -26,19 +26,35 @@ class BreastFeedingDto {
         ): AbstractDailyStatDto(careName) {
             companion object {
                 fun of(type: CareHistoryItemType, items: List<BreastFeeding>): DailyStat {
-                    val feedingItems = items.groupBy { it.breastDirection }.map { item ->
-                        item.key to BreastFeedingStat(
-                            minutes = item.value.sumOf { it.minutes },
-                            count = item.value.size,
-                        )
-                    }.toMap()
-
                     return DailyStat(
                         careName = type.typeName,
-                        leftStat = feedingItems[BreastDirection.LEFT]
-                            ?: BreastFeedingStat( minutes = 0, count = 0,),
-                        rightStat = feedingItems[BreastDirection.RIGHT]
-                            ?: BreastFeedingStat( minutes = 0, count = 0,)
+                        leftStat = BreastFeedingStat(
+                            items.sumOf { it.leftMinutes },
+                            items.count { it.leftMinutes  != 0 }
+                        ),
+                        rightStat = BreastFeedingStat(
+                            items.sumOf { it.leftMinutes },
+                            items.count { it.leftMinutes != 0 }
+                        ),
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "BreastFeeding.Response.Detail")
+        class Detail(
+            careName: String,
+            val leftMinutes: Int?,
+            val rightMinutes: Int?,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: BreastFeeding): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        leftMinutes = item.leftMinutes,
+                        rightMinutes = item.rightMinutes,
+                        executionTime = item.executionTime
                     )
                 }
             }

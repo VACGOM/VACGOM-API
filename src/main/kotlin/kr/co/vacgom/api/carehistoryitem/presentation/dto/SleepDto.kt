@@ -34,5 +34,24 @@ class SleepDto {
                 }
             }
         }
+
+        @Schema(name = "SleepDto.Response.Detail")
+        class Detail(
+            careName: String,
+            val startTime: LocalDateTime,
+            val endTime: LocalDateTime,
+            val executionTime: LocalDateTime,
+        ): AbstractDailyDetailDto(careName) {
+            companion object {
+                fun of(item: Sleep): Detail {
+                    return Detail(
+                        careName = item.itemType.typeName,
+                        startTime = item.startTime,
+                        endTime = item.endTime,
+                        executionTime = item.executionTime
+                    )
+                }
+            }
+        }
     }
 }
