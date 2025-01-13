@@ -54,4 +54,10 @@ class BabyController(
     ): BaseResponse<BabyDto.Response.Detail> {
         return babyCommandService.updateBabyInfo(babyId, request).let { BaseResponse.success(it) }
     }
+
+    @DeleteMapping("/{babyId}")
+    override fun deleteBabyById(@PathVariable babyId: UUID) {
+        val userId = SecurityContextUtil.getPrincipal()
+        babyCommandService.deleteById(userId, babyId)
+    }
 }

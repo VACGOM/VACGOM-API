@@ -28,4 +28,8 @@ class BabyRepositoryAdapter(private val babyJpaRepository: BabyJpaRepository) : 
     override fun findAll(): List<Baby> {
         return babyJpaRepository.findAll()
     }
+
+    override fun deleteBaby(baby: Baby) {
+        babyJpaRepository.delete(baby)
+    }
 }
