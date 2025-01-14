@@ -21,6 +21,7 @@ import kr.co.vacgom.api.invitation.exception.InvitationError
 import kr.co.vacgom.api.invitation.repository.InvitationRepository
 import kr.co.vacgom.api.user.domain.User
 import kr.co.vacgom.api.user.domain.enums.UserRole
+import org.slf4j.Logger
 import java.time.LocalDate
 import java.util.*
 
@@ -28,11 +29,13 @@ class InvitationServiceTest : DescribeSpec({
     val invitationRepositoryMock: InvitationRepository = mockk(relaxed = true)
     val babyManagerServiceMock: BabyManagerService = mockk(relaxed = true)
     val babyQueryServiceMock: BabyQueryService = mockk(relaxed = true)
+    val loggerMock: Logger = mockk(relaxed = true)
 
     val sut = InvitationService(
         invitationRepositoryMock,
         babyManagerServiceMock,
         babyQueryServiceMock,
+        logger = loggerMock
     )
 
     describe("초대 코드 생성 테스트") {
