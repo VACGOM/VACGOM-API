@@ -18,15 +18,58 @@ class BreastFeedingDto {
     )
 
     class Response {
-        @Schema(name = "BreastFeedingDto.Response.DailyStat")
-        class DailyStat(
+        @Schema(name = "BabyFoodDto.Response.CustomDateStats")
+        class CustomDateStats(
+            careName: String,
+            val averageAmount: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(type: CareHistoryItemType, dayCount: Int, items: List<BreastFeeding>): CustomDateStats {
+                    return CustomDateStats(
+                        careName = type.typeName,
+                        averageAmount = (items.sumOf { it.leftMinutes + it.rightMinutes } / dayCount).toString(),
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "BreastFeedingDto.Response.FixedDateStats")
+        class FixedDateStats (
+            careName: String,
+            val averageAmount: String,
+            val changeAmount: String,
+            val changeRate: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(
+                    type: CareHistoryItemType,
+                    dayCount: Int,
+                    beforeItems: List<BreastFeeding>,
+                    nowItems: List<BreastFeeding>
+                ): FixedDateStats {
+                    val nowAmount = nowItems.sumOf { it.leftMinutes + it.rightMinutes} / dayCount
+                    val beforeAmount = beforeItems.sumOf { it.leftMinutes + it.rightMinutes } / dayCount
+                    val changeAmount = nowAmount - beforeAmount
+
+                    return FixedDateStats(
+                        careName = type.typeName,
+                        averageAmount = nowAmount.toString(),
+                        changeAmount = changeAmount.toString(),
+                        changeRate = if (beforeAmount != 0) (changeAmount / beforeAmount * 100).toString() else "0"
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "BreastFeedingDto.Response.DailyStats")
+        class DailyStats(
             careName: String,
             val leftStat: BreastFeedingStat,
             val rightStat: BreastFeedingStat,
-        ): AbstractDailyStatDto(careName) {
+        ): AbstractStatDto(careName) {
             companion object {
-                fun of(type: CareHistoryItemType, items: List<BreastFeeding>): DailyStat {
-                    return DailyStat(
+                fun of(type: CareHistoryItemType, items: List<BreastFeeding>): DailyStats {
+                    return DailyStats(
                         careName = type.typeName,
                         leftStat = BreastFeedingStat(
                             items.sumOf { it.leftMinutes },
@@ -47,7 +90,7 @@ class BreastFeedingDto {
             val leftMinutes: Int?,
             val rightMinutes: Int?,
             val executionTime: LocalDateTime,
-        ): AbstractDailyDetailDto(careName) {
+        ): AbstractDetailDto(careName) {
             companion object {
                 fun of(item: BreastFeeding): Detail {
                     return Detail(
