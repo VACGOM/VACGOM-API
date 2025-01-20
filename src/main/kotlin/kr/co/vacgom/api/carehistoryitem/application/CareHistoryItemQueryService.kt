@@ -11,10 +11,10 @@ import java.util.*
 
 @Service
 @Transactional(readOnly = true)
-class CareHistoryItemGetService(
+class CareHistoryItemQueryService(
     private val careHistoryItemRepository: CareHistoryItemRepository
 ) {
-    fun getCareHistoryByExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistoryDto.Response {
+    fun getCareHistoryStatsByExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistoryDto.Response {
         val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDate(babyId, executionDate)
         
         return CareHistoryDto.Response.DailyStats.of(careHistory)
@@ -35,7 +35,7 @@ class CareHistoryItemGetService(
         )
     }
 
-    fun getCareHistoryStatsWithChangeMetaDataByInputDate(
+    fun getCareHistoryStatsByFixedDate(
         babyId: UUID,
         dateType: DateType,
         startDate: LocalDate,
@@ -53,7 +53,7 @@ class CareHistoryItemGetService(
                     Pair(beforeItems, nowItems)
                 }
 
-                else -> {
+                DateType.MONTHLY -> {
                     val nowItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(babyId, startDate, endDate)
                     val beforeItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(
                         babyId = babyId,
@@ -63,6 +63,8 @@ class CareHistoryItemGetService(
 
                     Pair(beforeItems, nowItems)
                 }
+
+                else -> throw IllegalArgumentException("Unsupported date type $dateType")
         }
 
         return CareHistoryDto.Response.FixedDateStats.of(
@@ -71,6 +73,21 @@ class CareHistoryItemGetService(
             endDate = endDate,
             beforeCareHistory = beforeCareHistory,
             nowCareHistory = nowCareHistory
+        )
+    }
+
+    fun getCareHistoryStatsByCustomDate(
+        babyId: UUID,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): CareHistoryDto.Response {
+        val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(babyId, startDate, endDate)
+
+        return CareHistoryDto.Response.CustomDateStats.of(
+            babyId = babyId,
+            startDate = startDate,
+            endDate = endDate,
+            careHistory = careHistory
         )
     }
 }

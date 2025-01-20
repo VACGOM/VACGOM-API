@@ -20,6 +20,93 @@ class CareHistoryDto{
         )
     }
     sealed class Response {
+        @Schema(name = "CareHistoryDto.Response.CustomDateStats")
+        data class CustomDateStats(
+            val babyId: UUID,
+            val startDate: LocalDate,
+            val endDate: LocalDate,
+            val careItems: Map<String, AbstractStatDto>
+        ): Response() {
+            companion object {
+                fun of(
+                    babyId: UUID,
+                    startDate: LocalDate,
+                    endDate: LocalDate,
+                    careHistory: CareHistory
+                ) : CustomDateStats {
+                    val careItems = enumValues<CareHistoryItemType>().associate { itemType ->
+                        val careItems = careHistory.careHistoryItems[itemType] ?: emptyList()
+                        val dayCount = ChronoUnit.DAYS.between(startDate, endDate).toInt() + 1
+
+                        val itemValue = when (itemType) {
+                            CareHistoryItemType.BABY_FOOD -> BabyFoodDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.BABY_FOOD,
+                                dayCount = dayCount,
+                                items = careItems.map { it as BabyFood }
+                            )
+
+                            CareHistoryItemType.BABY_FORMULA -> BabyFormulaDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.BABY_FORMULA,
+                                dayCount = dayCount,
+                                items = careItems.map { it as BabyFormula }
+                            )
+
+                            CareHistoryItemType.BATH -> BathDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.BATH,
+                                dayCount = dayCount,
+                                items = careItems.map { it as Bath }
+                            )
+
+                            CareHistoryItemType.BREAST_FEEDING -> BreastFeedingDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.BREAST_FEEDING,
+                                dayCount = dayCount,
+                                items = careItems.map { it as BreastFeeding }
+                            )
+
+                            CareHistoryItemType.BREAST_PUMPING -> BreastPumpingDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.BREAST_PUMPING,
+                                dayCount = dayCount,
+                                items = careItems.map { it as BreastPumping }
+                            )
+
+                            CareHistoryItemType.DIAPER -> DiaperDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.DIAPER,
+                                dayCount = dayCount,
+                                items = careItems.map { it as Diaper }
+                            )
+
+                            CareHistoryItemType.HEALTH -> HealthDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.HEALTH,
+                                dayCount = dayCount,
+                                items = careItems.map { it as Health }
+                            )
+
+                            CareHistoryItemType.SLEEP -> SleepDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.SLEEP,
+                                dayCount = dayCount,
+                                items = careItems.map { it as Sleep }
+                            )
+
+                            CareHistoryItemType.SNACK -> SnackDto.Response.CustomDateStats.of(
+                                type = CareHistoryItemType.SNACK,
+                                dayCount = dayCount,
+                                items = careItems.map { it as Snack }
+                            )
+                        }
+
+                        itemType.name.lowercase().snakeToCamelCase() to itemValue
+                    }
+
+                    return CustomDateStats(
+                        babyId = babyId,
+                        startDate = startDate,
+                        endDate = endDate,
+                        careItems = careItems
+                    )
+                }
+            }
+        }
+
         @Schema(name = "CareHistoryDto.Response.FixedDateStats")
         data class FixedDateStats(
             val babyId: UUID,

@@ -25,7 +25,7 @@ class HealthDto {
                 fun of(type: CareHistoryItemType, dayCount: Int, items: List<Health>): CustomDateStats {
                     return CustomDateStats(
                         careName = type.typeName,
-                        averageAmount = (items.sumOf { it.temperature } / dayCount).toString(),
+                        averageAmount = String.format("%.1f", (items.sumOf { it.temperature } / dayCount)),
                     )
                 }
             }
