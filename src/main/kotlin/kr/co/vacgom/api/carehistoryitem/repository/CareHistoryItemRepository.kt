@@ -10,4 +10,5 @@ interface CareHistoryItemRepository {
     fun saveHistoryItem(item: CareHistoryItem)
     fun findByBabyIdAndExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistory
     fun findByBabyIdAndExecutionDateAndItemType(babyId: UUID, executionDate: LocalDate, itemType: CareHistoryItemType): List<CareHistoryItem>
+    fun findByBabyIdAndExecutionDateBetween(babyId: UUID, startDate: LocalDate, endDate: LocalDate): CareHistory
 }

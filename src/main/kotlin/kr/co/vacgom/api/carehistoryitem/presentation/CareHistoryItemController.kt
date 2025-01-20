@@ -5,7 +5,10 @@ import kr.co.vacgom.api.carehistoryitem.application.CareHistoryItemGetService
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.presentation.CareHistoryItemApi.Companion.CARE_HISTORY
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.*
+import kr.co.vacgom.api.carehistoryitem.presentation.dto.enums.DateType
 import kr.co.vacgom.api.global.common.dto.BaseResponse
+import kr.co.vacgom.api.global.exception.error.BusinessException
+import kr.co.vacgom.api.global.exception.error.GlobalError
 import kr.co.vacgom.api.global.presentation.GlobalPath.BASE_V3
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
@@ -32,6 +35,24 @@ class CareHistoryItemController(
                 itemType,
                 executionDate
             ).let { BaseResponse.success(it) }
+        }
+    }
+
+    @GetMapping("/stats")
+    override fun getCareHistoryStatsByInputDate(@ModelAttribute request: CareHistoryDto.Request.Stats): BaseResponse<CareHistoryDto.Response> {
+        return when (request.dateType) {
+            DateType.WEEKLY, DateType.MONTHLY -> {
+                careHistoryItemGetService.getCareHistoryStatsWithChangeMetaDataByInputDate(
+                    babyId = request.babyId,
+                    dateType = request.dateType,
+                    startDate = request.startDate,
+                    endDate = request.endDate
+                ).let { BaseResponse.success(it) }
+            }
+
+            else -> {
+                throw BusinessException(GlobalError.GLOBAL_NOT_FOUND)
+            }
         }
     }
 
