@@ -61,11 +61,16 @@ class SnackDto {
         @Schema(name = "SnackDto.Response.DailyStats")
         class DailyStats(
             careName: String,
+            val lastExecutionTime: LocalDateTime?,
             val count: Int,
         ): AbstractStatDto(careName) {
             companion object {
                 fun of(type: CareHistoryItemType, items: List<Snack>): DailyStats {
-                    return DailyStats(type.typeName, count = items.size)
+                    return DailyStats(
+                        careName = type.typeName,
+                        lastExecutionTime = if (items.isNotEmpty()) { items.first().executionTime } else null,
+                        count = items.size
+                    )
                 }
             }
         }

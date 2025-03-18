@@ -6,6 +6,7 @@ import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.enums.DateType
 import kr.co.vacgom.api.global.util.snakeToCamelCase
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 
@@ -240,7 +241,8 @@ class CareHistoryDto{
         @Schema(name = "CareHistoryDto.Response.DailyStat")
         data class DailyStats(
             val babyId: UUID,
-            val executionDate: LocalDate,
+            val startTime: LocalDateTime,
+            val endTime: LocalDateTime,
             val careItems: Map<String, AbstractStatDto>
         ): Response() {
             companion object {
@@ -255,7 +257,8 @@ class CareHistoryDto{
 
                     return DailyStats(
                         babyId = careHistory.babyId,
-                        executionDate = careHistory.startTime.toLocalDate(),
+                        startTime = careHistory.startTime,
+                        endTime = careHistory.endTime,
                         careItems = careItems,
                     )
                 }

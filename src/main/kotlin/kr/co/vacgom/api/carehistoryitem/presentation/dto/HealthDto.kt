@@ -62,6 +62,7 @@ class HealthDto {
         @Schema(name = "HealthDto.Response.DailyStats")
         class DailyStats(
             careName: String,
+            val lastExecutionTime: LocalDateTime?,
             val temperature: Double,
         ): AbstractStatDto(careName) {
             companion object {
@@ -69,12 +70,14 @@ class HealthDto {
                     if (items.isEmpty()) {
                         return DailyStats(
                             careName = type.typeName,
+                            lastExecutionTime = null,
                             temperature = 0.0
                         )
                     }
 
                     return DailyStats(
                         careName = type.typeName,
+                        lastExecutionTime = items.first().executionTime,
                         temperature = items.sumOf { it.temperature } / items.size
                     )
                 }
