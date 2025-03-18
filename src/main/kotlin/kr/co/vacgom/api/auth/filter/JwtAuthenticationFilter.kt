@@ -30,6 +30,7 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        println(request)
         jwtProvider.extractToken(request)?.run {
             val accessToken = userTokenService.resolveAccessToken(this)
             val userAuthentication = UserAuthentication(accessToken.userId, accessToken.authorities)
