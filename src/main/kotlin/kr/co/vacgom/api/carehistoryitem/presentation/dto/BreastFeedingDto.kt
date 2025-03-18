@@ -64,6 +64,7 @@ class BreastFeedingDto {
         @Schema(name = "BreastFeedingDto.Response.DailyStats")
         class DailyStats(
             careName: String,
+            val lastExecutionTime: LocalDateTime?,
             val leftStat: BreastFeedingStat,
             val rightStat: BreastFeedingStat,
         ): AbstractStatDto(careName) {
@@ -71,6 +72,7 @@ class BreastFeedingDto {
                 fun of(type: CareHistoryItemType, items: List<BreastFeeding>): DailyStats {
                     return DailyStats(
                         careName = type.typeName,
+                        lastExecutionTime = if (items.isNotEmpty()) { items.first().executionTime } else null,
                         leftStat = BreastFeedingStat(
                             items.sumOf { it.leftMinutes },
                             items.count { it.leftMinutes  != 0 }

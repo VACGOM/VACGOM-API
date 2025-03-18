@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 interface CareHistoryItemRepository {
     fun createCareHistoryItem(item: CareHistoryItem)
-    fun findByBabyAndExecutionDate(baby: Baby, executionDate: LocalDate): CareHistory
+    fun findByBabyAndExecutionDateOrderByDesc(baby: Baby, executionDate: LocalDate): CareHistory
     fun findByBabyAndExecutionDateAndItemType(baby: Baby, executionDate: LocalDate, itemType: CareHistoryItemType): List<CareHistoryItem>
     fun findByBabyAndExecutionDateBetween(baby: Baby, startDate: LocalDate, endDate: LocalDate): CareHistory
 }

@@ -61,11 +61,16 @@ class BabyFormulaDto {
         @Schema(name = "BabyFormulaDto.Response.DailyStats")
         class DailyStats(
             careName: String,
+            val lastExecutionTime: LocalDateTime?,
             val amount: Int,
         ): AbstractStatDto(careName) {
             companion object {
                 fun of(type: CareHistoryItemType, items: List<BabyFormula>): DailyStats {
-                    return DailyStats( careName = type.typeName, amount = items.sumOf { it.amount })
+                    return DailyStats(
+                        careName = type.typeName,
+                        lastExecutionTime = if (items.isNotEmpty()) { items.first().executionTime } else null,
+                        amount = items.sumOf { it.amount }
+                    )
                 }
             }
         }

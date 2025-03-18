@@ -62,6 +62,7 @@ class SleepDto {
         @Schema(name = "SleepDto.Response.DailyStats")
         class DailyStats(
             careName: String,
+            val lastExecutionTime: LocalDateTime?,
             val hours: Int,
             val minutes: Int,
         ): AbstractStatDto(careName) {
@@ -71,6 +72,7 @@ class SleepDto {
 
                     return DailyStats(
                         careName = type.typeName,
+                        lastExecutionTime = if (items.isNotEmpty()) { items.first().executionTime } else null,
                         hours = totalMinutes / 60,
                         minutes = totalMinutes % 60
                     )
