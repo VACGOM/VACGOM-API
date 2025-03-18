@@ -18,8 +18,8 @@ class CareHistoryItemQueryService(
 ) {
     fun getCareHistoryStatsByExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistoryDto.Response {
         val findBaby = babyQueryService.getBabyById(babyId)
-        val careHistory = careHistoryItemRepository.findByBabyAndExecutionDate(findBaby, executionDate)
-        
+        val careHistory = careHistoryItemRepository.findByBabyAndExecutionDateOrderByDesc(findBaby, executionDate)
+
         return CareHistoryDto.Response.DailyStats.of(careHistory)
     }
 

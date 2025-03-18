@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 
 interface CareHistoryItemJpaRepository : JpaRepository<CareHistoryItem, Long> {
-    fun findByBabyAndExecutionTimeBetween(baby: Baby, startExecutionDate: LocalDateTime, endExecutionDate: LocalDateTime): List<CareHistoryItem>
+    fun findByBabyAndExecutionTimeBetweenOrderByExecutionTimeDesc(baby: Baby, startExecutionDate: LocalDateTime, endExecutionDate: LocalDateTime): List<CareHistoryItem>
     fun findByBabyAndItemTypeAndExecutionTimeBetween(
         baby: Baby,
         itemType: CareHistoryItemType,

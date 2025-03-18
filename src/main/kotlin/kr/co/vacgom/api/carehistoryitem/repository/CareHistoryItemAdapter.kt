@@ -17,11 +17,11 @@ class CareHistoryItemAdapter(
         careHistoryItemJpaRepository.save(item)
     }
 
-    override fun findByBabyAndExecutionDate(baby: Baby, executionDate: LocalDate): CareHistory {
+    override fun findByBabyAndExecutionDateOrderByDesc(baby: Baby, executionDate: LocalDate): CareHistory {
         val startExecutionDateTime = LocalDateTime.of(executionDate, LocalTime.MIN)
         val endExecutionDateTime = LocalDateTime.of(executionDate, LocalTime.MAX)
 
-        val careHistoryItems = careHistoryItemJpaRepository.findByBabyAndExecutionTimeBetween(
+        val careHistoryItems = careHistoryItemJpaRepository.findByBabyAndExecutionTimeBetweenOrderByExecutionTimeDesc(
             baby,
             startExecutionDateTime,
             endExecutionDateTime
@@ -58,7 +58,7 @@ class CareHistoryItemAdapter(
     ): CareHistory {
         val startExecutionDateTime = LocalDateTime.of(startDate, LocalTime.MIN)
         val endExecutionDateTime = LocalDateTime.of(endDate, LocalTime.MAX)
-        val careHistoryItems = careHistoryItemJpaRepository.findByBabyAndExecutionTimeBetween(
+        val careHistoryItems = careHistoryItemJpaRepository.findByBabyAndExecutionTimeBetweenOrderByExecutionTimeDesc(
             baby = baby,
             startExecutionDate = startExecutionDateTime,
             endExecutionDate = endExecutionDateTime
