@@ -27,7 +27,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.BREAST_FEEDING
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBreastFeeding)
+        careHistoryItemRepository.createCareHistoryItem(newBreastFeeding)
     }
 
     fun addBabyFormula(request: BabyFormulaDto.Request) {
@@ -38,7 +38,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.BABY_FORMULA,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBabyFormula)
+        careHistoryItemRepository.createCareHistoryItem(newBabyFormula)
     }
 
     fun addBreastPumping(request: BreastPumpingDto.Request) {
@@ -49,7 +49,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.BREAST_PUMPING
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBreastPumping)
+        careHistoryItemRepository.createCareHistoryItem(newBreastPumping)
     }
 
     fun addBabyFood(request: BabyFoodDto.Request) {
@@ -60,7 +60,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.BABY_FOOD
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBabyFood)
+        careHistoryItemRepository.createCareHistoryItem(newBabyFood)
     }
 
     fun addDiaper(request: DiaperDto.Request) {
@@ -71,7 +71,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.DIAPER,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newDiaper)
+        careHistoryItemRepository.createCareHistoryItem(newDiaper)
     }
 
     fun addBath(request: BathDto.Request) {
@@ -86,7 +86,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.BATH
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBath)
+        careHistoryItemRepository.createCareHistoryItem(newBath)
     }
 
     fun addSleep(request: SleepDto.Request) {
@@ -101,7 +101,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.SLEEP,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newSleep)
+        careHistoryItemRepository.createCareHistoryItem(newSleep)
     }
 
     fun addHealth(request: HealthDto.Request) {
@@ -113,7 +113,7 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.HEALTH,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newHealth)
+        careHistoryItemRepository.createCareHistoryItem(newHealth)
     }
 
     fun addSnack(request: SnackDto.Request) {
@@ -124,6 +124,6 @@ class CareHistoryItemCommandService(
             itemType = CareHistoryItemType.SNACK,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newSnack)
+        careHistoryItemRepository.createCareHistoryItem(newSnack)
     }
 }

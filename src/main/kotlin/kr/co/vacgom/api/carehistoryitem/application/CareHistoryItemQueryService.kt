@@ -1,5 +1,6 @@
 package kr.co.vacgom.api.carehistoryitem.application
 
+import kr.co.vacgom.api.baby.application.BabyQueryService
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.CareHistoryDto
 import kr.co.vacgom.api.carehistoryitem.presentation.dto.enums.DateType
@@ -12,10 +13,12 @@ import java.util.*
 @Service
 @Transactional(readOnly = true)
 class CareHistoryItemQueryService(
-    private val careHistoryItemRepository: CareHistoryItemRepository
+    private val careHistoryItemRepository: CareHistoryItemRepository,
+    private val babyQueryService: BabyQueryService
 ) {
     fun getCareHistoryStatsByExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistoryDto.Response {
-        val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDate(babyId, executionDate)
+        val findBaby = babyQueryService.getBabyById(babyId)
+        val careHistory = careHistoryItemRepository.findByBabyAndExecutionDate(findBaby, executionDate)
         
         return CareHistoryDto.Response.DailyStats.of(careHistory)
     }
@@ -25,7 +28,8 @@ class CareHistoryItemQueryService(
         itemType: CareHistoryItemType,
         executionDate: LocalDate
     ): CareHistoryDto.Response {
-        val careHistoryItems = careHistoryItemRepository.findByBabyIdAndExecutionDateAndItemType(babyId, executionDate, itemType)
+        val findBaby = babyQueryService.getBabyById(babyId)
+        val careHistoryItems = careHistoryItemRepository.findByBabyAndExecutionDateAndItemType(findBaby, executionDate, itemType)
 
         return CareHistoryDto.Response.DailyDetail.of(
             babyId = babyId,
@@ -43,9 +47,10 @@ class CareHistoryItemQueryService(
     ): CareHistoryDto.Response {
         val (beforeCareHistory, nowCareHistory) = when (dateType) {
                 DateType.WEEKLY -> {
-                    val nowItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(babyId, startDate, endDate)
-                    val beforeItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(
-                        babyId = babyId,
+                    val findBaby = babyQueryService.getBabyById(babyId)
+                    val nowItems = careHistoryItemRepository.findByBabyAndExecutionDateBetween(findBaby, startDate, endDate)
+                    val beforeItems = careHistoryItemRepository.findByBabyAndExecutionDateBetween(
+                        baby = findBaby,
                         startDate = startDate.minusWeeks(1),
                         endDate = endDate.minusWeeks(1)
                     )
@@ -54,9 +59,10 @@ class CareHistoryItemQueryService(
                 }
 
                 DateType.MONTHLY -> {
-                    val nowItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(babyId, startDate, endDate)
-                    val beforeItems = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(
-                        babyId = babyId,
+                    val findBaby = babyQueryService.getBabyById(babyId)
+                    val nowItems = careHistoryItemRepository.findByBabyAndExecutionDateBetween(findBaby, startDate, endDate)
+                    val beforeItems = careHistoryItemRepository.findByBabyAndExecutionDateBetween(
+                        baby = findBaby,
                         startDate = startDate.minusMonths(1),
                         endDate = endDate.minusMonths(1)
                     )
@@ -81,7 +87,8 @@ class CareHistoryItemQueryService(
         startDate: LocalDate,
         endDate: LocalDate
     ): CareHistoryDto.Response {
-        val careHistory = careHistoryItemRepository.findByBabyIdAndExecutionDateBetween(babyId, startDate, endDate)
+        val findBaby = babyQueryService.getBabyById(babyId)
+        val careHistory = careHistoryItemRepository.findByBabyAndExecutionDateBetween(findBaby, startDate, endDate)
 
         return CareHistoryDto.Response.CustomDateStats.of(
             babyId = babyId,
