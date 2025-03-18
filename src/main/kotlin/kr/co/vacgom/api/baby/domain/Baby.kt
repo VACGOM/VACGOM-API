@@ -2,8 +2,13 @@ package kr.co.vacgom.api.baby.domain
 
 import jakarta.persistence.*
 import kr.co.vacgom.api.baby.domain.enums.Gender
+import kr.co.vacgom.api.babymanager.domain.BabyManager
+import kr.co.vacgom.api.carehistoryitem.domain.CareHistoryItem
+import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.global.common.domain.BaseTimeEntity
 import kr.co.vacgom.api.global.util.UuidCreator
+import kr.co.vacgom.api.vaccine.domain.UnclassifiedVaccination
+import kr.co.vacgom.api.vaccine.domain.Vaccination
 import org.hibernate.annotations.Comment
 import java.time.LocalDate
 import java.util.*
@@ -42,6 +47,19 @@ class Baby(
     @Comment("[Not Null] 아기 생년월일")
     var birthday: LocalDate = birthday
         protected set
+
+    @OneToMany(mappedBy = "baby", cascade = [(CascadeType.REMOVE)])
+    val babyManagers: List<BabyManager> = listOf()
+
+    @OneToMany(mappedBy = "baby", cascade = [(CascadeType.REMOVE)])
+    @MapKey(name = "itemType")
+    val careHistoryItems: Map<CareHistoryItemType, CareHistoryItem> = mapOf()
+
+    @OneToMany(mappedBy = "baby", cascade = [(CascadeType.REMOVE)])
+    val vaccinations: List<Vaccination> = listOf()
+
+    @OneToMany(mappedBy = "baby", cascade = [(CascadeType.REMOVE)])
+    val unclassifiedVaccinations: List<UnclassifiedVaccination> = listOf()
 
     fun update(
         name: String,

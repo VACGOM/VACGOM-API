@@ -106,6 +106,21 @@ interface BabyApi {
     )
     fun updateBaby(babyId: UUID, request: BabyDto.Request.Update): BaseResponse<BabyDto.Response.Detail>
 
+    @Operation(
+        summary = "아이 삭제 API",
+        operationId = "deleteBabyById",
+        description = """""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "OK"),
+            ApiResponse(
+                responseCode = "400",
+                description = "Bad Request",
+                content = [Content(schema = Schema(implementation = ErrorResponse::class))]
+            ),
+        ]
+    )
+    fun deleteBabyById(babyId: UUID)
+
     companion object {
         const val BABY = "/babies"
     }

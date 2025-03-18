@@ -9,23 +9,25 @@ import org.springframework.stereotype.Service
 import java.time.temporal.ChronoUnit
 
 @Service
-class CareHistoryItemCreateService(
+class CareHistoryItemCommandService(
     private val careHistoryItemRepository: CareHistoryItemRepository,
     private val babyQueryService: BabyQueryService,
 ) {
     fun addBreastFeeding(request: BreastFeedingDto.Request) {
 
         val newBreastFeeding = BreastFeeding(
-            startTime = request.startDate,
-            endTime = request.endDate,
-            minutes = ChronoUnit.MINUTES.between(request.startDate, request.endDate).toInt(),
-            breastDirection = request.breastDirection,
+            leftStartTime = request.leftStartDate,
+            leftEndTime = request.leftEndDate,
+            leftMinutes = ChronoUnit.MINUTES.between(request.leftStartDate, request.leftEndDate).toInt(),
+            rightStartTime = request.rightStartDate,
+            rightEndTime = request.rightEndDate,
+            rightMinutes = ChronoUnit.MINUTES.between(request.rightStartDate, request.rightEndDate).toInt(),
             baby = babyQueryService.getBabyById(request.babyId),
             executionTime = request.executionTime,
             itemType = CareHistoryItemType.BREAST_FEEDING
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBreastFeeding)
+        careHistoryItemRepository.createCareHistoryItem(newBreastFeeding)
     }
 
     fun addBabyFormula(request: BabyFormulaDto.Request) {
@@ -36,7 +38,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.BABY_FORMULA,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBabyFormula)
+        careHistoryItemRepository.createCareHistoryItem(newBabyFormula)
     }
 
     fun addBreastPumping(request: BreastPumpingDto.Request) {
@@ -47,7 +49,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.BREAST_PUMPING
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBreastPumping)
+        careHistoryItemRepository.createCareHistoryItem(newBreastPumping)
     }
 
     fun addBabyFood(request: BabyFoodDto.Request) {
@@ -58,7 +60,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.BABY_FOOD
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBabyFood)
+        careHistoryItemRepository.createCareHistoryItem(newBabyFood)
     }
 
     fun addDiaper(request: DiaperDto.Request) {
@@ -69,7 +71,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.DIAPER,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newDiaper)
+        careHistoryItemRepository.createCareHistoryItem(newDiaper)
     }
 
     fun addBath(request: BathDto.Request) {
@@ -84,7 +86,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.BATH
         )
 
-        careHistoryItemRepository.saveHistoryItem(newBath)
+        careHistoryItemRepository.createCareHistoryItem(newBath)
     }
 
     fun addSleep(request: SleepDto.Request) {
@@ -99,7 +101,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.SLEEP,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newSleep)
+        careHistoryItemRepository.createCareHistoryItem(newSleep)
     }
 
     fun addHealth(request: HealthDto.Request) {
@@ -111,7 +113,7 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.HEALTH,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newHealth)
+        careHistoryItemRepository.createCareHistoryItem(newHealth)
     }
 
     fun addSnack(request: SnackDto.Request) {
@@ -122,6 +124,6 @@ class CareHistoryItemCreateService(
             itemType = CareHistoryItemType.SNACK,
         )
 
-        careHistoryItemRepository.saveHistoryItem(newSnack)
+        careHistoryItemRepository.createCareHistoryItem(newSnack)
     }
 }

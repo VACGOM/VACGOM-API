@@ -9,4 +9,5 @@ interface BabyRepository {
     fun findBabiesById(ids: List<UUID>): List<Baby>
     fun findById(id: UUID): Baby
     fun findAll(): List<Baby>
+    fun deleteBaby(baby: Baby)
 }
