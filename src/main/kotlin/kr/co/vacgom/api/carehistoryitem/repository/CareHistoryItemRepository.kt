@@ -7,8 +7,8 @@ import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDate
 
 interface CareHistoryItemRepository {
-    fun saveHistoryItem(item: CareHistoryItem)
-    fun findByBabyIdAndExecutionDate(babyId: UUID, executionDate: LocalDate): CareHistory
-    fun findByBabyIdAndExecutionDateAndItemType(babyId: UUID, executionDate: LocalDate, itemType: CareHistoryItemType): List<CareHistoryItem>
-    fun findByBabyIdAndExecutionDateBetween(babyId: UUID, startDate: LocalDate, endDate: LocalDate): CareHistory
+    fun createCareHistoryItem(item: CareHistoryItem)
+    fun findByBabyAndExecutionDate(baby: Baby, executionDate: LocalDate): CareHistory
+    fun findByBabyAndExecutionDateAndItemType(baby: Baby, executionDate: LocalDate, itemType: CareHistoryItemType): List<CareHistoryItem>
+    fun findByBabyAndExecutionDateBetween(baby: Baby, startDate: LocalDate, endDate: LocalDate): CareHistory
 }

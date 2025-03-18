@@ -13,7 +13,7 @@ import java.time.LocalTime
 class CareHistoryItemAdapter(
     private val careHistoryItemJpaRepository: CareHistoryItemJpaRepository,
 ): CareHistoryItemRepository {
-    override fun saveHistoryItem(item: CareHistoryItem) {
+    override fun createCareHistoryItem(item: CareHistoryItem) {
         careHistoryItemJpaRepository.save(item)
     }
 
@@ -28,7 +28,7 @@ class CareHistoryItemAdapter(
         )
 
         return CareHistory.create(
-            babyId = babyId,
+            babyId = baby.id,
             startTime = startExecutionDateTime,
             endTime = endExecutionDateTime,
             careHistoryItems.groupBy { it.itemType }
@@ -51,20 +51,20 @@ class CareHistoryItemAdapter(
         )
     }
 
-    override fun findByBabyIdAndExecutionDateBetween(
-        babyId: UUID,
+    override fun findByBabyAndExecutionDateBetween(
+        baby: Baby,
         startDate: LocalDate,
         endDate: LocalDate,
     ): CareHistory {
         val startExecutionDateTime = LocalDateTime.of(startDate, LocalTime.MIN)
         val endExecutionDateTime = LocalDateTime.of(endDate, LocalTime.MAX)
-        val careHistoryItems = careHistoryItemJpaRepository.findByBabyIdAndExecutionTimeBetween(
-            babyId = babyId,
+        val careHistoryItems = careHistoryItemJpaRepository.findByBabyAndExecutionTimeBetween(
+            baby = baby,
             startExecutionDate = startExecutionDateTime,
             endExecutionDate = endExecutionDateTime
         )
         return CareHistory.create(
-            babyId = babyId,
+            babyId = baby.id,
             startTime = startExecutionDateTime,
             endTime = endExecutionDateTime,
             careHistoryItems.groupBy { it.itemType }
