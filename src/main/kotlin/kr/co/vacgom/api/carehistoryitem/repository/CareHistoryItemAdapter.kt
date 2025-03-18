@@ -27,9 +27,10 @@ class CareHistoryItemAdapter(
             endExecutionDateTime
         )
 
-        return CareHistory(
-            baby.id,
-            executionDate,
+        return CareHistory.create(
+            babyId = babyId,
+            startTime = startExecutionDateTime,
+            endTime = endExecutionDateTime,
             careHistoryItems.groupBy { it.itemType }
         )
     }
@@ -47,6 +48,26 @@ class CareHistoryItemAdapter(
             itemType = itemType,
             startExecutionDate = startExecutionDateTime,
             endExecutionDate =  endExecutionDateTime
+        )
+    }
+
+    override fun findByBabyIdAndExecutionDateBetween(
+        babyId: UUID,
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): CareHistory {
+        val startExecutionDateTime = LocalDateTime.of(startDate, LocalTime.MIN)
+        val endExecutionDateTime = LocalDateTime.of(endDate, LocalTime.MAX)
+        val careHistoryItems = careHistoryItemJpaRepository.findByBabyIdAndExecutionTimeBetween(
+            babyId = babyId,
+            startExecutionDate = startExecutionDateTime,
+            endExecutionDate = endExecutionDateTime
+        )
+        return CareHistory.create(
+            babyId = babyId,
+            startTime = startExecutionDateTime,
+            endTime = endExecutionDateTime,
+            careHistoryItems.groupBy { it.itemType }
         )
     }
 }

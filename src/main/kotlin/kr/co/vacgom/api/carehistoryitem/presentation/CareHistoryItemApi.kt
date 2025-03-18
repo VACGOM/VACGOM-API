@@ -15,11 +15,11 @@ import java.util.*
 @Tag(name = "육아 기록 API")
 interface CareHistoryItemApi {
     @Operation(
-        summary = "육아 기록 통계 조회(일간) API",
+        summary = "육아 기록 조회(일간) API",
         operationId = "getCareHistoryByExecutionDate",
         description = """""",
         responses = [
-            ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = CareHistoryDto.Response.DailyStat::class))]),
+            ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = CareHistoryDto.Response.DailyStats::class))]),
             ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ]
     )
@@ -27,6 +27,19 @@ interface CareHistoryItemApi {
         babyId: UUID,
         executionDate: LocalDate,
         itemType: CareHistoryItemType?
+    ): BaseResponse<CareHistoryDto.Response>
+
+    @Operation(
+        summary = "육아 기록 통계 조회(날짜 선택) API",
+        operationId = "getCareHistoryStatsByExecutionDate",
+        description = """""",
+        responses = [
+            ApiResponse(responseCode = "200", description = "OK", content = [Content(schema = Schema(implementation = CareHistoryDto.Response.DailyStats::class))]),
+            ApiResponse(responseCode = "400", description = "Bad Request", content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+        ]
+    )
+    fun getCareHistoryStatsByInputDate(
+        request: CareHistoryDto.Request.Stats
     ): BaseResponse<CareHistoryDto.Response>
 
     @Operation(

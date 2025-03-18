@@ -16,14 +16,57 @@ class DiaperDto {
     )
 
     class Response {
-        @Schema(name = "Diaper.Response.DailyStat")
-        class DailyStat(
+        @Schema(name = "BabyFoodDto.Response.CustomDateStats")
+        class CustomDateStats(
+            careName: String,
+            val averageAmount: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(type: CareHistoryItemType, dayCount: Int, items: List<Diaper>): CustomDateStats {
+                    return CustomDateStats(
+                        careName = type.typeName,
+                        averageAmount = (items.size / dayCount).toString(),
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "DiaperDto.Response.FixedDateStats")
+        class FixedDateStats (
+            careName: String,
+            val averageAmount: String,
+            val changeAmount: String,
+            val changeRate: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(
+                    type: CareHistoryItemType,
+                    dayCount: Int,
+                    beforeItems: List<Diaper>,
+                    nowItems: List<Diaper>
+                ): FixedDateStats {
+                    val nowAmount = nowItems.size / dayCount
+                    val beforeAmount = beforeItems.size / dayCount
+                    val changeAmount = nowAmount - beforeAmount
+
+                    return FixedDateStats(
+                        careName = type.typeName,
+                        averageAmount = nowAmount.toString(),
+                        changeAmount = changeAmount.toString(),
+                        changeRate = if (beforeAmount != 0) (changeAmount / beforeAmount * 100).toString() else "0"
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "Diaper.Response.DailyStats")
+        class DailyStats(
             careName: String,
             val count: Int,
-        ): AbstractDailyStatDto(careName) {
+        ): AbstractStatDto(careName) {
             companion object {
-                fun of(type: CareHistoryItemType, items: List<Diaper>): DailyStat {
-                    return DailyStat(type.typeName, count = items.size)
+                fun of(type: CareHistoryItemType, items: List<Diaper>): DailyStats {
+                    return DailyStats(type.typeName, count = items.size)
                 }
             }
         }
@@ -33,7 +76,7 @@ class DiaperDto {
             careName: String,
             val excrementType: String,
             val executionTime: LocalDateTime,
-        ): AbstractDailyDetailDto(careName) {
+        ): AbstractDetailDto(careName) {
             companion object {
                 fun of(item: Diaper): Detail {
                     return Detail(

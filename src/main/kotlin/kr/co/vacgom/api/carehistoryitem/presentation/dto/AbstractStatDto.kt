@@ -1,5 +1,5 @@
 package kr.co.vacgom.api.carehistoryitem.presentation.dto
 
-abstract class AbstractDailyStatDto(
+abstract class AbstractStatDto(
     val careName: String,
 )

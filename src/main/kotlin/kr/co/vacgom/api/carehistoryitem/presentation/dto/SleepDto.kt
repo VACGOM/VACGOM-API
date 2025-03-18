@@ -16,17 +16,60 @@ class SleepDto {
     )
 
     class Response {
-        @Schema(name = "SleepDto.Response.DailyStat")
-        class DailyStat(
+        @Schema(name = "BabyFoodDto.Response.CustomDateStats")
+        class CustomDateStats(
+            careName: String,
+            val averageAmount: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(type: CareHistoryItemType, dayCount: Int, items: List<Sleep>): CustomDateStats {
+                    return CustomDateStats(
+                        careName = type.typeName,
+                        averageAmount = (items.sumOf { it.minutes } / dayCount).toString(),
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "SleepDto.Response.FixedDateStats")
+        class FixedDateStats(
+            careName: String,
+            val averageAmount: String,
+            val changeAmount: String,
+            val changeRate: String,
+        ): AbstractStatDto(careName){
+            companion object {
+                fun of(
+                    type: CareHistoryItemType,
+                    dayCount: Int,
+                    beforeItems: List<Sleep>,
+                    nowItems: List<Sleep>
+                ): FixedDateStats {
+                    val nowAmount = nowItems.sumOf { it.minutes } / dayCount
+                    val beforeAmount = beforeItems.sumOf { it.minutes } / dayCount
+                    val changeAmount = nowAmount - beforeAmount
+
+                    return FixedDateStats(
+                        careName = type.typeName,
+                        averageAmount = nowAmount.toString(),
+                        changeAmount = changeAmount.toString(),
+                        changeRate = if (beforeAmount != 0) (changeAmount / beforeAmount * 100).toString() else "0"
+                    )
+                }
+            }
+        }
+
+        @Schema(name = "SleepDto.Response.DailyStats")
+        class DailyStats(
             careName: String,
             val hours: Int,
             val minutes: Int,
-        ): AbstractDailyStatDto(careName) {
+        ): AbstractStatDto(careName) {
             companion object {
-                fun of(type: CareHistoryItemType, items: List<Sleep>): DailyStat {
+                fun of(type: CareHistoryItemType, items: List<Sleep>): DailyStats {
                     val totalMinutes = items.sumOf { it.minutes }
 
-                    return DailyStat(
+                    return DailyStats(
                         careName = type.typeName,
                         hours = totalMinutes / 60,
                         minutes = totalMinutes % 60
@@ -41,7 +84,7 @@ class SleepDto {
             val startTime: LocalDateTime,
             val endTime: LocalDateTime,
             val executionTime: LocalDateTime,
-        ): AbstractDailyDetailDto(careName) {
+        ): AbstractDetailDto(careName) {
             companion object {
                 fun of(item: Sleep): Detail {
                     return Detail(

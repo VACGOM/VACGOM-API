@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.time.temporal.ChronoUnit
 
 @Service
-class CareHistoryItemCreateService(
+class CareHistoryItemCommandService(
     private val careHistoryItemRepository: CareHistoryItemRepository,
     private val babyQueryService: BabyQueryService,
 ) {
