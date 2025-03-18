@@ -1,10 +1,10 @@
 package kr.co.vacgom.api.carehistoryitem.repository
 
+import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.CareHistory
 import kr.co.vacgom.api.carehistoryitem.domain.CareHistoryItem
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import java.time.LocalDate
-import java.util.*
 
 interface CareHistoryItemRepository {
     fun saveHistoryItem(item: CareHistoryItem)
