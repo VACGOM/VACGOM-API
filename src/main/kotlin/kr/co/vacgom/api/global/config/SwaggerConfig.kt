@@ -28,12 +28,16 @@ class SwaggerConfig {
                 .bearerFormat("JWT")
         )
 
-        val server = Server()
-        server.url("https://api-dev-v2.vacgom.co.kr")
+        val deployServer = Server()
+        val localServer = Server()
+
+        deployServer.url("https://api-dev-v2.vacgom.co.kr")
+        localServer.url("http://localhost:8080")
 
         return OpenAPI()
             .components(Components())
-            .addServersItem(server)
+            .addServersItem(deployServer)
+            .addServersItem(localServer)
             .info(apiInfo())
             .addSecurityItem(securityRequirement)
             .components(components)
