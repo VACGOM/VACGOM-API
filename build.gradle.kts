@@ -50,12 +50,14 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.9.1")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.9.1")
     testImplementation("io.mockk:mockk:1.13.13")
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.1.10")
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter-kotlin:1.1.10")
 
     // Database
     runtimeOnly("com.mysql:mysql-connector-j")
 
     // OpenFeign
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.1")
 
     //S3
     implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.2")
@@ -71,6 +73,7 @@ dependencies {
 
     // JWT
     implementation("com.auth0:java-jwt:4.4.0")
+    implementation("com.auth0:jwks-rsa:0.22.1")
 
     // coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
