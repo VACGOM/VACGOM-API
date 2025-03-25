@@ -14,7 +14,6 @@ class CareHistoryItemCommandService(
     private val babyQueryService: BabyQueryService,
 ) {
     fun addBreastFeeding(request: BreastFeedingDto.Request) {
-
         val newBreastFeeding = BreastFeeding(
             leftStartTime = request.leftStartDate,
             leftEndTime = request.leftEndDate,

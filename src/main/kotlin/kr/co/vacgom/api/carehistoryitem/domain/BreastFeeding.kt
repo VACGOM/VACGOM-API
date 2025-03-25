@@ -1,6 +1,8 @@
 package kr.co.vacgom.api.carehistoryitem.domain
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
 import kr.co.vacgom.api.baby.domain.Baby
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType
 import kr.co.vacgom.api.carehistoryitem.domain.enums.CareHistoryItemType.BREAST_FEEDING
@@ -52,4 +54,9 @@ class BreastFeeding (
     @Comment("[Not Null] 모유수유 시간(분)")
     var rightMinutes: Int = rightMinutes
         protected set
+
+    init {
+        require(leftStartTime.isBefore(leftEndTime)) { "수유 시작 시간은 종료 시간보다 이전이어야 합니다." }
+        require(rightStartTime.isBefore(rightEndTime)) { "수유 시작 시간은 종료 시간보다 이전이어야 합니다." }
+    }
 }

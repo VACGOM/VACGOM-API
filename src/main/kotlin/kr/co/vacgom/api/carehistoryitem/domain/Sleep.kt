@@ -36,4 +36,8 @@ class Sleep (
     @Comment("[Not Null] 수면 시간(분)")
     var minutes: Int = minutes
         protected set
+
+    init {
+        require(startTime.isBefore(endTime)) { "수유 시작 시간은 종료 시간보다 이전이어야 합니다." }
+    }
 }

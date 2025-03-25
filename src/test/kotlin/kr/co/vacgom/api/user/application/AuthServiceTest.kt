@@ -21,9 +21,9 @@ class AuthServiceTest : DescribeSpec({
     val userRepositoryMock: UserRepository = mockk(relaxed = true)
 
     val sut = AuthService(
-        oauthHandlerMock,
-        userTokenServiceMock,
-        userRepositoryMock
+        oauthHandler = oauthHandlerMock,
+        userTokenService = userTokenServiceMock,
+        userRepository = userRepositoryMock
     )
 
     describe("소셜 로그인 테스트") {
